@@ -419,6 +419,109 @@ export const baseServerFiles = {
       renameTo: moveToJavaPackageSrcDir,
       templates: ['repository/PersistentTokenRepository.java'],
     },
+    {
+      condition: generator => generator.authenticationTypeOauth2,
+      path: `${SERVER_MAIN_SRC_DIR}package/`,
+      renameTo: moveToJavaPackageSrcDir,
+      templates: [
+        'security/oauth2/AudienceValidator.java',
+        'security/oauth2/JwtGrantedAuthorityConverter.java',
+        'security/oauth2/OAuthIdpTokenResponseDTO.java',
+      ],
+    },
+    {
+      condition: generator => generator.authenticationTypeOauth2,
+      path: `${SERVER_TEST_SRC_DIR}package/`,
+      renameTo: moveToJavaPackageTestDir,
+      templates: ['security/oauth2/AudienceValidatorTest.java', 'config/TestSecurityConfiguration.java'],
+    },
+    {
+      condition: generator =>
+        !generator.reactive &&
+        generator.authenticationTypeOauth2 &&
+        (generator.applicationTypeMicroservice || generator.applicationTypeGateway),
+      path: `${SERVER_TEST_SRC_DIR}package/`,
+      renameTo: moveToJavaPackageTestDir,
+      templates: ['security/oauth2/AuthorizationHeaderUtilTest.java'],
+    },
+    {
+      condition: generator => generator.generateUserManagement,
+      path: `${SERVER_MAIN_SRC_DIR}package/`,
+      renameTo: moveToJavaPackageSrcDir,
+      templates: ['security/DomainUserDetailsService.java', 'security/UserNotActivatedException.java'],
+    },
+    {
+      condition: generator => !!generator.enableSwaggerCodegen,
+      path: `${SERVER_MAIN_SRC_DIR}package/`,
+      renameTo: moveToJavaPackageSrcDir,
+      templates: ['config/OpenApiConfiguration.java'],
+    },
+    {
+      condition: generator => !generator.reactive && generator.authenticationTypeOauth2 && !generator.applicationTypeMicroservice,
+      path: `${SERVER_MAIN_SRC_DIR}package/`,
+      renameTo: moveToJavaPackageSrcDir,
+      templates: ['security/oauth2/CustomClaimConverter.java'],
+    },
+    {
+      condition: generator => !generator.reactive && generator.authenticationTypeOauth2 && !generator.applicationTypeMicroservice,
+      path: `${SERVER_TEST_SRC_DIR}package/`,
+      renameTo: moveToJavaPackageTestDir,
+      templates: ['security/oauth2/CustomClaimConverterIT.java'],
+    },
+  ],
+  serverJavaGateway: [
+    {
+      condition: generator => generator.applicationTypeGateway && generator.serviceDiscoveryAny,
+      path: `${SERVER_MAIN_SRC_DIR}package/`,
+      renameTo: moveToJavaPackageSrcDir,
+      templates: ['web/rest/vm/RouteVM.java', 'web/rest/GatewayResource.java'],
+    },
+    {
+      condition: generator => generator.authenticationTypeOauth2 && (generator.applicationTypeMonolith || generator.applicationTypeGateway),
+      path: `${SERVER_MAIN_SRC_DIR}package/`,
+      renameTo: moveToJavaPackageSrcDir,
+      templates: ['web/rest/AuthInfoResource.java'],
+    },
+    {
+      condition: generator =>
+        generator.authenticationTypeOauth2 &&
+        !generator.reactive &&
+        (generator.applicationTypeMonolith || generator.applicationTypeGateway),
+      path: `${SERVER_MAIN_SRC_DIR}package/`,
+      renameTo: moveToJavaPackageSrcDir,
+      templates: ['web/rest/LogoutResource.java'],
+    },
+    {
+      condition: generator =>
+        generator.authenticationTypeOauth2 && generator.reactive && (generator.applicationTypeMonolith || generator.applicationTypeGateway),
+      path: `${SERVER_MAIN_SRC_DIR}package/`,
+      renameTo: moveToJavaPackageSrcDir,
+      templates: ['web/rest/LogoutResource_reactive.java'],
+    },
+    {
+      condition: generator => generator.applicationTypeGateway && generator.serviceDiscoveryAny && generator.reactive,
+      path: `${SERVER_MAIN_SRC_DIR}package/`,
+      renameTo: moveToJavaPackageSrcDir,
+      templates: ['web/filter/ModifyServersOpenApiFilter.java'],
+    },
+    {
+      condition: generator => generator.applicationTypeGateway && generator.serviceDiscoveryAny && generator.reactive,
+      path: `${SERVER_TEST_SRC_DIR}package/`,
+      renameTo: moveToJavaPackageTestDir,
+      templates: ['web/filter/ModifyServersOpenApiFilterTest.java'],
+    },
+    {
+      condition: generator => generator.applicationTypeGateway && generator.withExample,
+      path: `${SERVER_MAIN_SRC_DIR}package/`,
+      renameTo: moveToJavaPackageSrcDir,
+      templates: [
+        'web/rest/EventController.java',
+        'service/impl/EventServiceImpl.java', 
+        'service/EventService.java',
+        'repository/EventRepository.java',
+        'domain/Event.java'
+    ],
+    },
   ],
   serverMicroservice: [
     {

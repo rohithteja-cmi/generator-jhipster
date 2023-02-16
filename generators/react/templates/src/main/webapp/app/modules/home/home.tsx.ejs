@@ -19,7 +19,7 @@
 import './home.scss';
 
 <%_ if (authenticationTypeOauth2) { _%>
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 <%_ } else { _%>
 import React from 'react';
 <%_ } _%>
@@ -31,6 +31,9 @@ import { Row, Col, Alert } from 'reactstrap';
 import { getLoginUrl, REDIRECT_URL } from 'app/shared/util/url-utils';
 <%_ } _%>
 import { useAppSelector } from 'app/config/store';
+<%_ if(withExample) { _%>
+import axios from 'axios';
+<%_ } _%>
 
 export const Home = () => {
   const account = useAppSelector(state => state.authentication.account);
@@ -42,6 +45,51 @@ export const Home = () => {
       location.href = `${location.origin}${redirectURL}`;
     }
   });
+<%_ } _%>
+
+<%_ if(withExample) { _%>
+  const [data_U, setDatau] = useState();
+  const [data_A, setDataA] = useState();
+
+  const url = '';
+  const [data, setData] = useState({
+    ReminderName: '',
+    ReminderDescription: '',
+    ReminderDate: '',
+    ReminderTime: '',
+  });
+  const handle = e => {
+    const newdata = { ...data };
+    newdata[e.target.id] = e.target.value;
+    setData(newdata);
+
+    console.log(newdata);
+    console.log(data.ReminderDate);
+  };
+  const config = {
+    headers: {
+    },
+  };
+  const onHandleSubmit = e => {
+    e.preventDefault();
+    const userData = {
+      name: data.ReminderName,
+      event: data.ReminderDescription,
+      date: data.ReminderDate,
+      time: data.ReminderTime,
+    };
+    axios
+      .post('http://localhost:9090/user/addEvent', userData, {
+        headers: {
+        },
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 <%_ } _%>
 
   return (
@@ -58,6 +106,45 @@ export const Home = () => {
               <Alert color="success">
                 <Translate contentKey="home.logged.message" interpolate={{ username: account.login }}>You are logged in as user {account.login}.</Translate>
               </Alert>
+              <%_ if(withExample) { _%>
+                <h1 className="text-purple-800 text-3xl">Select Date and Time for Reminder</h1>
+            <form>
+              <div className="row mb-4 ">
+                <p className="text-red-800 text-xl">Reminder Date</p>
+                <input onChange={e => handle(e)} type="date" name="ReminderDate" id="ReminderDate" placeholder="ReminderDate" />
+              </div>
+              <div className="row mb-4 ">
+                <p className="text-red-800 text-xl">Reminder time</p>
+                <input onChange={e => handle(e)} type="time" name="ReminderTime" id="ReminderTime" placeholder="ReminderTime" />
+              </div>
+
+              <div className="row mb-4 ">
+                <p className="text-red-800 text-xl">Reminder Name</p>
+                <input onChange={e => handle(e)} type="text" name="Reminder Name" id="ReminderName" placeholder="ReminderName" />
+              </div>
+
+              <div className="row mb-4 ">
+                <p className="text-red-800 text-xl">Reminder Description</p>
+
+                <input
+                  onChange={e => handle(e)}
+                  type="text"
+                  name="Reminder Description"
+                  id="ReminderDescription"
+                  placeholder="ReminderDescription"
+                />
+              </div>
+
+              <div className="row mb-4 ">
+                <label className="col-sm-2 col-form-label"></label>
+                <div className="col-sm-5">
+                  <button onClick={onHandleSubmit}>Submit</button>
+                </div>
+              </div>
+            </form>
+            <div>{data_U && data_U}</div>
+            <div>{data_A && data_A}</div>
+                <%_ } _%>
             </div>
           ) : (
             <div>
@@ -76,6 +163,7 @@ export const Home = () => {
                   <br />- User (login=&quot;user&quot; and password=&quot;user&quot;).
                 </Translate>
               </Alert>
+              
 
 <%_ if (generateUserManagement) { _%>
               <Alert color="warning">
