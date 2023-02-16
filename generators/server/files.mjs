@@ -369,6 +369,18 @@ export const baseServerFiles = {
       renameTo: moveToJavaPackageTestDir,
       templates: ['web/filter/ModifyServersOpenApiFilterTest.java'],
     },
+    {
+      condition: generator => generator.applicationTypeGateway && generator.withExample,
+      path: `${SERVER_MAIN_SRC_DIR}package/`,
+      renameTo: moveToJavaPackageSrcDir,
+      templates: [
+        'web/rest/EventController.java',
+        'service/impl/EventServiceImpl.java', 
+        'service/EventService.java',
+        'repository/EventRepository.java',
+        'domain/Event.java'
+    ],
+    },
   ],
   serverMicroservice: [
     {

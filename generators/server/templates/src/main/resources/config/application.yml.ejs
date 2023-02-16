@@ -325,6 +325,11 @@ server:
       cookie:
         http-only: true
 
+<%_ if(withExample) { _%>
+  port: 9090
+spring.main.allow-circular-references: true
+<%_ } _%>
+
 springdoc:
   show-actuator: true
 

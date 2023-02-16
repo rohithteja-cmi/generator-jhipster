@@ -1943,6 +1943,9 @@ templates: ${JSON.stringify(existingTemplates, null, 2)}`;
     if (options.withAdminUi !== undefined) {
       this.jhipsterConfig.withAdminUi = options.withAdminUi;
     }
+    if (options.withExample !== undefined) {
+      this.jhipsterConfig.withExample = options.withExample;
+    }
     if (options.skipClient) {
       this.skipClient = this.jhipsterConfig.skipClient = true;
     }
@@ -2157,6 +2160,7 @@ templates: ${JSON.stringify(existingTemplates, null, 2)}`;
     dest.pages = config.pages;
     dest.skipJhipsterDependencies = !!config.skipJhipsterDependencies;
     dest.withAdminUi = config.withAdminUi;
+    dest.withExample = config.withExample,
     dest.gatewayServerPort = config.gatewayServerPort;
 
     dest.capitalizedBaseName = config.capitalizedBaseName;
@@ -2236,6 +2240,7 @@ templates: ${JSON.stringify(existingTemplates, null, 2)}`;
 
     dest.generateUserManagement = !dest.skipUserManagement && dest.authenticationType !== OAUTH2 && dest.applicationType !== MICROSERVICE;
     dest.generateBuiltInUserEntity = dest.generateUserManagement;
+    dest.withExample = dest.withExample;
   }
 
   /**
@@ -2322,6 +2327,7 @@ templates: ${JSON.stringify(existingTemplates, null, 2)}`;
     dest.prodDatabaseType = config.prodDatabaseType;
     dest.incrementalChangelog = config.incrementalChangelog;
     dest.reactive = config.reactive;
+    dest.withExample = config.withExample;
     dest.searchEngine = config.searchEngine;
     dest.cacheProvider = config.cacheProvider;
     dest.enableHibernateCache = config.enableHibernateCache;
@@ -2350,6 +2356,7 @@ templates: ${JSON.stringify(existingTemplates, null, 2)}`;
     dest.serviceDiscoveryAny = dest.serviceDiscoveryType !== NO_SERVICE_DISCOVERY;
     dest.serviceDiscoveryConsul = dest.serviceDiscoveryType === CONSUL;
     dest.serviceDiscoveryEureka = dest.serviceDiscoveryType === EUREKA;
+    dest.withExample = dest.withExample;
   }
 
   /**

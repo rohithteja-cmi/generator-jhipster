@@ -63,6 +63,24 @@ export async function askForClient({ control }) {
   }
 }
 
+export async function askForExample({ control }) {
+  if (control.existingProject && !this.options.askAnswered) return;
+
+  if (!this.jhipsterConfig.clientFramework === REACT) return;
+
+  const config = this.jhipsterConfigWithDefaults;
+  await this.prompt(
+    {
+      type: 'confirm',
+      name: 'withExample',
+      when: this.jhipsterConfig.clientFramework === REACT,
+      message: 'Do you want to generate an example for your react application?',
+      default: config.withExample,
+    },
+    this.config
+  );
+}
+
 export async function askForClientTheme({ control }) {
   if (control.existingProject && !this.options.askAnswered) return;
 
