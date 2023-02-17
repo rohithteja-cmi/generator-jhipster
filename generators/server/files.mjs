@@ -370,7 +370,7 @@ export const baseServerFiles = {
       templates: ['web/filter/ModifyServersOpenApiFilterTest.java'],
     },
     {
-      condition: generator => generator.applicationTypeGateway && generator.withExample,
+      condition: generator => (generator.applicationTypeGateway && generator.withExample) || generator.applicationTypeMicroservice,
       path: `${SERVER_MAIN_SRC_DIR}package/`,
       renameTo: moveToJavaPackageSrcDir,
       templates: [
