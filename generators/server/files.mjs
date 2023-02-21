@@ -369,6 +369,7 @@ export const baseServerFiles = {
       renameTo: moveToJavaPackageTestDir,
       templates: ['web/filter/ModifyServersOpenApiFilterTest.java'],
     },
+    // adding BE files for usecase only when it is gateway or microservice application @cmi-tic-harika
     {
       condition: generator => (generator.applicationTypeGateway && generator.withExample) || generator.applicationTypeMicroservice,
       path: `${SERVER_MAIN_SRC_DIR}package/`,

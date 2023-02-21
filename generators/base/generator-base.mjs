@@ -1943,6 +1943,7 @@ templates: ${JSON.stringify(existingTemplates, null, 2)}`;
     if (options.withAdminUi !== undefined) {
       this.jhipsterConfig.withAdminUi = options.withAdminUi;
     }
+    // adding withExample param in server-side @cmi-tic-harika
     if (options.withExample !== undefined) {
       this.jhipsterConfig.withExample = options.withExample;
     }
@@ -2160,6 +2161,7 @@ templates: ${JSON.stringify(existingTemplates, null, 2)}`;
     dest.pages = config.pages;
     dest.skipJhipsterDependencies = !!config.skipJhipsterDependencies;
     dest.withAdminUi = config.withAdminUi;
+    // declaring withExample param in clint-side @cmi-tic-harika
     dest.withExample = config.withExample,
     dest.gatewayServerPort = config.gatewayServerPort;
 
@@ -2240,6 +2242,7 @@ templates: ${JSON.stringify(existingTemplates, null, 2)}`;
 
     dest.generateUserManagement = !dest.skipUserManagement && dest.authenticationType !== OAUTH2 && dest.applicationType !== MICROSERVICE;
     dest.generateBuiltInUserEntity = dest.generateUserManagement;
+    // declaring withExample param in server-side @cmi-tic-harika
     dest.withExample = dest.withExample;
   }
 
@@ -2327,6 +2330,7 @@ templates: ${JSON.stringify(existingTemplates, null, 2)}`;
     dest.prodDatabaseType = config.prodDatabaseType;
     dest.incrementalChangelog = config.incrementalChangelog;
     dest.reactive = config.reactive;
+    // adding withExample param in server-side @cmi-tic-harika
     dest.withExample = config.withExample;
     dest.searchEngine = config.searchEngine;
     dest.cacheProvider = config.cacheProvider;
