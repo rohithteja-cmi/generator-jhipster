@@ -19,9 +19,11 @@
 import chalk from 'chalk';
 import { clientFrameworkTypes } from '../../jdl/jhipster/index.mjs';
 import { httpsGet } from '../base/support/index.mjs';
+// import { databaseTypes } from '../../jdl/jhipster/index.mjs';
 
 const NO_CLIENT_FRAMEWORK = clientFrameworkTypes.NO;
 const { ANGULAR, REACT, VUE } = clientFrameworkTypes;
+// const DEV_DATABASE_TYPE = databaseTypes.POSTGRESQL;
 
 export async function askForClient({ control }) {
   if (control.existingProject && !this.options.askAnswered) return;
@@ -64,17 +66,19 @@ export async function askForClient({ control }) {
   }
 }
 
+// adding askForExample prompt inclient-side prompts @cmi-tic-harika
 export async function askForExample({ control }) {
   if (control.existingProject && !this.options.askAnswered) return;
 
-  if (!this.jhipsterConfig.clientFramework === REACT) return;
+  // if (!this.jhipsterConfig.clientFramework === REACT && !post) return;
 
   const config = this.jhipsterConfigWithDefaults;
   await this.prompt(
     {
       type: 'confirm',
       name: 'withExample',
-      when: this.jhipsterConfig.clientFramework === REACT,
+      // restricting example question only for gateway/microservice and REACT FRAMEWORK & POSTGRESS DB @cmi-tic-harika
+      when: this.jhipsterConfig.applicationType !== 'monolith' && this.jhipsterConfig.clientFramework === REACT && (this.jhipsterConfig.devDatabaseType) === 'postgresql',
       message: 'Do you want to generate an example for your react application?',
       default: config.withExample,
     },
