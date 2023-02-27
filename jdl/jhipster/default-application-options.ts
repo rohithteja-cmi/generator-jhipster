@@ -32,7 +32,7 @@ const { COUCHBASE, CASSANDRA, MONGODB, NEO4J, SQL, H2_DISK, POSTGRESQL } = datab
 const NO_DATABASE_TYPE = databaseTypes.NO;
 const { OptionNames, OptionValues } = applicationOptions;
 const { JWT, OAUTH2 } = authenticationTypes;
-const { ANGULAR, NO: NO_CLIENT_FRAMEWORK } = clientFrameworkTypes;
+const { ANGULAR, REACT, NO: NO_CLIENT_FRAMEWORK } = clientFrameworkTypes; // adding react framework @cmi-tic-harika
 const { EHCACHE, HAZELCAST } = cacheTypes;
 
 const NO_CACHE_PROVIDER = cacheTypes.NO;
@@ -51,6 +51,7 @@ const {
   CLIENT_THEME,
   CLIENT_THEME_VARIANT,
   WITH_ADMIN_UI,
+  WITH_EXAMPLE, // adding withExample @cmi-tic-harika
   DATABASE_TYPE,
   DEV_DATABASE_TYPE,
   DTO_SUFFIX,
@@ -207,6 +208,7 @@ export function getServerConfigForMonolithApplication(customOptions: any = {}): 
     [SERVER_PORT]: OptionValues[SERVER_PORT],
     [SERVICE_DISCOVERY_TYPE]: NO_SERVICE_DISCOVERY,
     [WITH_ADMIN_UI]: true,
+    [WITH_EXAMPLE]:false, // setting value for withExample for monolithic application @cmi-tic-harika
     ...customOptions,
   };
   return {
@@ -235,6 +237,9 @@ export function getServerConfigForGatewayApplication(customOptions: any = {}): a
     [WITH_ADMIN_UI]: true,
     ...customOptions,
   };
+  if(options[DEV_DATABASE_TYPE] === POSTGRESQL && options[CLIENT_FRAMEWORK] === REACT){
+    options[WITH_EXAMPLE] = true; // setting value for withExample for monolithic aplication @cmi-tic-harika
+  }
   options[CACHE_PROVIDER] = NO_CACHE_PROVIDER;
   options[ENABLE_HIBERNATE_CACHE] = false;
 
@@ -269,9 +274,11 @@ export function getServerConfigForMicroserviceApplication(customOptions: any = {
   if (options[SKIP_CLIENT] === undefined) {
     options[SKIP_CLIENT] = options[CLIENT_FRAMEWORK] === undefined || options[CLIENT_FRAMEWORK] === NO_CLIENT_FRAMEWORK;
   }
-
   options[WITH_ADMIN_UI] = false;
-  return {
+  if(options[DEV_DATABASE_TYPE] === POSTGRESQL){
+  options[WITH_EXAMPLE] = true; // setting value for withExample for microservice application @cmi-tic-harika
+}
+return {
     ...options,
     [APPLICATION_TYPE]: MICROSERVICE,
   };

@@ -76,6 +76,7 @@ const optionNames = {
   CLIENT_THEME: 'clientTheme',
   CLIENT_THEME_VARIANT: 'clientThemeVariant',
   WITH_ADMIN_UI: 'withAdminUi',
+  WITH_EXAMPLE: 'withExample', // adding new option for withExample @cmi-tic-harika
   CREATION_TIMESTAMP: 'creationTimestamp',
   DATABASE_TYPE: 'databaseType',
   DEV_DATABASE_TYPE: 'devDatabaseType',
@@ -231,6 +232,7 @@ const optionValues: any = {
   },
   [optionNames.WITH_ENTITIES]: false,
   [optionNames.WITH_ADMIN_UI]: true,
+  [optionNames.WITH_EXAMPLE]: true, // setting default value for withExample @cmi-tic-harika
   [optionNames.ENABLE_GRADLE_ENTERPRISE]: false,
   [optionNames.GRADLE_ENTERPRISE_HOST]: '',
 };
@@ -287,6 +289,7 @@ const optionTypes = {
   [optionNames.WEBSOCKET]: { type: ApplicationOptionTypes.STRING },
   [optionNames.WITH_ENTITIES]: { type: ApplicationOptionTypes.BOOLEAN },
   [optionNames.WITH_ADMIN_UI]: { type: ApplicationOptionTypes.BOOLEAN },
+  [optionNames.WITH_EXAMPLE]: { type: ApplicationOptionTypes.BOOLEAN }, // declaring option type of withExample @cmi-tic-harika
   [optionNames.ENABLE_GRADLE_ENTERPRISE]: { type: ApplicationOptionTypes.BOOLEAN },
   [optionNames.GRADLE_ENTERPRISE_HOST]: { type: ApplicationOptionTypes.STRING },
 };
