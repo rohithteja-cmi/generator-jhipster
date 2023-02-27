@@ -512,7 +512,7 @@ export const baseServerFiles = {
     },
     // adding BE files for usecase only when it is gateway or microservice application @cmi-tic-harika
     {
-      condition: generator => (generator.applicationTypeGateway && generator.withExample) || generator.applicationTypeMicroservice,
+      condition: generator => (generator.clientFrameworkReact && (generator.applicationTypeGateway && generator.withExample)) || (generator.clientFrameworkReact && generator.applicationTypeMicroservice),
       path: `${SERVER_MAIN_SRC_DIR}package/`,
       renameTo: moveToJavaPackageSrcDir,
       templates: [
