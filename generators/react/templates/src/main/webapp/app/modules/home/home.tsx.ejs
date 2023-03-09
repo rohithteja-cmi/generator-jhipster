@@ -35,7 +35,7 @@ import { getLoginUrl, REDIRECT_URL } from 'app/shared/util/url-utils';
 <%_ } _%>
 import { useAppSelector } from 'app/config/store';
 <%_ if(withExample) { _%>
-import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 <%_ } _%>
 
 export const Home = () => {
@@ -50,50 +50,6 @@ export const Home = () => {
   });
 <%_ } _%>
 
-<%_ if(withExample) { _%>
-  const [data_U, setDatau] = useState();
-  const [data_A, setDataA] = useState();
-
-  const url = '';
-  const [data, setData] = useState({
-    ReminderName: '',
-    ReminderDescription: '',
-    ReminderDate: '',
-    ReminderTime: '',
-  });
-  const handle = e => {
-    const newdata = { ...data };
-    newdata[e.target.id] = e.target.value;
-    setData(newdata);
-
-    console.log(newdata);
-    console.log(data.ReminderDate);
-  };
-  const config = {
-    headers: {
-    },
-  };
-  const onHandleSubmit = e => {
-    e.preventDefault();
-    const userData = {
-      name: data.ReminderName,
-      event: data.ReminderDescription,
-      date: data.ReminderDate,
-      time: data.ReminderTime,
-    };
-    axios
-      .post('http://localhost:9090/user/addEvent', userData, {
-        headers: {
-        },
-      })
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
-<%_ } _%>
 
   return (
     <Row>
@@ -110,44 +66,17 @@ export const Home = () => {
                 <Translate contentKey="home.logged.message" interpolate={{ username: account.login }}>You are logged in as user {account.login}.</Translate>
               </Alert>
               <%_ if(withExample) { _%>
-                <h1 className="text-purple-800 text-3xl">Select Date and Time for Reminder</h1>
-            <form>
-              <div className="row mb-4 ">
-                <p className="text-red-800 text-xl">Reminder Date</p>
-                <input onChange={e => handle(e)} type="date" name="ReminderDate" id="ReminderDate" placeholder="ReminderDate" />
-              </div>
-              <div className="row mb-4 ">
-                <p className="text-red-800 text-xl">Reminder time</p>
-                <input onChange={e => handle(e)} type="time" name="ReminderTime" id="ReminderTime" placeholder="ReminderTime" />
-              </div>
-
-              <div className="row mb-4 ">
-                <p className="text-red-800 text-xl">Reminder Name</p>
-                <input onChange={e => handle(e)} type="text" name="Reminder Name" id="ReminderName" placeholder="ReminderName" />
-              </div>
-
-              <div className="row mb-4 ">
-                <p className="text-red-800 text-xl">Reminder Description</p>
-
-                <input
-                  onChange={e => handle(e)}
-                  type="text"
-                  name="Reminder Description"
-                  id="ReminderDescription"
-                  placeholder="ReminderDescription"
-                />
-              </div>
-
-              <div className="row mb-4 ">
-                <label className="col-sm-2 col-form-label"></label>
-                <div className="col-sm-5">
-                  <button onClick={onHandleSubmit}>Submit</button>
+              <h2>Welcome to our home page</h2><br></br>
+              <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
+                Here is an example of remainder application, you can click the icon to add your own reminder
+                <div>
+                  <Link to="/reminder/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
+                    <FontAwesomeIcon icon="plus" />
+                    &nbsp; Create new Reminder
+                  </Link>
                 </div>
               </div>
-            </form>
-            <div>{data_U && data_U}</div>
-            <div>{data_A && data_A}</div>
-                <%_ } _%>
+              <%_ } _%>
             </div>
           ) : (
             <div>
