@@ -54,11 +54,8 @@ export default class InitGenerator extends BaseApplicationGenerator {
         application.nodeVersion = NODE_VERSION;
         application[SKIP_COMMIT_HOOK] = config[SKIP_COMMIT_HOOK];
       },
-      loadNodeDependencies({ application }) {
-        this.loadNodeDependenciesFromPackageJson(
-          application.nodeDependencies,
-          this.fetchFromInstalledJHipster(GENERATOR_INIT, 'templates', 'package.json')
-        );
+      loadDependabotDependencies() {
+        this.loadDependabotDependencies(this.fetchFromInstalledJHipster(GENERATOR_INIT, 'templates', 'package.json'));
       },
     });
   }
@@ -109,8 +106,8 @@ export default class InitGenerator extends BaseApplicationGenerator {
             prepare: 'husky install',
           },
           devDependencies: {
-            husky: application.nodeDependencies.husky,
-            'lint-staged': application.nodeDependencies['lint-staged'],
+            husky: this.nodeDependencies.husky,
+            'lint-staged': this.nodeDependencies['lint-staged'],
           },
         });
       },

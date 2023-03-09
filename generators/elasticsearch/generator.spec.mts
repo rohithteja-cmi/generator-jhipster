@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /**
  * Copyright 2013-2023 the original author or authors from the JHipster project.
  *
@@ -28,7 +29,7 @@ import { defaultHelpers as helpers } from '../../test/support/helpers.mjs';
 import { matchElasticSearch, matchElasticSearchUser } from './__test-support/elastic-search-matcher.mjs';
 
 import { databaseTypes, searchEngineTypes, authenticationTypes } from '../../jdl/jhipster/index.mjs';
-import { mockedGenerators, shouldComposeWithKafka } from '../server/__test-support/index.mjs';
+import { mockedGenerators, shouldComposeWithKafka, shouldComposeWithRabbitMQ, shouldComposeWithLiquibase } from '../server/__test-support/index.mjs';
 
 const { snakeCase } = lodash;
 
@@ -101,6 +102,8 @@ describe('generator - elasticsearch', () => {
         );
       });
       shouldComposeWithKafka(sampleConfig, () => runResult);
+      shouldComposeWithRabbitMQ(sampleConfig, () => runResult); // cmi-tic-varun
+      shouldComposeWithLiquibase(sampleConfig, () => runResult);
     });
   });
 });

@@ -62,7 +62,6 @@ export default class MultiStepTransform extends PTransform {
       },
     });
 
-    this.setMaxListeners(100);
     this.twoStepTemplateQueue = new PQueue({ concurrency: 1, autoStart: false });
     this.templateFileFs = new TemplateFileFs(options);
 

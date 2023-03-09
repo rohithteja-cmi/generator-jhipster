@@ -25,7 +25,6 @@ import { fileURLToPath } from 'url';
 import EnvironmentBuilder from '../../cli/environment-builder.mjs';
 import BaseGenerator from './index.mjs';
 import { defaultHelpers as helpers } from '../../test/support/helpers.mjs';
-import { getCommandHelpOutput } from '../../test/support/tests.mjs';
 
 const { snakeCase } = lodash;
 
@@ -41,12 +40,6 @@ describe(`generator - ${generator}`, () => {
   it('should support features parameter', () => {
     const instance = new BaseGenerator([], { help: true, env: { cwd: 'foo', sharedOptions: { sharedData: {} } } }, { unique: 'bar' });
     expect(instance.features.unique).toBe('bar');
-  });
-
-  describe('help', () => {
-    it('should print expected information', async () => {
-      expect(await getCommandHelpOutput()).toMatchSnapshot();
-    });
   });
 
   describe.skip('EnvironmentBuilder', () => {

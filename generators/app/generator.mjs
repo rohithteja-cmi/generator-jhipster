@@ -284,6 +284,15 @@ export default class JHipsterAppGenerator extends BaseApplicationGenerator {
 
   get initializing() {
     return {
+      validateBlueprint() {
+        if (this.jhipsterConfig.blueprints && !this.skipChecks) {
+          this.jhipsterConfig.blueprints.forEach(blueprint => {
+            this._checkJHipsterBlueprintVersion(blueprint.name);
+            this._checkBlueprint(blueprint.name);
+          });
+        }
+      },
+
       validateNode() {
         if (this.skipChecks) {
           return;
@@ -389,6 +398,13 @@ export default class JHipsterAppGenerator extends BaseApplicationGenerator {
         this._validateAppConfiguration();
       },
 
+      saveBlueprintConfig() {
+        const config = {};
+        this.blueprints && (config.blueprints = this.blueprints);
+        this.blueprintVersion && (config.blueprintVersion = this.blueprintVersion);
+        this.config.set(config);
+      },
+
       async composePages() {
         if (!this.jhipsterConfig.pages || this.jhipsterConfig.pages.length === 0) return;
         await Promise.all(
@@ -431,6 +447,22 @@ export default class JHipsterAppGenerator extends BaseApplicationGenerator {
 
   get [BaseApplicationGenerator.WRITING]() {
     return this.delegateTasksToBlueprint(() => this.writing);
+  }
+
+  get end() {
+    return {
+      afterRunHook() {
+        this.logger.info(
+          chalk.green(
+            `\nIf you find JHipster useful consider sponsoring the project ${chalk.yellow('https://www.jhipster.tech/sponsors/')}`
+          )
+        );
+      },
+    };
+  }
+
+  get [BaseApplicationGenerator.END]() {
+    return this.delegateTasksToBlueprint(() => this.end);
   }
 
   _validateAppConfiguration(config = this.jhipsterConfig) {

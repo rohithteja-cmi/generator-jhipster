@@ -38,13 +38,6 @@ const command: JHipsterCommandDefinition = {
       type: Boolean,
       scope: 'generator',
     },
-    debugEnabled: {
-      name: 'debug',
-      description: 'Enable debugger',
-      alias: 'd',
-      type: Boolean,
-      scope: 'generator',
-    },
   },
 };
 

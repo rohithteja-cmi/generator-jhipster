@@ -1,0 +1,15 @@
+package <%= packageName %>.web.rest;
+
+import <%= packageName %>.config.RabbitMQConfig;
+import <%= packageName %>.domain.RabbitMessageModel;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.stereotype.Component;
+
+@Component
+public class RabbitMQConsumer {
+
+    @RabbitListener(queues = RabbitMQConfig.QUEUE)
+    public void listener(RabbitMessageModel message) {
+        System.out.println(message);
+    }
+}

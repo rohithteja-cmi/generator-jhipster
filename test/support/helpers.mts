@@ -11,9 +11,6 @@ import { GENERATOR_WORKSPACES } from '../../generators/generator-list.mjs';
 import getGenerator from './get-generator.mjs';
 import deploymentTestSamples from './deployment-samples.mjs';
 import { normalizePathEnd } from '../../generators/base/support/index.mjs';
-import BaseGenerator from '../../generators/base/index.mjs';
-
-export { result, result as runResult } from 'yeoman-test';
 
 const DEFAULT_TEST_SETTINGS = { forwardCwd: true };
 const DEFAULT_TEST_OPTIONS = { skipInstall: true };
@@ -31,43 +28,6 @@ const createFiles = (workspaceFolder: string, configuration: Record<string, unkn
   return {
     [`${workspaceFolder}.yo-rc.json`]: { 'generator-jhipster': configuration },
     ...entityFiles,
-  };
-};
-
-export type FakeBlueprintOptions = {
-  packageJson?: any;
-  generator?: string | string[];
-  generatorContent?: string;
-  files?: Record<string, unknown>;
-};
-
-export const createBlueprintFiles = (
-  blueprintPackage: string,
-  { packageJson, generator = 'test-blueprint', generatorContent, files = {} }: FakeBlueprintOptions = {}
-) => {
-  generatorContent =
-    generatorContent ??
-    `export const createGenerator = async env => {
-    const BaseGenerator = await env.requireGenerator('jhipster:base');
-    return class extends BaseGenerator {
-      get [BaseGenerator.INITIALIZING]() {
-        return {};
-      }  
-    };
-  };
-  `;
-  const generators = Array.isArray(generator) ? generator : [generator];
-  return {
-    [`node_modules/${blueprintPackage}/package.json`]: {
-      name: blueprintPackage,
-      version: '9.9.9',
-      type: 'module',
-      ...packageJson,
-    },
-    ...Object.fromEntries(
-      generators.map(generator => [`node_modules/${blueprintPackage}/generators/${generator}/index.js`, generatorContent])
-    ),
-    ...Object.fromEntries(Object.entries(files).map(([file, content]) => [`node_modules/${blueprintPackage}/${file}`, content])),
   };
 };
 
@@ -119,12 +79,6 @@ class JHipsterRunContext<GeneratorType extends YeomanGenerator> extends RunConte
     this.generateApplicationsSet = true;
     return this.withOptions({ generateApplications: this.workspaceApplications });
   }
-
-  withFakeTestBlueprint(blueprintPackage: string, { packageJson, generator = 'test-blueprint' }: FakeBlueprintOptions = {}): this {
-    return this.withFiles(createBlueprintFiles(blueprintPackage, { packageJson, generator }))
-      .withLookups({ localOnly: true })
-      .commitFiles();
-  }
 }
 
 class JHipsterTest extends YeomanTest {
@@ -142,27 +96,6 @@ class JHipsterTest extends YeomanTest {
     envOptions?: Options | undefined
   ): JHipsterRunContext<GeneratorType> {
     return this.run(getGenerator(jhipsterGenerator), settings, envOptions);
-  }
-
-  runTestBlueprintGenerator() {
-    const blueprintNS = 'jhipster:test-blueprint';
-    class BlueprintedGenerator extends BaseGenerator {
-      async beforeQueue() {
-        if (!this.fromBlueprint) {
-          await this.composeWithBlueprints('test-blueprint');
-        }
-      }
-
-      rootGeneratorName(): string {
-        // Force fromBlueprint to be false.
-        return 'generator-jhipster';
-      }
-
-      get [BaseGenerator.INITIALIZING]() {
-        return {};
-      }
-    }
-    return this.run(blueprintNS).withGenerators([[BlueprintedGenerator, blueprintNS]]);
   }
 
   create<GeneratorType extends YeomanGenerator<YeomanGenerator.GeneratorOptions> = YeomanGenerator<YeomanGenerator.GeneratorOptions>>(
@@ -221,6 +154,6 @@ export const defaultHelpers = createTestHelpers({
 export const skipPrettierHelpers = createTestHelpers({ generatorOptions: { skipPrettier: true, ...commonTestOptions } });
 
 export const dryRunHelpers = createTestHelpers({
-  generatorOptions: { ...commonTestOptions },
+  generatorOptions: { skipPrettier: true, ...commonTestOptions },
   environmentOptions: { dryRun: true },
 });

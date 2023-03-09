@@ -1,4 +1,5 @@
-import { basicHelpers as helpers, result as runResult } from '../support/index.mjs';
+import assert from 'yeoman-assert';
+import { basicHelpers as helpers } from '../support/index.mjs';
 import { CLIENT_MAIN_SRC_DIR } from '../../generators/generator-constants.mjs';
 import { clientFrameworkTypes } from '../../jdl/jhipster/index.mjs';
 import { getGenerator } from '../support/index.mjs';
@@ -64,11 +65,11 @@ describe('needle API React: JHipster client generator with blueprint', () => {
     const indexModulePath = `${CLIENT_MAIN_SRC_DIR}app/entities/routes.tsx`;
     const indexReducerPath = `${CLIENT_MAIN_SRC_DIR}app/entities/reducers.ts`;
 
-    runResult.assertFileContent(indexModulePath, "import entityName from './entityFolderName';");
-    runResult.assertFileContent(indexModulePath, '<Route path="entityFileName/*" element={<entityName />} />');
+    assert.fileContent(indexModulePath, "import entityName from './entityFolderName';");
+    assert.fileContent(indexModulePath, '<Route path="entityFileName/*" element={<entityName />} />');
 
-    runResult.assertFileContent(indexReducerPath, "import entityInstance from 'app/entities/entityFolderName/entityFileName.reducer';");
-    runResult.assertFileContent(indexReducerPath, 'entityInstance,');
+    assert.fileContent(indexReducerPath, "import entityInstance from 'app/entities/entityFolderName/entityFileName.reducer';");
+    assert.fileContent(indexReducerPath, 'entityInstance,');
   });
 
   it('Assert entity is added to menu', () => {

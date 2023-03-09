@@ -16,7 +16,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import chalk from 'chalk';
 import _ from 'lodash';
 import { isFilePending } from 'mem-fs-editor/lib/state.js';
 
@@ -68,11 +67,8 @@ export default class VueGenerator extends BaseApplicationGenerator {
 
   get loading() {
     return this.asLoadingTaskGroup({
-      loadPackageJson({ application }) {
-        this.loadNodeDependenciesFromPackageJson(
-          application.nodeDependencies,
-          this.fetchFromInstalledJHipster(GENERATOR_VUE, 'templates', 'package.json')
-        );
+      loadPackageJson() {
+        _.merge(this.dependabotPackageJson, this.fs.readJSON(this.fetchFromInstalledJHipster('vue', 'templates', 'package.json')));
       },
     });
   }
@@ -131,23 +127,6 @@ export default class VueGenerator extends BaseApplicationGenerator {
 
   get [BaseApplicationGenerator.POST_WRITING_ENTITIES]() {
     return this.delegateTasksToBlueprint(() => this.postWritingEntities);
-  }
-
-  get end() {
-    return this.asEndTaskGroup({
-      end({ application }) {
-        this.log.ok('Vue application generated successfully.');
-        this.logger.log(
-          chalk.green(`  Start your Webpack development server with:
-  ${chalk.yellow.bold(`${application.nodePackageManager} start`)}
-`)
-        );
-      },
-    });
-  }
-
-  get [BaseApplicationGenerator.END]() {
-    return this.asEndTaskGroup(this.delegateTasksToBlueprint(() => this.end));
   }
 
   /**

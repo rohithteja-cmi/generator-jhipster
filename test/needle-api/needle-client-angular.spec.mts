@@ -1,4 +1,5 @@
-import { basicHelpers as helpers, result as runResult } from '../support/index.mjs';
+import assert from 'yeoman-assert';
+import { basicHelpers as helpers } from '../support/index.mjs';
 import { getGenerator } from '../support/index.mjs';
 import { clientFrameworkTypes } from '../../jdl/jhipster/index.mjs';
 
@@ -51,16 +52,16 @@ describe('needle API Angular: JHipster angular generator with blueprint', () => 
   });
 
   it('vendor.scss contains the specific change (without comment) added by needle api', () => {
-    runResult.assertFileContent(`${CLIENT_MAIN_SRC_DIR}content/scss/vendor.scss`, /\n@import style_without_comment;\n/);
+    assert.fileContent(`${CLIENT_MAIN_SRC_DIR}content/scss/vendor.scss`, /\n@import style_without_comment;\n/);
   });
 
   it('global.scss contains the specific change (without comment) added by needle api', () => {
-    runResult.assertFileContent(`${CLIENT_MAIN_SRC_DIR}content/scss/global.scss`, /\n@import style_without_comment;\n/);
+    assert.fileContent(`${CLIENT_MAIN_SRC_DIR}content/scss/global.scss`, /\n@import style_without_comment;\n/);
   });
 
   it('vendor.scss contains the specific change added by needle api', () => {
-    runResult.assertFileContent(`${CLIENT_MAIN_SRC_DIR}content/scss/vendor.scss`, /\n@import style;\n/);
-    runResult.assertFileContent(
+    assert.fileContent(`${CLIENT_MAIN_SRC_DIR}content/scss/vendor.scss`, /\n@import style;\n/);
+    assert.fileContent(
       `${CLIENT_MAIN_SRC_DIR}content/scss/vendor.scss`,
       '* ==========================================================================\n' +
         'my comment\n' +
@@ -69,8 +70,8 @@ describe('needle API Angular: JHipster angular generator with blueprint', () => 
   });
 
   it('global.scss contains the specific change added by needle api', () => {
-    runResult.assertFileContent(`${CLIENT_MAIN_SRC_DIR}content/scss/global.scss`, /\n@import style;\n/);
-    runResult.assertFileContent(
+    assert.fileContent(`${CLIENT_MAIN_SRC_DIR}content/scss/global.scss`, /\n@import style;\n/);
+    assert.fileContent(
       `${CLIENT_MAIN_SRC_DIR}content/scss/global.scss`,
       '* ==========================================================================\n' +
         'my comment\n' +
@@ -79,7 +80,7 @@ describe('needle API Angular: JHipster angular generator with blueprint', () => 
   });
 
   it('menu contains the element added by needle api', () => {
-    runResult.assertFileContent(
+    assert.fileContent(
       `${CLIENT_MAIN_SRC_DIR}app/layouts/navbar/navbar.component.html`,
       `
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
@@ -93,19 +94,19 @@ describe('needle API Angular: JHipster angular generator with blueprint', () => 
   });
 
   it('icon imports contains a new icon added by a new menu method of needle api ', () => {
-    runResult.assertFileContent(`${CLIENT_MAIN_SRC_DIR}app/config/font-awesome-icons.ts`, '  faIconName1');
+    assert.fileContent(`${CLIENT_MAIN_SRC_DIR}app/config/font-awesome-icons.ts`, '  faIconName1');
   });
 
   it('admin module contains the import and the module added by needle api', () => {
-    runResult.assertFileContent(
+    assert.fileContent(
       `${CLIENT_MAIN_SRC_DIR}app/admin/admin-routing.module.ts`,
       "import { appNameadminAngularNameModule } from './adminFolderName/adminFileName.module';"
     );
-    runResult.assertFileContent(`${CLIENT_MAIN_SRC_DIR}app/admin/admin-routing.module.ts`, 'appNameadminAngularNameModule,');
+    assert.fileContent(`${CLIENT_MAIN_SRC_DIR}app/admin/admin-routing.module.ts`, 'appNameadminAngularNameModule,');
   });
 
   it('admin module contains the routing added by needle api', () => {
-    runResult.assertFileContent(
+    assert.fileContent(
       `${CLIENT_MAIN_SRC_DIR}app/admin/admin-routing.module.ts`,
       '      },\n' +
         '      {\n' +
@@ -117,10 +118,10 @@ describe('needle API Angular: JHipster angular generator with blueprint', () => 
   });
 
   it('app module contains the import and the module added by needle api', () => {
-    runResult.assertFileContent(
+    assert.fileContent(
       `${CLIENT_MAIN_SRC_DIR}app/app.module.ts`,
       "import { appNameangularNameModule } from './folderName/fileName.module';"
     );
-    runResult.assertFileContent(`${CLIENT_MAIN_SRC_DIR}app/app.module.ts`, 'appNameangularNameModule,');
+    assert.fileContent(`${CLIENT_MAIN_SRC_DIR}app/app.module.ts`, 'appNameangularNameModule,');
   });
 });

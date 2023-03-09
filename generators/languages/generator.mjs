@@ -127,11 +127,11 @@ export default class LanguagesGenerator extends BaseApplicationGenerator {
       validate() {
         if (this.languagesToApply.length > 0) {
           if (this.skipClient) {
-            this.logger.log(chalk.bold(`\nInstalling languages: ${this.languagesToApply.join(', ')} for server`));
+            this.logger.info(chalk.bold(`\nInstalling languages: ${this.languagesToApply.join(', ')} for server`));
           } else if (this.skipServer) {
-            this.logger.log(chalk.bold(`\nInstalling languages: ${this.languagesToApply.join(', ')} for client`));
+            this.logger.info(chalk.bold(`\nInstalling languages: ${this.languagesToApply.join(', ')} for client`));
           } else {
-            this.logger.log(chalk.bold(`\nInstalling languages: ${this.languagesToApply.join(', ')}`));
+            this.logger.info(chalk.bold(`\nInstalling languages: ${this.languagesToApply.join(', ')}`));
           }
         }
       },

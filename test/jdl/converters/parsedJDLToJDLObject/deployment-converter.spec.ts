@@ -57,7 +57,7 @@ describe('jdl - DeploymentConverter', () => {
     "monitoring": "no",
     "openshiftNamespace": "default",
     "registryReplicas": 2,
-    "serviceDiscoveryType": "consul",
+    "serviceDiscoveryType": "eureka",
     "storageType": "ephemeral",
   },
 ]

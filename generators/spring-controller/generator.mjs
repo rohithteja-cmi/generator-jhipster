@@ -148,7 +148,7 @@ export default class SpringControllerGenerator extends BaseGenerator {
         this.apiPrefix = _.kebabCase(this.name);
 
         if (this.controllerActions.length === 0) {
-          this.logger.log(chalk.green('No controller actions found, adding a default action'));
+          this.logger.info(chalk.green('No controller actions found, adding a default action'));
           this.controllerActions.push({
             actionName: 'defaultAction',
             actionMethod: 'Get',
@@ -174,7 +174,7 @@ export default class SpringControllerGenerator extends BaseGenerator {
         this.controllerActions.forEach(action => {
           action.actionPath = _.kebabCase(action.actionName);
           action.actionNameUF = _.upperFirst(action.actionName);
-          this.logger.log(
+          this.logger.info(
             chalk.green(`adding ${action.actionMethod} action '${action.actionName}' for /api/${this.apiPrefix}/${action.actionPath}`)
           );
         });

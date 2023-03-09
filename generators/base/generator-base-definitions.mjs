@@ -20,6 +20,8 @@
 import _ from 'lodash';
 import Generator from 'yeoman-generator';
 
+import { Logger } from './support/logging.mjs';
+
 /**
  * @typedef {import('./api.mjs').JHipsterGeneratorFeatures} JHipsterGeneratorFeatures
  */
@@ -45,6 +47,7 @@ export default class PrivateBase extends Generator {
     }
     // expose lodash to templates
     this._ = _;
+    this.logger = new Logger(this.log, this.configOptions, this.options, this._debug);
   }
 
   /**

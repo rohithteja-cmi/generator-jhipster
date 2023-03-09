@@ -22,8 +22,6 @@ export * from './contents.mjs';
 export * from './faker.mjs';
 export { default as getHipster } from './hipster.mjs';
 export { default as createJHipster7Context } from './jhipster7-context.mjs';
-export * from './logger.mjs';
-export { default as Logger } from './logger.mjs';
 export * from './namespace.mjs';
 export * from './path.mjs';
 export { default as httpsGet } from './remote.mjs';

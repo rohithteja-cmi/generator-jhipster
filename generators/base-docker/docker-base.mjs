@@ -31,7 +31,7 @@ export { checkDocker } from './docker-utils.mjs';
  * Check Images
  */
 export function checkImages() {
-  this.logger.log('\nChecking Docker images in applications directories...');
+  this.logger.info('\nChecking Docker images in applications directories...');
 
   let imagePath = '';
   let runCommand = '';
@@ -41,10 +41,10 @@ export function checkImages() {
     const appConfig = this.appConfigs[index];
     if (appConfig.buildTool === MAVEN) {
       imagePath = this.destinationPath(`${this.directoryPath + appsFolder}/target/jib-cache`);
-      runCommand = `./mvnw -ntp -Pprod verify jib:dockerBuild${process.arch === 'arm64' ? ' -Djib-maven-plugin.architecture=arm64' : ''}`;
+      runCommand = './mvnw -ntp -Pprod verify jib:dockerBuild';
     } else {
       imagePath = this.destinationPath(`${this.directoryPath + appsFolder}/build/jib-cache`);
-      runCommand = `./gradlew bootJar -Pprod jibDockerBuild${process.arch === 'arm64' ? ' -PjibArchitecture=arm64' : ''}`;
+      runCommand = './gradlew bootJar -Pprod jibDockerBuild';
     }
     if (!existsSync(imagePath)) {
       this.hasWarning = true;
@@ -138,6 +138,7 @@ export function setClusteredApps() {
 export function loadFromYoRc() {
   this.loadDeploymentConfig();
 
+  this.useRabbitMQ = false; // cmi-tic-varun
   this.useKafka = false;
   this.useMemcached = false;
   this.useRedis = false;
@@ -147,7 +148,7 @@ export function loadFromYoRc() {
   delete this.appsFolders;
 
   if (this.defaultAppsFolders !== undefined) {
-    this.logger.log('\nFound .yo-rc.json config file...');
+    this.logger.info('\nFound .yo-rc.json config file...');
   }
 
   if (this.regenerate) {

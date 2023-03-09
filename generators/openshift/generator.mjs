@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /**
  * Copyright 2013-2023 the original author or authors from the JHipster project.
  *
@@ -39,7 +40,7 @@ import {
 } from '../../jdl/jhipster/index.mjs';
 import { writeFiles } from './files.mjs';
 
-const { KAFKA } = messageBrokerTypes;
+const { KAFKA, RABBITMQ } = messageBrokerTypes; // added rabbitmq option cmi-tic-varun
 const { PROMETHEUS } = monitoringTypes;
 const { ELASTICSEARCH } = searchEngineTypes;
 const { GATEWAY, MONOLITH } = applicationTypes;
@@ -65,8 +66,8 @@ export default class OpenshiftGenerator extends BaseDockerGenerator {
   get initializing() {
     return {
       sayHello() {
-        this.logger.log(chalk.white(`${chalk.bold('⭕')} [*BETA*] Welcome to the JHipster OpenShift Generator ${chalk.bold('⭕')}`));
-        this.logger.log(
+        this.logger.info(chalk.white(`${chalk.bold('⭕')} [*BETA*] Welcome to the JHipster OpenShift Generator ${chalk.bold('⭕')}`));
+        this.logger.info(
           chalk.white(
             `Files will be generated in folder: ${chalk.yellow(
               this.destinationRoot()
@@ -149,6 +150,10 @@ export default class OpenshiftGenerator extends BaseDockerGenerator {
             this.useKafka = true;
             return true;
           }
+          if(element.messageBroker === RABBITMQ) {
+            this.useRabbitMQ = true;
+            return true;
+          }
           return false;
         });
       },
@@ -207,7 +212,7 @@ export default class OpenshiftGenerator extends BaseDockerGenerator {
     return {
       displayOpenshiftDeploymentProcedure() {
         if (this.hasWarning) {
-          this.logger.warn('OpenShift configuration generated, but no Jib cache found');
+          this.logger.warn('\nOpenShift configuration generated, but no Jib cache found');
           this.logger.warn('If you forgot to generate the Docker image for this application, please run:');
           this.logger.warn(this.warningMessage);
         } else {
@@ -226,7 +231,7 @@ export default class OpenshiftGenerator extends BaseDockerGenerator {
           this.logger.info(`  ${chalk.cyan(`${this.dockerPushCommand} ${targetImageName}`)}`);
         }
 
-        this.logger.log('\nYou can deploy all your apps by running: ');
+        this.logger.info('\nYou can deploy all your apps by running: ');
         this.logger.info(`  ${chalk.cyan(`${this.directoryPath}ocp/ocp-apply.sh`)}`);
         this.logger.info('OR');
         this.logger.info(`  ${chalk.cyan(`oc process -f ${this.directoryPath}ocp/registry/scc-config.yml | oc apply -f -`)}`);
@@ -235,6 +240,9 @@ export default class OpenshiftGenerator extends BaseDockerGenerator {
         }
         if (this.useKafka) {
           this.logger.info(`  ${chalk.cyan(`oc process -f ${this.directoryPath}ocp/messagebroker/kafka.yml | oc apply -f -`)}`);
+        }
+        if (this.useRabbitMQ) {
+          this.logger.info(`  ${chalk.cyan(`oc process -f ${this.directoryPath}ocp/messagebroker/rabbit.yml | oc apply -f -`)}`);
         }
         for (let i = 0, regIndex = 0; i < this.appsFolders.length; i++) {
           const app = this.appConfigs[i];

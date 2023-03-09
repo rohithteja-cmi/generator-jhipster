@@ -2,33 +2,22 @@
 import assert from 'assert';
 
 import { messageBrokerTypes, databaseTypes } from '../../../jdl/jhipster/index.mjs';
-import {
-  GENERATOR_CUCUMBER,
-  GENERATOR_GATLING,
-  GENERATOR_SPRING_CACHE,
-  GENERATOR_SPRING_WEBSOCKET,
-  GENERATOR_SQL,
-} from '../../generator-list.mjs';
 
-const { KAFKA } = messageBrokerTypes;
+const { KAFKA, RABBITMQ } = messageBrokerTypes;
 const { SQL, COUCHBASE } = databaseTypes;
 
 export const mockedGenerators = [
   'jhipster:cassandra',
   'jhipster:common',
   'jhipster:couchbase',
-  `jhipster:${GENERATOR_CUCUMBER}`,
   'jhipster:docker',
-  `jhipster:${GENERATOR_GATLING}`,
   'jhipster:gradle',
   'jhipster:kafka',
+  'jhipster:rabbit', // cmi-tic-varun
   'jhipster:languages',
   'jhipster:liquibase',
   'jhipster:maven',
   'jhipster:mongodb',
-  `jhipster:${GENERATOR_SPRING_CACHE}`,
-  `jhipster:${GENERATOR_SPRING_WEBSOCKET}`,
-  `jhipster:${GENERATOR_SQL}`,
 ];
 
 export const shouldComposeWithLiquibase = (testSample, runResultSupplier) => {
@@ -56,6 +45,21 @@ export const shouldComposeWithKafka = (sampleConfig, runResultSupplier) => {
     });
   }
 };
+
+// Added rabbitmq ---  cmi-tic-varun
+export const shouldComposeWithRabbitMQ = (sampleConfig, runResultSupplier) => {
+  const RabbitMQEnabled = typeof sampleConfig === 'boolean' ? sampleConfig : sampleConfig?.messageBroker === RABBITMQ;
+  if (RabbitMQEnabled) {
+    it(`should compose with ${RABBITMQ} generator`, () => {
+      assert(runResultSupplier().mockedGenerators['jhipster:rabbit'].calledOnce);
+    });
+  } else {
+    it(`should not compose with ${RABBITMQ} generator`, () => {
+      assert(runResultSupplier().mockedGenerators['jhipster:rabbit'].notCalled);
+    });
+  }
+};
+
 
 const shouldComposeWithDatabasetype = (databaseType, testSample, runResultSupplier) => {
   const generator = databaseType;

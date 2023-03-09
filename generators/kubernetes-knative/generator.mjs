@@ -41,7 +41,7 @@ import { kubernetesPlatformTypes, buildToolTypes, messageBrokerTypes } from '../
 
 const { GeneratorTypes } = kubernetesPlatformTypes;
 const { MAVEN } = buildToolTypes;
-const { KAFKA } = messageBrokerTypes;
+const { KAFKA, RABBITMQ } = messageBrokerTypes; // added rabbitmq option cmi-tic-varun
 
 const { K8S } = GeneratorTypes;
 
@@ -59,8 +59,8 @@ export default class KubernetesKnativeGenerator extends BaseDockerGenerator {
   get initializing() {
     return {
       sayHello() {
-        this.logger.log(chalk.white(`${chalk.bold('☸')} Welcome to the JHipster Kubernetes Knative Generator ${chalk.bold('☸')}`));
-        this.logger.log(chalk.white(`Files will be generated in the folder: ${chalk.yellow(this.destinationRoot())}`));
+        this.logger.info(chalk.white(`${chalk.bold('☸')} Welcome to the JHipster Kubernetes Knative Generator ${chalk.bold('☸')}`));
+        this.logger.info(chalk.white(`Files will be generated in the folder: ${chalk.yellow(this.destinationRoot())}`));
       },
       ...super.initializing,
       checkKubernetes,
@@ -133,6 +133,9 @@ export default class KubernetesKnativeGenerator extends BaseDockerGenerator {
           if (element.messageBroker === KAFKA) {
             this.useKafka = true;
           }
+          if (element.messageBroker === RABBITMQ) {
+            this.useRabbitMQ = true;
+          }
         });
       },
       saveConfig,
@@ -175,7 +178,7 @@ export default class KubernetesKnativeGenerator extends BaseDockerGenerator {
     return {
       deploy() {
         if (this.hasWarning) {
-          this.logger.warn('Kubernetes Knative configuration generated, but no Jib cache found');
+          this.logger.warn('\nKubernetes Knative configuration generated, but no Jib cache found');
           this.logger.warn('If you forgot to generate the Docker image for this application, please run:');
           this.logger.warn(this.warningMessage);
         } else {
@@ -193,7 +196,7 @@ export default class KubernetesKnativeGenerator extends BaseDockerGenerator {
           this.logger.info(`  ${chalk.cyan(`${this.dockerPushCommand} ${targetImageName}`)}`);
         }
         if (this.dockerRepositoryName) {
-          this.logger.log('\nAlternatively, you can use Jib to build and push image directly to a remote registry:');
+          this.logger.info('\nAlternatively, you can use Jib to build and push image directly to a remote registry:');
           this.appsFolders.forEach((appsFolder, index) => {
             const appConfig = this.appConfigs[index];
             let runCommand = '';
@@ -202,10 +205,10 @@ export default class KubernetesKnativeGenerator extends BaseDockerGenerator {
             } else {
               runCommand = `./gradlew bootJar -Pprod jibBuild -Djib.to.image=${appConfig.targetImageName}`;
             }
-            this.logger.log(`${chalk.cyan(`${runCommand}`)} in ${this.destinationPath(this.directoryPath + appsFolder)}`);
+            this.logger.info(`${chalk.cyan(`${runCommand}`)} in ${this.destinationPath(this.directoryPath + appsFolder)}`);
           });
         }
-        this.logger.log('\nYou can deploy all your apps by running the following script:');
+        this.logger.info('\nYou can deploy all your apps by running the following script:');
         if (this.generatorType === K8S) {
           this.logger.info(`  ${chalk.cyan('bash kubectl-knative-apply.sh')}`);
           // Make the apply script executable
@@ -218,7 +221,7 @@ export default class KubernetesKnativeGenerator extends BaseDockerGenerator {
           }
         } else {
           this.logger.info(`  ${chalk.cyan('bash helm-knative-apply.sh or ./helm-knative-apply.sh')}`);
-          this.logger.log('\nYou can upgrade (after any changes) all your apps by running the following script:');
+          this.logger.info('\nYou can upgrade (after any changes) all your apps by running the following script:');
           this.logger.info(`  ${chalk.cyan('bash helm-knative-upgrade.sh or ./helm-knative-upgrade.sh')}`);
           // Make the apply script executable
           try {

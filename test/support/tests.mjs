@@ -26,13 +26,11 @@ const __dirname = dirname(__filename);
 
 export const getCommandHelpOutput = async command => {
   const program = await buildJHipster();
-  const cmd = command ? program.commands.find(cmd => cmd.name() === command) : program;
+  const cmd = program.commands.find(cmd => cmd.name() === command);
   if (!cmd) {
     throw new Error(`Command ${command} not found.`);
   }
-  if (command) {
-    await cmd._lazyBuildCommandCallBack();
-  }
+  await cmd._lazyBuildCommandCallBack();
   return cmd.configureOutput({ getOutHelpWidth: () => 1000, getErrHelpWidth: () => 1000 }).helpInformation();
 };
 

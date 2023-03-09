@@ -1,4 +1,5 @@
-import { basicHelpers as helpers, result as runResult } from '../support/index.mjs';
+import assert from 'yeoman-assert';
+import { basicHelpers as helpers } from '../support/index.mjs';
 import { CLIENT_MAIN_SRC_DIR } from '../../generators/generator-constants.mjs';
 import { clientFrameworkTypes } from '../../jdl/jhipster/index.mjs';
 import { getGenerator } from '../support/index.mjs';
@@ -56,9 +57,9 @@ describe('needle API React: JHipster react generator with blueprint', () => {
   });
 
   it('Assert app.scss is updated', () => {
-    runResult.assertFileContent(`${CLIENT_MAIN_SRC_DIR}app/app.scss`, '@import without-comment');
-    runResult.assertFileContent(`${CLIENT_MAIN_SRC_DIR}app/app.scss`, '@import with-comment');
-    runResult.assertFileContent(
+    assert.fileContent(`${CLIENT_MAIN_SRC_DIR}app/app.scss`, '@import without-comment');
+    assert.fileContent(`${CLIENT_MAIN_SRC_DIR}app/app.scss`, '@import with-comment');
+    assert.fileContent(
       `${CLIENT_MAIN_SRC_DIR}app/app.scss`,
       '* ==========================================================================\n' +
         'my comment\n' +

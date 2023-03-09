@@ -5,7 +5,7 @@ import { getDBTypeFromDBValue } from './database.mjs';
 
 const { CASSANDRA, MONGODB, MYSQL, SQL } = databaseTypes;
 
-describe('generator - server - support - database', () => {
+describe('generator - base-private', () => {
   describe('getDBTypeFromDBValue', () => {
     describe('when called with sql DB name', () => {
       it('return SQL', () => {

@@ -1,4 +1,5 @@
-import { dryRunHelpers as helpers, result as runResult } from '../support/index.mjs';
+import assert from 'yeoman-assert';
+import { basicHelpers as helpers } from '../support/index.mjs';
 import ServerGenerator from '../../generators/server/index.mjs';
 import { getGenerator } from '../support/index.mjs';
 import { serviceDiscoveryTypes } from '../../jdl/jhipster/index.mjs';
@@ -67,43 +68,43 @@ describe('needle API server gradle: JHipster server generator with blueprint', (
   });
 
   it('Assert gradle.properties has the property added', () => {
-    runResult.assertFileContent('gradle.properties', 'name=value');
+    assert.fileContent('gradle.properties', 'name=value');
   });
 
   it('Assert gradle.properties has not snake case properties', () => {
-    runResult.assertNoFileContent('gradle.properties', /^(?!.*#).*_.*[$|=]/m); // Not comment and contains underscore
+    assert.noFileContent('gradle.properties', /^(?!.*#).*_.*[$|=]/m); // Not comment and contains underscore
   });
 
   it('Assert gradle.properties has the plugin added', () => {
-    runResult.assertFileContent('build.gradle', 'classpath "group:name:version"');
+    assert.fileContent('build.gradle', 'classpath "group:name:version"');
   });
 
   it('Assert gradle.properties has the PluginToPluginsBlock added', () => {
-    runResult.assertFileContent('build.gradle', 'id "id" version "version"');
+    assert.fileContent('build.gradle', 'id "id" version "version"');
   });
 
   it('Assert gradle.properties has the Dependency with version added', () => {
-    runResult.assertFileContent('build.gradle', 'scope3 "group3:name3:version3"');
+    assert.fileContent('build.gradle', 'scope3 "group3:name3:version3"');
   });
 
   it('Assert gradle.properties has the Dependency without version added', () => {
-    runResult.assertFileContent('build.gradle', 'scope4 "group4:name4"');
+    assert.fileContent('build.gradle', 'scope4 "group4:name4"');
   });
 
   it('Assert gradle.properties has the Dependency in directory with version added', () => {
-    runResult.assertFileContent('build.gradle', 'scope5 "group5:name5:version5"');
+    assert.fileContent('build.gradle', 'scope5 "group5:name5:version5"');
   });
 
   it('Assert gradle.properties has the Dependency without version added', () => {
-    runResult.assertFileContent('build.gradle', 'scope6 "group6:name6"');
+    assert.fileContent('build.gradle', 'scope6 "group6:name6"');
   });
 
   it('Assert gradle.properties has the apply gradle script added', () => {
-    runResult.assertFileContent('build.gradle', "apply from: 'name.gradle'");
+    assert.fileContent('build.gradle', "apply from: 'name.gradle'");
   });
 
   it('Assert gradle.properties has the maven repository added', () => {
-    runResult.assertFileContent(
+    assert.fileContent(
       'build.gradle',
       '    maven {\n' +
         '        url "url"\n' +

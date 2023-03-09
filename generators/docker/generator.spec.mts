@@ -23,7 +23,7 @@ import { fileURLToPath } from 'url';
 
 import Generator from './index.mjs';
 import { buildSamplesFromMatrix, extendFilteredMatrix, extendMatrix } from '../../test/support/matrix-utils.mjs';
-import { defaultHelpers as helpers } from '../../test/support/helpers.mjs';
+import { dryRunHelpers as helpers } from '../../test/support/helpers.mjs';
 import { matchElasticSearchDocker } from '../elasticsearch/__test-support/elastic-search-matcher.mjs';
 import { matchConsul, matchEureka } from './__test-support/service-discovery-matcher.mjs';
 
@@ -35,7 +35,7 @@ const { snakeCase } = lodash;
 const { CASSANDRA, COUCHBASE, MONGODB, NEO4J, MARIADB, MSSQL, MYSQL, ORACLE, POSTGRESQL } = databaseTypes;
 const { NO: NO_SEARCH_ENGINE, ELASTICSEARCH } = searchEngineTypes;
 const { NO: NO_SERVICE_DISCOVERY, EUREKA, CONSUL } = serviceDiscoveryTypes;
-const { NO: NO_MESSAGE_BROKER, KAFKA } = messageBrokerTypes;
+const { NO: NO_MESSAGE_BROKER, KAFKA, RABBITMQ } = messageBrokerTypes;
 const { NO: NO_CACHE, REDIS, MEMCACHED, HAZELCAST } = cacheTypes;
 
 const __filename = fileURLToPath(import.meta.url);
@@ -64,7 +64,7 @@ matrix = extendMatrix(matrix, {
   searchEngine: [NO_SEARCH_ENGINE, ELASTICSEARCH],
   serviceDiscoveryType: [NO_SERVICE_DISCOVERY, EUREKA, CONSUL],
   enableSwaggerCodegen: [false, true],
-  messageBroker: [NO_MESSAGE_BROKER, KAFKA],
+  messageBroker: [NO_MESSAGE_BROKER, KAFKA, RABBITMQ],
 });
 
 matrix = extendFilteredMatrix(matrix, ({ reactive }) => !reactive, {

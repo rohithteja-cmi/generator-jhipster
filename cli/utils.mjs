@@ -19,18 +19,63 @@
 /* eslint-disable no-console */
 import chalk from 'chalk';
 import _ from 'lodash';
-import TerminalAdapter from 'yeoman-environment/lib/adapter';
-
-import { Logger, CLI_LOGGER } from '../generators/base/support/index.mjs';
 
 export const CLI_NAME = 'jhipster';
 export const GENERATOR_NAME = 'generator-jhipster';
 
-const SUCCESS_MESSAGE = `Congratulations, JHipster execution is complete!
-If you find JHipster useful consider sponsoring the project ${chalk.yellow('https://www.jhipster.tech/sponsors/')}`;
+const SUCCESS_MESSAGE = 'Congratulations, JHipster execution is complete!';
 const SPONSOR_MESSAGE = 'Sponsored with ❤️  by @oktadev.';
 
-export const logger = new Logger({ adapter: new TerminalAdapter(), namespace: CLI_LOGGER });
+const debug = function (msg) {
+  if (this.debugEnabled) {
+    console.log(`${chalk.blue('DEBUG!')}  ${msg}`);
+  }
+};
+
+const info = function (msg) {
+  console.info(`${chalk.green.bold('INFO!')} ${msg}`);
+};
+
+const log = function (msg) {
+  console.log(msg);
+};
+
+const error = function (msg, trace) {
+  console.error(`${chalk.red(msg)}`);
+  if (trace) {
+    console.log(trace);
+  }
+  process.exitCode = 1;
+};
+
+/**
+ *  Use with caution.
+ *  process.exit is not recommended by Node.js.
+ *  Refer to https://nodejs.org/api/process.html#process_process_exit_code.
+ */
+const fatal = function (msg, trace) {
+  console.error(`${chalk.red(msg)}`);
+  if (trace) {
+    console.log(trace);
+  }
+  process.exit(1);
+};
+
+export const logger = {
+  init(program) {
+    program.option('-d, --debug', 'enable debugger');
+
+    this.debugEnabled = process.argv.includes('-d') || process.argv.includes('--debug'); // Need this early
+    if (this.debugEnabled) {
+      info('Debug logging is on');
+    }
+  },
+  debug,
+  info,
+  log,
+  error,
+  fatal,
+};
 
 /**
  *  Get options for the command
@@ -53,9 +98,7 @@ export const doneFactory = (successMsg, sponsorMsg) => {
     } else if (errorOrMsg) {
       logger.error(`ERROR! ${errorOrMsg}`);
     } else if (successMsg) {
-      logger.log('');
       logger.log(chalk.green.bold(successMsg));
-      logger.log('');
       logger.log(chalk.cyan.bold(sponsorMsg));
     }
   };
@@ -63,12 +106,10 @@ export const doneFactory = (successMsg, sponsorMsg) => {
 
 export const printSuccess = () => {
   if (process.exitCode === undefined || process.exitCode === 0) {
-    logger.log('');
     logger.log(chalk.green.bold(SUCCESS_MESSAGE));
-    logger.log('');
     logger.log(chalk.cyan.bold(SPONSOR_MESSAGE));
   } else {
-    logger.error(`JHipster finished with code ${process.exitCode}`);
+    logger.error(`ERROR! JHipster finished with code ${process.exitCode}`);
   }
 };
 

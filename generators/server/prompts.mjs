@@ -115,19 +115,19 @@ export async function askForServerSideOpts({ control }) {
       message: 'Which service discovery server do you want to use?',
       choices: [
         {
-          value: CONSUL,
-          name: 'Consul (recommended)',
+          value: EUREKA,
+          name: 'JHipster Registry (uses Eureka, provides Spring Cloud Config support and monitoring dashboards)',
         },
         {
-          value: EUREKA,
-          name: 'JHipster Registry (legacy, uses Eureka, provides Spring Cloud Config support)',
+          value: CONSUL,
+          name: 'Consul',
         },
         {
           value: NO_SERVICE_DISCOVERY,
           name: 'No service discovery',
         },
       ],
-      default: CONSUL,
+      default: EUREKA,
     },
     {
       when: answers =>
@@ -302,6 +302,23 @@ export async function askForServerSideOpts({ control }) {
       message: 'Enter your Gradle Enterprise host',
       validate: input => (input.length === 0 ? 'Please enter your Gradle Enterprise host' : true),
     },
+    {
+      when: applicationType === MONOLITH,
+      type: 'list',
+      name: SERVICE_DISCOVERY_TYPE,
+      message: 'Do you want to use the JHipster Registry to configure, monitor and scale your application?',
+      choices: [
+        {
+          value: NO_SERVICE_DISCOVERY,
+          name: 'No',
+        },
+        {
+          value: EUREKA,
+          name: 'Yes',
+        },
+      ],
+      default: this.jhipsterConfigWithDefaults.serviceDiscoveryType,
+    },
   ];
 
   await this.prompt(prompts, this.config);
@@ -338,6 +355,10 @@ export async function askForOptionalItems({ control }) {
     name: 'Apache Kafka as asynchronous messages broker',
     value: 'messageBroker:kafka',
   });
+  choices.push({
+    name: 'RabbitMQ as asynchronous messages broker',
+    value: 'messageBroker:rabbit',
+  }); // cmi-tic-varun
   choices.push({
     name: 'API first development using OpenAPI-generator',
     value: 'enableSwaggerCodegen:true',

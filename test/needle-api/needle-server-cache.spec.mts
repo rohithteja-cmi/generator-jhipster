@@ -1,4 +1,5 @@
-import { basicHelpers as helpers, result as runResult } from '../support/index.mjs';
+import assert from 'yeoman-assert';
+import { basicHelpers as helpers } from '../support/index.mjs';
 import ServerGenerator from '../../generators/server/index.mjs';
 import { SERVER_MAIN_SRC_DIR } from '../../generators/generator-constants.mjs';
 import { getGenerator } from '../support/index.mjs';
@@ -116,19 +117,19 @@ describe('needle API server cache: JHipster server generator with blueprint', ()
     });
 
     it('Assert ehCache configuration has entry added', () => {
-      runResult.assertFileContent(`${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/CacheConfiguration.java`, 'createCache(cm, entry);');
+      assert.fileContent(`${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/CacheConfiguration.java`, 'createCache(cm, entry);');
     });
 
     it('Assert ehCache configuration has entity added', () => {
-      runResult.assertFileContent(
+      assert.fileContent(
         `${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/CacheConfiguration.java`,
         'createCache(cm, com.mycompany.myapp.domain.entityClass.class.getName());'
       );
-      runResult.assertFileContent(
+      assert.fileContent(
         `${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/CacheConfiguration.java`,
         'createCache(cm, com.mycompany.myapp.domain.entityClass.class.getName() + ".entitiesOneToMany");'
       );
-      runResult.assertFileContent(
+      assert.fileContent(
         `${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/CacheConfiguration.java`,
         'createCache(cm, com.mycompany.myapp.domain.entityClass.class.getName() + ".entitiesManoToMany");'
       );
@@ -165,19 +166,19 @@ describe('needle API server cache: JHipster server generator with blueprint', ()
     });
 
     it('Assert caffeine configuration has entry added', () => {
-      runResult.assertFileContent(`${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/CacheConfiguration.java`, 'createCache(cm, entry);');
+      assert.fileContent(`${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/CacheConfiguration.java`, 'createCache(cm, entry);');
     });
 
     it('Assert caffeine configuration has entity added', () => {
-      runResult.assertFileContent(
+      assert.fileContent(
         `${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/CacheConfiguration.java`,
         'createCache(cm, com.mycompany.myapp.domain.entityClass.class.getName());'
       );
-      runResult.assertFileContent(
+      assert.fileContent(
         `${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/CacheConfiguration.java`,
         'createCache(cm, com.mycompany.myapp.domain.entityClass.class.getName() + ".entitiesOneToMany");'
       );
-      runResult.assertFileContent(
+      assert.fileContent(
         `${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/CacheConfiguration.java`,
         'createCache(cm, com.mycompany.myapp.domain.entityClass.class.getName() + ".entitiesManoToMany");'
       );
@@ -244,22 +245,22 @@ describe('needle API server cache: JHipster server generator with blueprint', ()
     });
 
     it('Assert redis configuration has entry added', () => {
-      runResult.assertFileContent(
+      assert.fileContent(
         `${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/CacheConfiguration.java`,
         'createCache(cm, entry, jcacheConfiguration);'
       );
     });
 
     it('Assert redis configuration has entity added', () => {
-      runResult.assertFileContent(
+      assert.fileContent(
         `${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/CacheConfiguration.java`,
         'createCache(cm, com.mycompany.myapp.domain.Authority.class.getName(), jcacheConfiguration);'
       );
-      runResult.assertFileContent(
+      assert.fileContent(
         `${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/CacheConfiguration.java`,
         'createCache(cm, com.mycompany.myapp.domain.entityClass.class.getName() + ".entitiesOneToMany", jcacheConfiguration);'
       );
-      runResult.assertFileContent(
+      assert.fileContent(
         `${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/CacheConfiguration.java`,
         'createCache(cm, com.mycompany.myapp.domain.entityClass.class.getName() + ".entitiesManoToMany", jcacheConfiguration);'
       );

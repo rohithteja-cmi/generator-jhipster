@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /**
  * Copyright 2013-2023 the original author or authors from the JHipster project.
  *
@@ -23,10 +24,9 @@ import { basename, dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
 import { testBlueprintSupport } from '../../test/support/tests.mjs';
-import { defaultHelpers as helpers, checkEnforcements } from '../../test/support/index.mjs';
+import { defaultHelpers as helpers } from '../../test/support/helpers.mjs';
 import Generator from './index.mjs';
-import { mockedGenerators, shouldComposeWithCouchbase, shouldComposeWithKafka } from './__test-support/index.mjs';
-import { GENERATOR_SERVER } from '../generator-list.mjs';
+import { mockedGenerators, shouldComposeWithCouchbase, shouldComposeWithKafka, shouldComposeWithRabbitMQ } from './__test-support/index.mjs';
 
 const { snakeCase } = lodash;
 
@@ -45,7 +45,6 @@ describe(`generator - ${generator}`, () => {
     expect(instance.features.unique).toBe('bar');
   });
   describe('blueprint support', () => testBlueprintSupport(generator));
-  checkEnforcements({}, GENERATOR_SERVER);
 
   describe('composing', () => {
     describe('buildTool option', () => {
@@ -101,7 +100,7 @@ describe(`generator - ${generator}`, () => {
             .withSkipWritingPriorities()
             .withMockedGenerators(mockedGenerators);
         });
-
+        shouldComposeWithRabbitMQ(false, () => runResult); // cmi-tic-varun
         shouldComposeWithKafka(false, () => runResult);
       });
       describe('kafka', () => {
@@ -116,6 +115,20 @@ describe(`generator - ${generator}`, () => {
             .withMockedGenerators(mockedGenerators);
         });
         shouldComposeWithKafka(true, () => runResult);
+      });
+      // rabbitmq -- cmi-tic-varun
+      describe('rabbit', () => {
+        let runResult;
+        before(async () => {
+          runResult = await helpers
+            .run(generatorPath)
+            .withJHipsterConfig({
+              messageBroker: 'rabbit',
+            })
+            .withSkipWritingPriorities()
+            .withMockedGenerators(mockedGenerators);
+        });
+        shouldComposeWithRabbitMQ(true, () => runResult);
       });
     });
 

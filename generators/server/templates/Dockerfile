@@ -23,7 +23,7 @@ FROM mariadb:10.11.2
 FROM mongo:6.0.4
 LABEL ALIAS=mongodb
 
-FROM couchbase/server:7.1.4
+FROM couchbase/server:7.1.3
 LABEL ALIAS=couchbase
 
 FROM cassandra:3.11.14
@@ -38,19 +38,22 @@ LABEL ALIAS=hazelcast
 
 FROM memcached:1.6.18-alpine
 
-FROM redis:7.0.9
+FROM redis:7.0.8
 
-FROM confluentinc/cp-kafka:7.3.2
+FROM confluentinc/cp-kafka:7.3.1
 LABEL ALIAS=kafka
 
-FROM confluentinc/cp-zookeeper:7.3.2
+# docker image for rabbitmq cmi-tic-varun
+FROM rabbitmq:3.11.9-management
+LABEL ALIAS=rabbit
+
+FROM confluentinc/cp-zookeeper:7.3.1
 LABEL ALIAS=zookeeper
 
 FROM sonarqube:9.9.0-community
 LABEL ALIAS=sonar
 
-FROM docker.io/bitnami/consul:1.14.4-debian-11-r5
-LABEL ALIAS=consul
+FROM consul:1.14.4
 
 FROM prom/prometheus:v2.42.0
 LABEL ALIAS=prometheus
@@ -61,7 +64,7 @@ LABEL ALIAS=prometheus-alertmanager
 FROM quay.io/coreos/prometheus-operator:v0.42.1
 LABEL ALIAS=prometheus-operator
 
-FROM grafana/grafana:9.4.3
+FROM grafana/grafana:9.3.6
 LABEL ALIAS=grafana
 
 FROM quay.io/coreos/grafana-watcher:v0.0.8
