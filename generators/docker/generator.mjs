@@ -161,7 +161,7 @@ export default class DockerGenerator extends BaseApplicationGenerator {
             { serviceFile: './kafka.yml', serviceName: 'zookeeper' }
           );
         }
-        // added to generate rabbit.yml file  --  cmi-tic-varun
+        // Adds the rabbit service to docker-compose file  --  cmi-tic-varun
         if (application.messageBrokerRabbitMQ) {
           const serviceName = 'rabbit';
           source.addDockerExtendedServiceToApplicationAndServices({ serviceName });

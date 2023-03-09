@@ -24,11 +24,18 @@ export const rabbitFiles = {
         templates: ['domain/RabbitMessageModel.java'],
       },
     ],
-    web: [
+    listener: [
       {
         path: `${SERVER_MAIN_SRC_DIR}package/`,
         renameTo: moveToJavaPackageSrcDir,
-        templates: ['web/rest/RabbitMQPublisher.java', 'web/rest/RabbitMQConsumer.java'],
+        templates: ['listener/RabbitMQConsumer.java'],
+      },
+    ],
+    publisher: [
+      {
+        path: `${SERVER_MAIN_SRC_DIR}package/`,
+        renameTo: moveToJavaPackageSrcDir,
+        templates: ['publisher/RabbitMQPublisher.java'],
       },
     ],
   };
