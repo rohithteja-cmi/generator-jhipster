@@ -512,15 +512,34 @@ export const baseServerFiles = {
     },
     // adding BE files for usecase only when it is gateway or microservice application @cmi-tic-harika
     {
-      condition: generator => (generator.clientFrameworkReact && (generator.applicationTypeGateway && generator.withExample)) || (generator.clientFrameworkReact && generator.applicationTypeMicroservice),
+      condition: generator => (generator.clientFrameworkReact && (generator.applicationTypeGateway && generator.withExample)) || (generator.applicationTypeMicroservice),
       path: `${SERVER_MAIN_SRC_DIR}package/`,
       renameTo: moveToJavaPackageSrcDir,
       templates: [
-        'web/rest/EventController.java',
-        'service/impl/EventServiceImpl.java', 
-        'service/EventService.java',
-        'repository/EventRepository.java',
-        'domain/Event.java'
+        'domain/Reminder.java',
+        'domain/ReminderCallback.java',
+        'repository/ReminderRepository.java',
+        'repository/ReminderRepositoryInternalImpl.java',
+        'repository/ReminderSqlHelper.java',
+        'repository/rowmapper/ReminderRowMapper.java',
+        'web/rest/ReminderResource.java'       
+    ],
+    },
+    {
+      condition: generator => (generator.clientFrameworkReact && (generator.applicationTypeGateway && generator.withExample)) || (generator.applicationTypeMicroservice),
+      path: `${SERVER_MAIN_RES_DIR}`,
+      templates: [    
+        'config/liquibase/changelog/20230228095256_added_entity_Reminder.xml',
+        'config/liquibase/fake-data/reminder.csv'
+    ],
+    },
+    {
+      condition: generator => (generator.clientFrameworkReact && (generator.applicationTypeGateway && generator.withExample)) || (generator.applicationTypeMicroservice),
+      path: `${SERVER_TEST_SRC_DIR}package/`,
+      renameTo: moveToJavaPackageTestDir,
+      templates: [
+        'config/domain/ReminderTest.java',
+         'web/rest/ReminderResourceIT.java'             
     ],
     },
   ],
