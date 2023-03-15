@@ -44,7 +44,9 @@ const accountMenuItemsAuthenticated = () => (
     <span style={{color:'#012C78'}}>Sign out</span>
   </MenuItem>
   <%_ } _%>
+  <%_ if(!withExample) { _%>
     <MenuItem icon="sign-out-alt" to="/logout" data-cy="logout"><Translate contentKey="global.menu.account.logout">Sign out</Translate></MenuItem>
+    <%_ } _%>
   </>
   );
 
