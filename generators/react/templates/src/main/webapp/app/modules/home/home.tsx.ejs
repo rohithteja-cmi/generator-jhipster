@@ -77,11 +77,11 @@ export const Home = () => {
             <div>
               <%_ if(withExample) { _%>
                   <h1 style={{ textAlign: 'center', padding: 50, color: '#012C78' }}>Welcome to <%= capitalizedBaseName %> home page</h1>
-                  <Alert color="success">
-                      <Translate contentKey="home.logged.message" interpolate={{ username: account.login }}>
-                        You are logged in as user {account.login}.
-                      </Translate>
-                    </Alert>
+                  <Alert style={{ backgroundColor: '#EDEDED', borderColor: '#EDEDED' }}>
+                    <Translate contentKey="home.logged.message" interpolate={{ username: account.login }}>
+                      <span style={{ color: '#012C78' }}>You are logged in as user {account.login}.</span>
+                    </Translate>
+                  </Alert>
                     <br></br>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                       Here is an example of remainder application, you can click the icon to add your own reminder
