@@ -28,18 +28,28 @@ export const Reminder = () => {
   };
 
   return (
-    <div>
-      <h2 id="reminder-heading" data-cy="ReminderHeading">
+    <div style={{margin:25}}>
+      <h2 id="reminder-heading" data-cy="ReminderHeading" style={{color:'#012C78'}}>
         Reminders
         <div className="d-flex justify-content-end">
-          <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
-            <FontAwesomeIcon icon="sync" spin={loading} />{' '}
-            Refresh List
+          <Button 
+            className="me-2" 
+            color="info" 
+            onClick={handleSyncList} 
+            disabled={loading} 
+            style={{backgroundColor:'#CADCFC', borderColor:'#CADCFC'}}
+            >
+            <FontAwesomeIcon icon="sync" spin={loading} style={{color:'#012C78'}}/> &nbsp;
+            <span style={{color:'#012C78'}}>Refresh List</span>
           </Button>
-          <Link to="/reminder/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
-            <FontAwesomeIcon icon="plus" />
-            &nbsp;
-            Create new Reminder
+          <Link to="/reminder/new" 
+            className="btn btn-primary jh-create-entity" 
+            id="jh-create-entity" 
+            data-cy="entityCreateButton"
+            style={{backgroundColor:'#CADCFC', borderColor:'#CADCFC'}}
+              >
+                <FontAwesomeIcon icon="plus" style={{color:'#012C78'}}/>
+                &nbsp; <span style={{color:'#012C78'}}>Create new Reminder</span>
           </Link>
         </div>
       </h2>
@@ -48,30 +58,14 @@ export const Reminder = () => {
           <Table responsive>
             <thead>
               <tr>
-                <th>
-                  Id
-                </th>
-                <th>
-                  Name
-                </th>
-                <th>
-                 Event
-                </th>
-                <th>
-                  Date
-                </th>
-                <th>
-                 Created By
-                </th>
-                <th>
-                  Updated By
-                </th>
-                <th>
-                  Created At
-                </th>
-                <th>
-                  Updated At
-                </th>
+                <th style={{color:'#012C78'}}>Id</th>
+                <th style={{color:'#012C78'}}>Name</th>
+                <th style={{color:'#012C78'}}>Event</th>
+                <th style={{color:'#012C78'}}>Date</th>
+                <th style={{color:'#012C78'}}>Created By</th>
+                <th style={{color:'#012C78'}}>Updated By</th>
+                <th style={{color:'#012C78'}}>Created At</th>
+                <th style={{color:'#012C78'}}>Updated At</th>
                 <th />
               </tr>
             </thead>
@@ -79,7 +73,12 @@ export const Reminder = () => {
               {reminderList.map((reminder, i) => (
                 <tr key={`entity-${i}`} data-cy="entityTable">
                   <td>
-                    <Button tag={Link} to={`/reminder/${reminder.id}`} color="link" size="sm">
+                    <Button 
+                      tag={Link} 
+                      to={`/reminder/${reminder.id}`} 
+                      color="link" 
+                      size="sm" 
+                      style={{color:'#012C78',textAlign:'left', padding:0}}>
                       {reminder.id}
                     </Button>
                   </td>
@@ -92,23 +91,35 @@ export const Reminder = () => {
                   <td>{reminder.updatedAt}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`/reminder/${reminder.id}`} color="info" size="sm" data-cy="entityDetailsButton">
-                        <FontAwesomeIcon icon="eye" />{' '}
-                        <span className="d-none d-md-inline">
-                          View
-                        </span>
+                      <Button 
+                        tag={Link} 
+                        to={`/reminder/${reminder.id}`} 
+                        size="sm" 
+                        data-cy="entityDetailsButton"
+                        style={{borderColor:'#EDEDED', backgroundColor:'#EDEDED'}}
+                        >
+                        <FontAwesomeIcon icon="eye" style={{color:'#012C78'}}/> 
+                        <span className="d-none d-md-inline" style={{color:'#012C78'}}>View</span>
                       </Button>
-                      <Button tag={Link} to={`/reminder/${reminder.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
-                        <FontAwesomeIcon icon="pencil-alt" />{' '}
-                        <span className="d-none d-md-inline">
-                         Edit
-                        </span>
+                      <Button 
+                        tag={Link} 
+                        to={`/reminder/${reminder.id}/edit`} 
+                        size="sm" 
+                        data-cy="entityEditButton"
+                        style={{borderColor:'#0026ff', backgroundColor:'#0026ff'}}
+                        >
+                        <FontAwesomeIcon icon="pencil-alt"/> 
+                        <span className="d-none d-md-inline" >Edit</span>
                       </Button>
-                      <Button tag={Link} to={`/reminder/${reminder.id}/delete`} color="danger" size="sm" data-cy="entityDeleteButton">
-                        <FontAwesomeIcon icon="trash" />{' '}
-                        <span className="d-none d-md-inline">
-                          Delete
-                        </span>
+                      <Button 
+                        tag={Link} 
+                        to={`/reminder/${reminder.id}/delete`} 
+                        size="sm" 
+                        data-cy="entityDeleteButton"
+                        style={{borderColor:'#990000', backgroundColor:'#990000'}}
+                        >
+                        <FontAwesomeIcon icon="trash" /> 
+                        <span className="d-none d-md-inline" >Delete</span>
                       </Button>
                     </div>
                   </td>
@@ -117,11 +128,7 @@ export const Reminder = () => {
             </tbody>
           </Table>
         ) : (
-          !loading && (
-            <div className="alert alert-warning">
-              No Reminders found
-            </div>
-          )
+          !loading && <div className="alert alert-warning">No Reminders found</div>
         )}
       </div>
     </div>

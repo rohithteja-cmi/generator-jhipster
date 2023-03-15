@@ -55,11 +55,17 @@ export const ReminderDeleteDialog = () => {
           &nbsp;
          Cancel
         </Button>
-        <Button id="jhi-confirm-delete-reminder" data-cy="entityConfirmDeleteButton" color="danger" onClick={confirmDelete}>
+        <Button 
+          id="jhi-confirm-delete-reminder" 
+          data-cy="entityConfirmDeleteButton" 
+          color="danger" 
+          onClick={confirmDelete}
+          style={{backgroundColor:'#990000', borderColor:'#990000'}}
+          >
           <FontAwesomeIcon icon="trash" />
-          &nbsp;
-          Delete
-        </Button>
+          &nbsp; 
+          <span >Delete</span>
+          </Button>
       </ModalFooter>
     </Modal>
   );
