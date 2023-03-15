@@ -78,9 +78,11 @@ export const Home = () => {
               <%_ if(withExample) { _%>
                   <h1 style={{ textAlign: 'center', padding: 50, color: '#012C78' }}>Welcome to <%= capitalizedBaseName %> home page</h1>
                   <Alert style={{ backgroundColor: '#EDEDED', borderColor: '#EDEDED' }}>
+                    <span style={{ color: '#012C78' }}>
                     <Translate contentKey="home.logged.message" interpolate={{ username: account.login }}>
-                      <span style={{ color: '#012C78' }}>You are logged in as user {account.login}.</span>
+                      You are logged in as user {account.login}.</span>
                     </Translate>
+                  </span>
                   </Alert>
                     <br></br>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
