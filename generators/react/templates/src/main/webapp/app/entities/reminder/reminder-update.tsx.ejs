@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button, Row, Col, FormText } from 'reactstrap';
-import { isNumber, Translate, translate, ValidatedField, ValidatedForm } from 'react-jhipster';
+import { translate, ValidatedField, ValidatedForm } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
-import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { IReminder } from 'app/shared/model/reminder.model';
 import { getEntity, updateEntity, createEntity, reset } from './reminder.reducer';
+import './reminder-update.scss';
 
 export const ReminderUpdate = () => {
   const dispatch = useAppDispatch();
@@ -66,9 +65,10 @@ export const ReminderUpdate = () => {
     <div>
       <Row className="justify-content-center">
         <Col md="8">
-          <h2>
-            Create or edit a Reminder
-          </h2>
+          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', paddingBottom: 8 }}>
+            <h2 style={{ color: '#012C78' }}>Create or edit a Reminder</h2>
+            <FontAwesomeIcon icon="bell" style={{ paddingLeft: 10, fontSize: 25, color: '#012C78' }}></FontAwesomeIcon>
+          </div>
         </Col>
       </Row>
       <Row className="justify-content-center">
@@ -80,15 +80,18 @@ export const ReminderUpdate = () => {
               {!isNew ? (
                 <ValidatedField
                   name="id"
+                  className="labelColor"
+                  style={{ color: 'grey' }}
                   required
                   readOnly
                   id="reminder-id"
-                  label={translate('<%= baseName.toLowerCase() %>App.reminder.id')}
+                  label="Id"
                   validate={{ required: true }}
                 />
               ) : null}
               <ValidatedField
                 label={'Name'}
+                className="labelColor"
                 id="reminder-name"
                 name="name"
                 data-cy="name"
@@ -99,6 +102,7 @@ export const ReminderUpdate = () => {
               />
               <ValidatedField
                 label={'Event'}
+                className="labelColor"
                 id="reminder-event"
                 name="event"
                 data-cy="event"
@@ -109,6 +113,7 @@ export const ReminderUpdate = () => {
               />
               <ValidatedField
                 label={'Date'}
+                className="labelColor"
                 id="reminder-date"
                 name="date"
                 data-cy="date"
@@ -119,6 +124,7 @@ export const ReminderUpdate = () => {
               />
               <ValidatedField
                 label={'Created By'}
+                className="labelColor"
                 id="reminder-createdBy"
                 name="createdBy"
                 data-cy="createdBy"
@@ -127,15 +133,17 @@ export const ReminderUpdate = () => {
                   required: { value: true, message: translate('entity.validation.required') },
                 }}
               />
-              <ValidatedField
+              <ValidatedField 
                 label={'Updated By'}
-                id="reminder-updatedBy"
-                name="updatedBy"
-                data-cy="updatedBy"
-                type="text"
+                className="labelColor"
+                id="reminder-updatedBy" 
+                name="updatedBy" 
+                data-cy="updatedBy" 
+                type="text" 
               />
               <ValidatedField
                 label={'Created At'}
+                className="labelColor"
                 id="reminder-createdAt"
                 name="createdAt"
                 data-cy="createdAt"
@@ -144,25 +152,37 @@ export const ReminderUpdate = () => {
                   required: { value: true, message: translate('entity.validation.required') },
                 }}
               />
-              <ValidatedField
+              <ValidatedField 
                 label={'Updated At'}
-                id="reminder-updatedAt"
-                name="updatedAt"
-                data-cy="updatedAt"
-                type="text"
-              />
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/reminder" replace color="info">
-                <FontAwesomeIcon icon="arrow-left" />
-                &nbsp;
-                <span className="d-none d-md-inline">
-                 Back
-                </span>
+                className="labelColor"
+                id="reminder-updatedAt" 
+                name="updatedAt" 
+                data-cy="updatedAt" 
+                type="text" />
+              <Button 
+                tag={Link} 
+                id="cancel-save" 
+                data-cy="entityCreateCancelButton" 
+                to="/reminder" 
+                replace color="info"
+                style={{borderColor:'#EDEDED', backgroundColor:'#EDEDED'}}
+                >
+                <FontAwesomeIcon icon="arrow-left" style={{color:'#012C78'}}/>
+                &nbsp;&nbsp;&nbsp;
+                <span className="d-none d-md-inline" style={{color:'#012C78'}}>Back</span>
               </Button>
-              &nbsp;
-              <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
+              &nbsp;&nbsp;&nbsp;
+              <Button 
+                color="primary" 
+                id="save-entity" 
+                data-cy="entityCreateSaveButton" 
+                type="submit" 
+                disabled={updating}
+                style={{borderColor:'#0026ff', backgroundColor:'#0026ff'}}
+                >
                 <FontAwesomeIcon icon="save" />
                 &nbsp;
-                Save
+                <span >Save</span>
               </Button>
             </ValidatedForm>
           )}

@@ -22,13 +22,15 @@
 import './home.scss';
 
 <%_ if (authenticationTypeOauth2) { _%>
-import React, { useEffect, useState } from 'react';
+import React, { useEffect<%_ if (!withExample) { %>, useState <% } _%> } from 'react';
 <%_ } else { _%>
 import React from 'react';
 <%_ } _%>
+<%_ if(!withExample) { _%>
 import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
-import { Row, Col, Alert } from 'reactstrap';
+<%_ } _%>
+import { Row, Col<%_ if (!withExample) { %>, Alert <% } _%> } from 'reactstrap';
 
 <%_ if (authenticationTypeOauth2) { _%>
 import { getLoginUrl, REDIRECT_URL } from 'app/shared/util/url-utils';
@@ -36,10 +38,14 @@ import { getLoginUrl, REDIRECT_URL } from 'app/shared/util/url-utils';
 import { useAppSelector } from 'app/config/store';
 <%_ if(withExample) { _%>
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useNavigate } from 'react-router-dom';
 <%_ } _%>
 
 export const Home = () => {
   const account = useAppSelector(state => state.authentication.account);
+  <%_ if(withExample) { _%>
+    const navigate = useNavigate();
+  <%_ } _%>
 <%_ if (authenticationTypeOauth2) { _%>
   useEffect(() => {
     const redirectURL = localStorage.getItem(REDIRECT_URL);
@@ -49,37 +55,46 @@ export const Home = () => {
     }
   });
 <%_ } _%>
-
+<%_ if(withExample) { _%>
+  if(account.login){
+    navigate('/reminder');
+  }
+<%_ } _%>
 
   return (
     <Row>
+      <%_ if(!withExample) { _%>
       <Col md="3" className="pad">
         <span className="hipster rounded" />
       </Col>
       <Col md="9">
+      <%_ } _%>
+      
+        <%_ if(!withExample) { _%>
         <h2><Translate contentKey="home.title">Welcome, <%= backendType %> Hipster!</Translate></h2>
         <p className="lead"><Translate contentKey="home.subtitle">This is your homepage</Translate></p>
+        <%_ } _%>
         {
           (account?.login) ? (
             <div>
+              <%_ if(!withExample) { _%>
               <Alert color="success">
                 <Translate contentKey="home.logged.message" interpolate={{ username: account.login }}>You are logged in as user {account.login}.</Translate>
               </Alert>
-              <%_ if(withExample) { _%>
-              <h2>Welcome to our home page</h2><br></br>
-              <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
-                Here is an example of remainder application, you can click the icon to add your own reminder
-                <div>
-                  <Link to="/reminder/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
-                    <FontAwesomeIcon icon="plus" />
-                    &nbsp; Create new Reminder
-                  </Link>
-                </div>
-              </div>
               <%_ } _%>
             </div>
           ) : (
             <div>
+              <%_ if(withExample) { _%>
+                <h1 style={{ textAlign: 'center', padding: 50, color: '#012C78' }}>Welcome to <%= capitalizedBaseName %> home page</h1> 
+                <h5 style={{ marginLeft: 20, color: '#012C78' }}>
+                  Click here to <span></span>
+                  <a href={getLoginUrl()} style={{ color: '#012C78' }}>
+                    sign in
+                  </a>
+                </h5>
+              <%_ } _%>
+              <%_ if(!withExample) { _%>
               <Alert color="warning">
                 <Translate contentKey="global.messages.info.authenticated.prefix">If you want to </Translate>
                 <% if (!enableTranslation) { %><span>&nbsp;</span><% } %>
@@ -103,9 +118,11 @@ export const Home = () => {
                 <Link to="/account/register" className="alert-link"><Translate contentKey="global.messages.info.register.link">Register a new account</Translate></Link>
               </Alert>
 <%_ } _%>
+<%_ } _%>
             </div>
           )
         }
+        <%_ if(!withExample) { _%>
         <p>
           <Translate contentKey="home.question">If you have any question on JHipster:</Translate>
         </p>
@@ -144,6 +161,7 @@ export const Home = () => {
           <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">GitHub</a>!
         </p>
       </Col>
+        <%_ } _%>
     </Row>
   );
 };

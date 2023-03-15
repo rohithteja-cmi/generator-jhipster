@@ -68,8 +68,10 @@ export const files = {
         'entities/reminder/index.tsx',
         'entities/reminder/reminder-delete-dialog.tsx',
         'entities/reminder/reminder-detail.tsx',
+        'entities/reminder/reminder-detail.scss',
         'entities/reminder/reminder-reducer.spec.ts',
         'entities/reminder/reminder-update.tsx',
+        'entities/reminder/reminder-update.scss',
         'entities/reminder/reminder.reducer.ts',
         'entities/reminder/reminder.tsx',
         'shared/model/reminder.model.ts'
