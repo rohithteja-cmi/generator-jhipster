@@ -26,11 +26,9 @@ import React, { useEffect<%_ if (!withExample) { %>, useState <% } _%> } from 'r
 <%_ } else { _%>
 import React from 'react';
 <%_ } _%>
-<%_ if(!withExample) { _%>
 import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
-<%_ } _%>
-import { Row, Col<%_ if (!withExample) { %>, Alert <% } _%> } from 'reactstrap';
+import { Row, Col, Alert } from 'reactstrap';
 
 <%_ if (authenticationTypeOauth2) { _%>
 import { getLoginUrl, REDIRECT_URL } from 'app/shared/util/url-utils';
@@ -77,6 +75,25 @@ export const Home = () => {
         {
           (account?.login) ? (
             <div>
+              <%_ if(withExample) { _%>
+                  <h1 style={{ textAlign: 'center', padding: 50, color: '#012C78' }}>Welcome to <%= capitalizedBaseName %> home page</h1>
+                  <Alert color="success">
+                      <Translate contentKey="home.logged.message" interpolate={{ username: account.login }}>
+                        You are logged in as user {account.login}.
+                      </Translate>
+                    </Alert>
+                    <br></br>
+                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                      Here is an example of remainder application, you can click the icon to add your own reminder
+                      <div>
+                        <Link to="/reminder/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton"style={{ backgroundColor: '#CADCFC', borderColor: '#CADCFC' }}
+                        >
+                          <FontAwesomeIcon icon="plus" style={{ color: '#012C78' }} />
+                          &nbsp; <span style={{ color: '#012C78' }}>Create new Reminder</span>
+                        </Link>
+                      </div>
+                    </div>
+                <%_ } _%>
               <%_ if(!withExample) { _%>
               <Alert color="success">
                 <Translate contentKey="home.logged.message" interpolate={{ username: account.login }}>You are logged in as user {account.login}.</Translate>
