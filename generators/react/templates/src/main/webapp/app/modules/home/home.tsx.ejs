@@ -22,7 +22,7 @@
 import './home.scss';
 
 <%_ if (authenticationTypeOauth2) { _%>
-import React, { useEffect<%_ if (!withExample) { %>, useState <% } _%> } from 'react';
+import React, { useEffect, useState } from 'react';
 <%_ } else { _%>
 import React from 'react';
 <%_ } _%>
@@ -61,14 +61,13 @@ export const Home = () => {
 
   return (
     <Row>
-      <%_ if(!withExample) { _%>
+      <%_ if(withExample) { _%>
+        <span></span>
+      <%_ } else { _%>
       <Col md="3" className="pad">
         <span className="hipster rounded" />
       </Col>
       <Col md="9">
-      <%_ } _%>
-      
-        <%_ if(!withExample) { _%>
         <h2><Translate contentKey="home.title">Welcome, <%= backendType %> Hipster!</Translate></h2>
         <p className="lead"><Translate contentKey="home.subtitle">This is your homepage</Translate></p>
         <%_ } _%>
@@ -86,7 +85,7 @@ export const Home = () => {
                   </Alert>
                     <br></br>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                      Here is an example of remainder application, you can click the icon to add your own reminder
+                      Here is an example of reminder application, you can click the icon to add your own reminder
                       <div>
                         <Link to="/reminder/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton"style={{ backgroundColor: '#CADCFC', borderColor: '#CADCFC' }}
                         >
@@ -95,8 +94,7 @@ export const Home = () => {
                         </Link>
                       </div>
                     </div>
-                <%_ } _%>
-              <%_ if(!withExample) { _%>
+              <%_ } else { _%>
               <Alert color="success">
                 <Translate contentKey="home.logged.message" interpolate={{ username: account.login }}>You are logged in as user {account.login}.</Translate>
               </Alert>
@@ -112,8 +110,7 @@ export const Home = () => {
                     sign in
                   </a>
                 </h5>
-              <%_ } _%>
-              <%_ if(!withExample) { _%>
+              <%_ } else { _%>
               <Alert color="warning">
                 <Translate contentKey="global.messages.info.authenticated.prefix">If you want to </Translate>
                 <% if (!enableTranslation) { %><span>&nbsp;</span><% } %>
@@ -141,7 +138,9 @@ export const Home = () => {
             </div>
           )
         }
-        <%_ if(!withExample) { _%>
+        <%_ if(withExample) { _%>
+          <span></span>
+        <%_ } else { _%>
         <p>
           <Translate contentKey="home.question">If you have any question on JHipster:</Translate>
         </p>
