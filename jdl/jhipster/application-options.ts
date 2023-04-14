@@ -33,10 +33,11 @@ import {
   JDLApplicationOptionTypeValue,
   JDLApplicationOptionValue,
 } from '../models/jdl-application-definition.js';
+import logManagementTypes from './log-management-types.js';
 
 const { GATEWAY, MONOLITH, MICROSERVICE } = applicationTypes;
 const { CASSANDRA, COUCHBASE, MARIADB, MONGODB, MSSQL, MYSQL, NEO4J, ORACLE, POSTGRESQL, SQL, H2_DISK, H2_MEMORY } = databaseTypes;
-
+const { ECK, NO_LOG} = logManagementTypes;
 const NO_DATABASE = databaseTypes.NO;
 const { JWT, OAUTH2, SESSION } = authenticationTypes;
 const { MAVEN, GRADLE } = buildToolTypes;
@@ -117,6 +118,7 @@ const optionNames = {
   WEBSOCKET: 'websocket',
   ENABLE_GRADLE_ENTERPRISE: 'enableGradleEnterprise',
   GRADLE_ENTERPRISE_HOST: 'gradleEnterpriseHost',
+  LOG_MANAGEMENT: 'logManagement',
 };
 
 export const jhipsterOptionValues: Record<string, JDLApplicationOptionValue> = {
@@ -137,6 +139,9 @@ export const jhipsterOptionValues: Record<string, JDLApplicationOptionValue> = {
   [optionNames.BUILD_TOOL]: {
     [MAVEN]: MAVEN,
     [GRADLE]: GRADLE,
+  },[optionNames.LOG_MANAGEMENT]: {
+        [ECK]:ECK,
+        [NO_LOG]:NO_LOG,
   },
   [optionNames.CACHE_PROVIDER]: {
     [CAFFEINE]: CAFFEINE,
