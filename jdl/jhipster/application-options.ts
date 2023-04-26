@@ -97,6 +97,8 @@ const optionNames = {
   JHIPSTER_VERSION: 'jhipsterVersion',
   JWT_SECRET_KEY: 'jwtSecretKey',
   LANGUAGES: 'languages',
+  LOG_MANAGEMENT_TYPE: 'logManagementType',
+  MESSAGE_BROKER: 'messageBroker',
   MICROFRONTEND: 'microfrontend',
   MICROFRONTENDS: 'microfrontends',
   NATIVE_LANGUAGE: 'nativeLanguage',
@@ -118,7 +120,6 @@ const optionNames = {
   WEBSOCKET: 'websocket',
   ENABLE_GRADLE_ENTERPRISE: 'enableGradleEnterprise',
   GRADLE_ENTERPRISE_HOST: 'gradleEnterpriseHost',
-  LOG_MANAGEMENT: 'logManagement',
 };
 
 export const jhipsterOptionValues: Record<string, JDLApplicationOptionValue> = {
@@ -139,9 +140,6 @@ export const jhipsterOptionValues: Record<string, JDLApplicationOptionValue> = {
   [optionNames.BUILD_TOOL]: {
     [MAVEN]: MAVEN,
     [GRADLE]: GRADLE,
-  },[optionNames.LOG_MANAGEMENT]: {
-        [ECK]:ECK,
-        [NO_LOG]:NO_LOG,
   },
   [optionNames.CACHE_PROVIDER]: {
     [CAFFEINE]: CAFFEINE,
@@ -194,6 +192,10 @@ export const jhipsterOptionValues: Record<string, JDLApplicationOptionValue> = {
   [optionNames.JHIPSTER_VERSION]: '',
   [optionNames.JWT_SECRET_KEY]: '',
   [optionNames.LANGUAGES]: [],
+  [optionNames.LOG_MANAGEMENT_TYPE]: {
+    [ECK]: ECK,
+    [NO_LOG]: NO_LOG,
+  },
   [optionNames.MICROFRONTEND]: false,
   [optionNames.MICROFRONTENDS]: [],
   [optionNames.NPM]: true,
@@ -269,6 +271,7 @@ export const jhipsterOptionTypes: Record<string, JDLApplicationOptionType> = {
   [optionNames.JHIPSTER_VERSION]: { type: ApplicationOptionTypes.STRING },
   [optionNames.JWT_SECRET_KEY]: { type: ApplicationOptionTypes.STRING },
   [optionNames.LANGUAGES]: { type: ApplicationOptionTypes.LIST },
+  [optionNames.LOG_MANAGEMENT_TYPE]: { type: ApplicationOptionTypes.LIST },
   [optionNames.MICROFRONTEND]: { type: ApplicationOptionTypes.BOOLEAN },
   [optionNames.MICROFRONTENDS]: { type: ApplicationOptionTypes.LIST },
   [optionNames.NATIVE_LANGUAGE]: { type: ApplicationOptionTypes.STRING },
