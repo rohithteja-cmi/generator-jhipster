@@ -234,10 +234,6 @@ export function getServerConfigForGatewayApplication(customOptions: any = {}): a
     [WITH_ADMIN_UI]: true,
     ...customOptions,
   };
-
-  if(options[DEV_DATABASE_TYPE] === POSTGRESQL && options[CLIENT_FRAMEWORK] === REACT){
-    options[WITH_EXAMPLE] = true; // setting value for withExample for gateway aplication @cmi-tic-harika
-  }
   
   options[CACHE_PROVIDER] = NO_CACHE_PROVIDER;
   options[ENABLE_HIBERNATE_CACHE] = false;
