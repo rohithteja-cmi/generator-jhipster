@@ -73,8 +73,9 @@ spec:
             - '/bin/sh'
             - '-c'
             - |
+
 <%_ if (app.logManagementTypeEck) { _%>
-        
+              # chmod -R 777 /var/logs
 <%_ } _%>
                 while true
                 do
