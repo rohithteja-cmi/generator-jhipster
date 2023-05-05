@@ -16,7 +16,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -%>
-#<%_ if (app.logManagementTypeEck) { _%>
+<%_ if (app.logManagementTypeEck) { _%>
 #apiVersion: v1
 #kind: PersistentVolumeClaim
 #metadata:
@@ -28,11 +28,10 @@
 #  resources:
 #    requests:
 #      storage: 2Gi
-#  <%_ if (kubernetesStorageClassName) { _%>
+<%_ if (kubernetesStorageClassName) { _%>
 #  storageClassName: <%= kubernetesStorageClassName %>
-#  <%_ } _%>
-#<%_ } _%>
-
+<%_ } _%>
+<%_ } _%>
 apiVersion: <%= KUBERNETES_DEPLOYMENT_API_VERSION %>
 kind: Deployment
 metadata:
