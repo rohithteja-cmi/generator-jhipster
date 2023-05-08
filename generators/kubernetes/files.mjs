@@ -105,8 +105,13 @@ export function writeFiles() {
     },
 
     writeMessagingBroker() {
-      if (!this.useKafka) return;
-      this.writeFile('messagebroker/kafka.yml.ejs', `messagebroker-${suffix}/kafka.yml`);
+      if (this.useKafka) {
+        this.writeFile('messagebroker/kafka.yml.ejs', `messagebroker-${suffix}/kafka.yml`);
+      } else if (this.useRabbitMQ) {
+        this.writeFile('messagebroker/rabbitmq.yml.ejs', `messagebroker-${suffix}/rabbitmq.yml`);
+      } else {
+        return;
+      }
     },
 
     // write's keycloak files with istio if istio is true  @cmi-tic-craxkumar

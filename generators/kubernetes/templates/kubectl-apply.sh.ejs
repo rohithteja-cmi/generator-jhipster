@@ -88,7 +88,7 @@ default() {
     <%_ } _%> <%_ appConfigs.forEach((appConfig, index) =>  { _%>
     kubectl apply -f <%- appConfig.baseName.toLowerCase() %>-${suffix}/
 <%_ }) _%>
-<%_ if (useKafka) { _%>
+<%_ if (useKafka || useRabbitMQ) { _%>
     kubectl apply -f messagebroker-${suffix}/
 <%_ } _%> <%_ if (monitoringPrometheus) { _%>
     kubectl apply -f monitoring-${suffix}/jhipster-prometheus-crd.yml

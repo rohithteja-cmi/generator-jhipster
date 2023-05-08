@@ -45,7 +45,7 @@ LABEL ALIAS=kafka
 
 # docker image for rabbitmq cmi-tic-varun
 FROM rabbitmq:3.11.9-management
-LABEL ALIAS=rabbit
+LABEL ALIAS=rabbitmq
 
 FROM confluentinc/cp-zookeeper:7.3.3
 LABEL ALIAS=zookeeper

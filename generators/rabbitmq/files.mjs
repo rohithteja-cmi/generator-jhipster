@@ -4,8 +4,8 @@ import { moveToJavaPackageSrcDir } from '../server/support/index.mjs';
 
 /**
  * @type {import('../base/api.mjs').WriteFileSection}
- * The defimport { renameSync } from 'fs';
-ault is to use a file path string. It implies use of the template method.
+ * The import { renameSync } from 'fs';
+ * default is to use a file path string. It implies use of the template method.
  * For any other config an object { file:.., method:.., template:.. } can be used
  */
 

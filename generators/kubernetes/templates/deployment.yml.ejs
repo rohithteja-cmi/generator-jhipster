@@ -208,6 +208,12 @@ spec:
         - name: KAFKA_PRODUCER_VALUE_DESERIALIZER
           value: 'org.apache.kafka.common.serialization.StringDeserializer'
 <%_ } _%>
+<%_ if (app.messageBrokerRabbitMQ) { _%>
+        - name: SPRING_RABBITMQ_HOST
+          value: jhipster-rabbitmq.<%= kubernetesNamespace %>.svc.cluster.local
+        - name: SPRING_RABBITMQ_PORT
+          value: 5672
+<%_ } _%>
 <%_ if (monitoringPrometheus) { _%>
         - name: MANAGEMENT_PROMETHEUS_METRICS_EXPORT_ENABLED
           value: 'true'

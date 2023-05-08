@@ -241,7 +241,7 @@ export default class OpenshiftGenerator extends BaseDockerGenerator {
           this.logger.info(`  ${chalk.cyan(`oc process -f ${this.directoryPath}ocp/messagebroker/kafka.yml | oc apply -f -`)}`);
         }
         if (this.useRabbitMQ) {
-          this.logger.info(`  ${chalk.cyan(`oc process -f ${this.directoryPath}ocp/messagebroker/rabbit.yml | oc apply -f -`)}`);
+          this.logger.info(`  ${chalk.cyan(`oc process -f ${this.directoryPath}ocp/messagebroker/rabbitmq.yml | oc apply -f -`)}`);
         }
         for (let i = 0, regIndex = 0; i < this.appsFolders.length; i++) {
           const app = this.appConfigs[i];

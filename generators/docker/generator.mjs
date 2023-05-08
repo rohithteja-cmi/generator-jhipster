@@ -165,9 +165,9 @@ export default class DockerGenerator extends BaseApplicationGenerator {
             { serviceFile: './kafka.yml', serviceName: 'zookeeper' }
           );
         }
-        // added to generate rabbit.yml file  --  cmi-tic-varun
+        // added to generate rabbitmq.yml file  --  cmi-tic-varun
         if (application.messageBrokerRabbitMQ) {
-          source.addDockerExtendedServiceToApplicationAndServices({ serviceName: 'rabbit' });
+          source.addDockerExtendedServiceToApplicationAndServices({ serviceName: 'rabbitmq' });
         }
         if (application.messageBrokerPulsar) {
           source.addDockerExtendedServiceToApplicationAndServices({ serviceName: 'pulsar' });
@@ -213,7 +213,7 @@ export default class DockerGenerator extends BaseApplicationGenerator {
         }
 
         // included rabbitmq  -- cmi-tic-varun
-        ['keycloak', 'elasticsearch', 'kafka', 'rabbit', 'consul', 'redis', 'memcached', 'jhipster-registry'].forEach(dockerConfig => {
+        ['keycloak', 'elasticsearch', 'kafka', 'rabbitmq', 'consul', 'redis', 'memcached', 'jhipster-registry'].forEach(dockerConfig => {
           const dockerFile = `${application.dockerServicesDir}${dockerConfig}.yml`;
           if (this.fs.exists(this.destinationPath(dockerFile))) {
             scriptsStorage.set(`docker:${dockerConfig}:up`, `docker compose -f ${dockerFile} up --wait`);

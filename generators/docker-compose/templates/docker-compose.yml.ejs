@@ -39,8 +39,8 @@ services:
 <%_ } _%>
 <!-- Condition to generate container for rabbitmq -- cmi-tic-varun -->
 <%_ if (useRabbitMQ) { _%>
-  rabbit:
-    image: <%- dockerContainers.rabbit %>
+  rabbitmq:
+    image: <%- dockerContainers.rabbitmq %>
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest

@@ -361,7 +361,7 @@ export async function askForOptionalItems({ control }) {
   // cmi-tic-varun
   choices.push({
     name: 'RabbitMQ as asynchronous messages broker',
-    value: 'messageBroker:rabbit',
+    value: 'messageBroker:rabbitmq',
   });
   choices.push({
     name: 'Apache Pulsar as asynchronous messages broker',

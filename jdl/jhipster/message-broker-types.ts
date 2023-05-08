@@ -19,7 +19,7 @@
 
 const messageBrokerTypes = {
   KAFKA: 'kafka',
-  RABBITMQ: 'rabbit', // cmi-tic-varun
+  RABBITMQ: 'rabbitmq', // cmi-tic-varun
   PULSAR: 'pulsar',
   NO: 'no',
 };

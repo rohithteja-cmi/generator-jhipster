@@ -134,13 +134,13 @@ describe(`generator - ${generator}`, () => {
         shouldComposeWithKafka(false, () => runResult);
       });
       // rabbitmq -- cmi-tic-varun
-      describe('rabbit', () => {
+      describe('rabbitmq', () => {
         let runResult;
         before(async () => {
           runResult = await helpers
             .run(generatorPath)
             .withJHipsterConfig({
-              messageBroker: 'rabbit',
+              messageBroker: 'rabbitmq',
             })
             .withSkipWritingPriorities()
             .withMockedGenerators(mockedGenerators);

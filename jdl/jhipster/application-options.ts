@@ -34,11 +34,12 @@ import {
   JDLApplicationOptionValue,
 } from '../models/jdl-application-definition.js';
 import logManagementTypes from './log-management-types.js';
+import messageBrokerTypes from './message-broker-types.js';
 
 const { GATEWAY, MONOLITH, MICROSERVICE } = applicationTypes;
 const { CASSANDRA, COUCHBASE, MARIADB, MONGODB, MSSQL, MYSQL, NEO4J, ORACLE, POSTGRESQL, SQL, H2_DISK, H2_MEMORY } = databaseTypes;
-const { ECK, NO_LOG} = logManagementTypes;
 const NO_DATABASE = databaseTypes.NO;
+const { ECK, NO_LOG} = logManagementTypes;
 const { JWT, OAUTH2, SESSION } = authenticationTypes;
 const { MAVEN, GRADLE } = buildToolTypes;
 const { CAFFEINE, EHCACHE, HAZELCAST, INFINISPAN, MEMCACHED, REDIS } = cacheTypes;
@@ -59,6 +60,9 @@ const NO_SERVICE_DISCOVERY = serviceDiscoveryTypes.NO;
 const { SPRING_WEBSOCKET } = websocketTypes;
 
 const NO_WEBSOCKET = websocketTypes.NO;
+
+const { KAFKA, RABBITMQ, PULSAR} = messageBrokerTypes;
+const NO_MESSAGE_BROKER = messageBrokerTypes.NO;
 
 const ApplicationOptionTypes: Record<string, JDLApplicationOptionTypeValue> = {
   STRING: 'string',
@@ -197,6 +201,12 @@ export const jhipsterOptionValues: Record<string, JDLApplicationOptionValue> = {
     [ECK]: ECK,
     [NO_LOG]: NO_LOG,
   },
+  [optionNames.MESSAGE_BROKER]: {
+    [KAFKA]: KAFKA,
+    [RABBITMQ]: RABBITMQ,
+    [PULSAR]: PULSAR,
+    [NO_MESSAGE_BROKER]: NO_MESSAGE_BROKER,
+  },
   [optionNames.MICROFRONTEND]: false,
   [optionNames.MICROFRONTENDS]: [],
   [optionNames.NPM]: true,
@@ -274,6 +284,7 @@ export const jhipsterOptionTypes: Record<string, JDLApplicationOptionType> = {
   [optionNames.JWT_SECRET_KEY]: { type: ApplicationOptionTypes.STRING },
   [optionNames.LANGUAGES]: { type: ApplicationOptionTypes.LIST },
   [optionNames.LOG_MANAGEMENT_TYPE]: { type: ApplicationOptionTypes.STRING },
+  [optionNames.MESSAGE_BROKER]: { type: ApplicationOptionTypes.STRING },
   [optionNames.MICROFRONTEND]: { type: ApplicationOptionTypes.BOOLEAN },
   [optionNames.MICROFRONTENDS]: { type: ApplicationOptionTypes.LIST },
   [optionNames.NATIVE_LANGUAGE]: { type: ApplicationOptionTypes.STRING },
