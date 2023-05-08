@@ -16,7 +16,6 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -%>
-
 apiVersion: <%= KUBERNETES_DEPLOYMENT_API_VERSION %>
 kind: Deployment
 metadata:
@@ -49,12 +48,10 @@ spec:
       initContainers:
         - name: init-ds
           image: busybox:latest
-          
           command:
             - '/bin/sh'
             - '-c'
             - |
-
                 while true
                 do
 <%_ if (app.prodDatabaseTypeMysql) { _%>
@@ -85,7 +82,6 @@ spec:
       containers:
       - name: <%= app.baseName.toLowerCase() %>-app
         image: <%= app.targetImageName %>
-
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: prod
