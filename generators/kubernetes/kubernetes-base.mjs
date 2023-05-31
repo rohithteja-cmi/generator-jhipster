@@ -97,6 +97,7 @@ export function checkHelm() {
 
 export function loadConfig() {
   loadFromYoRc.call(this);
+  this.deploymentType = this.config.get('deploymentType');  // added deploymentType to access minikube by cmi-tic-lokesh
   this.kubernetesNamespace = this.config.get('kubernetesNamespace');
   this.kubernetesServiceType = this.config.get('kubernetesServiceType');
   this.ingressType = this.config.get('ingressType');
@@ -113,6 +114,7 @@ export function saveConfig() {
   this.config.set(
     _.defaults(
       {
+        deploymentType: this.deploymentType,  // added deploymentType to access minikube by cmi-tic-lokesh
         appsFolders: this.appsFolders,
         directoryPath: this.directoryPath,
         clusteredDbApps: this.clusteredDbApps,

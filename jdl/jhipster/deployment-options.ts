@@ -36,12 +36,14 @@ export const DeploymentTypes = {
   DOCKERCOMPOSE: 'docker-compose',
   KUBERNETES: 'kubernetes',
   OPENSHIFT: 'openshift',
+  MINIKUBE: 'minikube', //added minikube option by cmi-tic-lokesh
   exists: (deploymentType?: any) => !!deploymentType && !!DeploymentTypes[deploymentType.toUpperCase().replace('-', '')],
 };
 
 export const DOCKERCOMPOSE = DeploymentTypes.DOCKERCOMPOSE;
-export const KUBERNETES = DeploymentTypes.KUBERNETES;
+export const KUBERNETES = DeploymentTypes.KUBERNETES; 
 export const OPENSHIFT = DeploymentTypes.OPENSHIFT;
+export const MINIKUBE = DeploymentTypes.MINIKUBE; //added new const minikube by cmi-tic-lokesh
 
 const kubernetesRelatedOptions = {
   kubernetesNamespace: 'default',
@@ -53,6 +55,30 @@ const kubernetesRelatedOptions = {
   kubernetesStorageClassName: '',
   kubernetesStorageProvisioner: '', // added new const kubernetesStorageProvisioner @cmi-tic-craxkumar
   kubernetesUseDynamicStorage: {
+    false: false,
+    true: true,
+  },
+  ingressDomain: '',
+  ingressType: {
+    nginx: NGINX,
+    gke: GKE,
+  },
+  istio: {
+    false: false,
+    true: true,
+  },
+};
+
+const minikubeRelatedOptions = { // added new const minikubeRelatedOptions @cmi-tic-lokesh
+  minikubeNamespace: 'default',
+  minikubeServiceType: {
+    loadBalancer: LOAD_BALANCER,
+    nodePort: NODE_PORT,
+    ingress: INGRESS,
+  },
+  minikubeStorageClassName: '',
+  minikubeStorageProvisioner: '', 
+  minikubeUseDynamicStorage: {
     false: false,
     true: true,
   },
@@ -105,12 +131,14 @@ const Options: any = {
     dockerCompose: DeploymentTypes.DOCKERCOMPOSE,
     kubernetes: DeploymentTypes.KUBERNETES,
     openshift: DeploymentTypes.OPENSHIFT,
+    minikube: DeploymentTypes.MINIKUBE,
   },
   dockerPushCommand: 'docker push',
   dockerRepositoryName: '',
   ...dockerComposeRelatedOptions,
   ...kubernetesRelatedOptions,
   ...openshiftRelatedOptions,
+  ...minikubeRelatedOptions,
 };
 
 Options.defaults = (deploymentType = Options.deploymentType.dockerCompose) => {
@@ -127,6 +155,25 @@ Options.defaults = (deploymentType = Options.deploymentType.dockerCompose) => {
       kubernetesUseDynamicStorage: Options.kubernetesUseDynamicStorage.false,
       kubernetesStorageClassName: Options.kubernetesStorageClassName,
       kubernetesStorageProvisioner: Options.kubernetesStorageProvisioner, // added new options kubernetesStorageProvisioner @cmi-tic-craxkumar
+      ingressDomain: Options.ingressDomain,
+      monitoring: Options.monitoring.no,
+      istio: Options.istio.false,
+    };
+  }
+
+  if (deploymentType === Options.deploymentType.kubernetes) { //added condition to minikube by cmi-tic-lokesh
+    return {
+      appsFolders: new Set(),
+      directoryPath: Options.directoryPath,
+      clusteredDbApps: new Set(),
+      serviceDiscoveryType: Options.serviceDiscoveryType.consul,
+      dockerRepositoryName: Options.dockerRepositoryName,
+      dockerPushCommand: Options.dockerPushCommand,
+      minikubeNamespace: Options.minikubeNamespace,
+      minikubeServiceType: Options.minikubeServiceType.loadBalancer,
+      minikubeUseDynamicStorage: Options.minikubeUseDynamicStorage.false,
+      minikubeStorageClassName: Options.minikubeStorageClassName,
+      minikubeStorageProvisioner: Options.minikubeStorageProvisioner,
       ingressDomain: Options.ingressDomain,
       monitoring: Options.monitoring.no,
       istio: Options.istio.false,

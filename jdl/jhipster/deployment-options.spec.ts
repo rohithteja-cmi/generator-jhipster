@@ -42,6 +42,7 @@ describe('jdl - DeploymentOptions', () => {
         it('should return true', () => {
           expect(DeploymentTypes.exists(DeploymentTypes.DOCKERCOMPOSE)).to.be.true;
           expect(DeploymentTypes.exists(DeploymentTypes.KUBERNETES)).to.be.true;
+          expect(DeploymentTypes.exists(DeploymentTypes.MINIKUBE)).to.be.true;
         });
       });
     });
@@ -77,6 +78,25 @@ describe('jdl - DeploymentOptions', () => {
             istio: false,
             kubernetesNamespace: 'default',
             kubernetesServiceType: 'LoadBalancer',
+          });
+        });
+      });
+      context('when passing minikube as arg', () => {
+        it('should return minikube deployment config', () => {
+          expect(Options.defaults('minikube')).to.eql({
+            appsFolders: new Set(),
+            clusteredDbApps: new Set(),
+            directoryPath: '../',
+            dockerPushCommand: 'docker push',
+            dockerRepositoryName: '',
+            minikubeUseDynamicStorage: false,
+            minikubeStorageClassName: '',
+            monitoring: 'no',
+            serviceDiscoveryType: 'consul',
+            ingressDomain: '',
+            istio: false,
+            minikubeNamespace: 'default',
+            minikubeServiceType: 'LoadBalancer',
           });
         });
       });
