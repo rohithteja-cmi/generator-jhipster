@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { SERVER_MAIN_SRC_DIR } from '../generator-constants.mjs';
 import { moveToJavaPackageSrcDir } from '../server/support/index.mjs';
+import { communications } from '../server/server-base.mjs';
 
 /**
  * @type {import('../base/api.mjs').WriteFileSection}
@@ -40,9 +41,61 @@ export const rabbitFiles = {
     ],
   };
 
-export default function writeRabbitMQFilesTask({ application }) {
-  return this.writeFiles({
-    sections: rabbitFiles,
-    context: application,
-  });
-}
+
+export default async function writeRabbitMQFilesTask({ application }) {
+  for (let i = 0; i < communications.length;i++){
+    if(this.jhipsterConfig.baseName === communications[i].client){
+      const capitalizeServerName = communications[i].server.charAt(0).toUpperCase() + communications[i].server.slice(1);
+      const capitalizeClientName = communications[i].client.charAt(0).toUpperCase() + communications[i].client.slice(1);
+      const queueName = capitalizeServerName.concat('To').concat(capitalizeClientName);
+      this.fs.copyTpl(
+        this.templatePath('src/main/java/package/listener/RabbitMQConsumer.java.ejs'),
+        this.destinationPath(`${SERVER_MAIN_SRC_DIR}`.concat(this.jhipsterConfig.packageFolder).concat('/listener/RabbitMQConsumer'.concat(queueName).concat('.java'))),{
+          packageName : this.jhipsterConfig.packageName,
+          queueName : queueName,
+          serverName  : communications[i].server
+        }
+      );
+    }
+  }
+
+  for (let i = 0; i < communications.length;i++){
+    if(this.jhipsterConfig.baseName === communications[i].server){
+      const capitalizeServerName = communications[i].server.charAt(0).toUpperCase() + communications[i].server.slice(1);
+      const capitalizeClientName = communications[i].client.charAt(0).toUpperCase() + communications[i].client.slice(1);
+      const queueName = capitalizeServerName.concat('To').concat(capitalizeClientName);
+      this.fs.copyTpl(
+        this.templatePath('src/main/java/package/publisher/RabbitMQPublisher.java.ejs'),
+        this.destinationPath(`${SERVER_MAIN_SRC_DIR}`.concat(this.jhipsterConfig.packageFolder).concat('/publisher/RabbitMQPublisher'.concat(queueName).concat('.java'))),{
+          packageName : this.jhipsterConfig.packageName,
+          queueName : queueName,
+          serverName  : communications[i].server
+        }
+      );
+    }
+  }
+
+  this.fs.copyTpl(
+    this.templatePath('src/main/java/package/domain/RabbitMessageModel.java.ejs'),
+    this.destinationPath(`${SERVER_MAIN_SRC_DIR}`.concat(this.jhipsterConfig.packageFolder).concat('/domain/RabbitMessageModel.java')),{
+      packageName : this.jhipsterConfig.packageName
+    }
+  );
+
+  for (let i = 0; i < communications.length;i++){
+    if(this.jhipsterConfig.baseName === communications[i].server || this.jhipsterConfig.baseName === communications[i].client){
+      const capitalizeServerName = communications[i].server.charAt(0).toUpperCase() + communications[i].server.slice(1);
+      const capitalizeClientName = communications[i].client.charAt(0).toUpperCase() + communications[i].client.slice(1);
+      const queueName = capitalizeServerName.concat('To').concat(capitalizeClientName);
+      this.fs.copyTpl(
+        this.templatePath('src/main/java/package/config/RabbitMQConfig.java.ejs'),
+        this.destinationPath(`${SERVER_MAIN_SRC_DIR}`.concat(this.jhipsterConfig.packageFolder).concat('/config/RabbitMQConfig'.concat(queueName).concat('.java'))),{
+          packageName : this.jhipsterConfig.packageName,
+          queueName : queueName,
+          serverName  : communications[i].server
+        }
+      );
+    }
+  }
+  }
+

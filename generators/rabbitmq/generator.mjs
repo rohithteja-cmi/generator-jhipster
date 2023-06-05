@@ -22,10 +22,10 @@ export default class RabbitMQGenerator extends BaseApplicationGenerator {
   }
 
   get writing() {
-    return {
+    return this.asWritingTaskGroup({
       cleanupRabbitMQFilesTask,
       writeRabbitMQFilesTask,
-    };
+    });
   }
 
   get [BaseApplicationGenerator.WRITING]() {

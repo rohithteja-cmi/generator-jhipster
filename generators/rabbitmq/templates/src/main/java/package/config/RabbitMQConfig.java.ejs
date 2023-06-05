@@ -10,11 +10,11 @@ import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
-public class RabbitMQConfig {
+public class RabbitMQConfig<%= queueName %> {
 
-    public static final String QUEUE = "<%= baseName %>_message_queue";
-    public static final String EXCHANGE = "<%= baseName %>_message_exchange";
-    public static final String ROUTING_KEY = "<%= baseName %>_message_routingKey";
+    public static final String QUEUE = "<%= queueName %>_message_queue";
+    public static final String EXCHANGE = "<%= queueName %>_message_exchange";
+    public static final String ROUTING_KEY = "<%= queueName %>_message_routingKey";
 
     @Bean
     public Queue queue() {
