@@ -47,6 +47,16 @@ const { ECK } = logManagementTypes;
  * @extends {BaseDockerGenerator}
  */
 export default class KubernetesGenerator extends BaseDockerGenerator {
+  constructor(args, options, features) { // created a constructor and added minikube flag by cmi-tic-lokesh
+    super(args, options, features);
+    this.option('minikube', {
+      desc: 'Deployment option minikube',
+      type: Boolean,
+      defaults: false,
+    });
+    this.regenerate = this.options.minikubeDeployment;
+  }
+
   async beforeQueue() {
     if (!this.fromBlueprint) {
       await this.composeWithBlueprints(GENERATOR_KUBERNETES);

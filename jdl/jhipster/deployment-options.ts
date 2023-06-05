@@ -161,7 +161,7 @@ Options.defaults = (deploymentType = Options.deploymentType.dockerCompose) => {
     };
   }
 
-  if (deploymentType === Options.deploymentType.kubernetes) { //added condition to minikube by cmi-tic-lokesh
+  if (deploymentType === Options.deploymentType.minikube) { //added condition to minikube by cmi-tic-lokesh
     return {
       appsFolders: new Set(),
       directoryPath: Options.directoryPath,
