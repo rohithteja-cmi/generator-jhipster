@@ -5,18 +5,22 @@
  * @cmi-tic-craxkumar
  */
 const CommunicationOptionTypes = {
-    STRING: 'string',
+  STRING: 'string',
 };
 
 const optionNames = {
-    CLIENT: 'client',
-    SERVER: 'server',
+  CLIENT: 'client',
+  SERVER: 'server',
+  COMMUNICATION_TYPE: 'commType',
+  FRAMEWORK_TYPE: 'frameworkType',
 };
 
 const optionTypes = {
-    [optionNames.CLIENT]: { type: CommunicationOptionTypes.STRING },
-    [optionNames.SERVER]: { type: CommunicationOptionTypes.STRING },
-}
+  [optionNames.CLIENT]: { type: CommunicationOptionTypes.STRING },
+  [optionNames.SERVER]: { type: CommunicationOptionTypes.STRING },
+  [optionNames.COMMUNICATION_TYPE]: { type: CommunicationOptionTypes.STRING },
+  [optionNames.FRAMEWORK_TYPE]: { type: CommunicationOptionTypes.STRING },
+};
 
 /**
  * Returns the option's type, one of string, boolean, list or integer.
@@ -24,22 +28,22 @@ const optionTypes = {
  * @returns {string} the option's type.
  */
 function getTypeForOption(optionName) {
-    if (!optionName) {
-        throw new Error('A name has to be passed to get the option type.');
-    }
-    if (!optionTypes[optionName]) {
-        throw new Error(`Unrecognised communication option name: ${optionName}.`);
-    }
-    return optionTypes[optionName].type;
+  if (!optionName) {
+    throw new Error('A name has to be passed to get the option type.');
+  }
+  if (!optionTypes[optionName]) {
+    throw new Error(`Unrecognised communication option name: ${optionName}.`);
+  }
+  return optionTypes[optionName].type;
 }
 
 /**
-* Checks whether the option's exists.
-* @param {String} optionName - the option's name.
-* @returns {Boolean} the option's existence.
-*/
+ * Checks whether the option's exists.
+ * @param {String} optionName - the option's name.
+ * @returns {Boolean} the option's existence.
+ */
 function doesOptionExist(optionName) {
-    return !!optionName && !!optionTypes[optionName];
+  return !!optionName && !!optionTypes[optionName];
 }
 
 const OptionTypes = CommunicationOptionTypes;

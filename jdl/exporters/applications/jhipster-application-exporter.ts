@@ -25,7 +25,7 @@ import { GENERATOR_NAME, writeCommunicationFile, writeConfigFile } from '../expo
  * Exports JDL applications to JDL files in separate folders (based on application base names).
  * Addationally passing content parameter to the function to write Communication config file.  @cmi-tic-craxkumar
  * @param {Array<Object>} applications -  the formatted applications to export
- * @param content 
+ * @param content
  */
 export function exportApplications(applications, content) {
   if (!applications) {
@@ -47,8 +47,8 @@ export function exportApplication(application) {
 /**
  * This function writes a Yeoman config file in an application folder.
  * Addationally passing content parameter to the function to write Communication config file.  @cmi-tic-craxkumar
- * @param application 
- * @param content 
+ * @param application
+ * @param content
  */
 function writeApplicationFileForMultipleApplications(application, content) {
   const applicationBaseName = application[GENERATOR_NAME].baseName;
@@ -58,19 +58,23 @@ function writeApplicationFileForMultipleApplications(application, content) {
     );
   }
   createFolderIfItDoesNotExist(applicationBaseName);
+  const messageBroker = writeCommunicationFileForMultipleApplications(
+    content,
+    applicationBaseName,
+    path.join(applicationBaseName, 'comm.yo-rc.json')
+  );
+  application[GENERATOR_NAME].messageBroker = messageBroker;
   writeConfigFile(application, path.join(applicationBaseName, '.yo-rc.json'));
-  
+
   // This method write's communication File in each dir  @cmi-tic-craxkumar
-  writeCommunicationFileForMultipleApplications(content, path.join(applicationBaseName, 'comm.yo-rc.json'));
 }
 
 /**
  * This method to write communication File in each dir  @cmi-tic-craxkumar
- * 
- * @param content 
- * @param yoRcPath 
+ *
+ * @param content
+ * @param yoRcPath
  */
-function writeCommunicationFileForMultipleApplications(content,yoRcPath = 'comm.yo-rc.json') {
-  writeCommunicationFile(content,  yoRcPath);
+function writeCommunicationFileForMultipleApplications(content, applicationBaseName, yoRcPath = 'comm.yo-rc.json') {
+  return writeCommunicationFile(content, applicationBaseName, yoRcPath);
 }
-
