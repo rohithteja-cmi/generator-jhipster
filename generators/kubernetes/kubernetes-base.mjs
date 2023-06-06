@@ -105,6 +105,7 @@ export function loadConfig() {
   this.dbRandomPassword = this.options.reproducibleTests ? 'SECRET-PASSWORD' : crypto.randomBytes(30).toString('hex');
   this.kubernetesUseDynamicStorage = this.config.get('kubernetesUseDynamicStorage');
   this.kubernetesStorageClassName = this.config.get('kubernetesStorageClassName');
+  this.kubernetesStorageProvisioner = this.config.get('kubernetesStorageProvisioner'); // load new config kubernetesStorageProvisioner @cmi-tic-craxkumar
   this.generatorType = this.config.get('generatorType');
 }
 
@@ -112,7 +113,6 @@ export function saveConfig() {
   this.config.set(
     _.defaults(
       {
-        deploymentType: this.deploymentType,  // added deploymentType to access minikube by cmi-tic-lokesh
         appsFolders: this.appsFolders,
         directoryPath: this.directoryPath,
         clusteredDbApps: this.clusteredDbApps,
