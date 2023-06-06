@@ -20,7 +20,7 @@ apiVersion: <%= KUBERNETES_DEPLOYMENT_API_VERSION %>
 kind: Deployment
 metadata:
   name: <%= app.baseName.toLowerCase() %>
-  namespace: <%= deploymentType %>  //testing for minikube(should be removed later) by cmi-tic-lokesh
+  namespace: <%= kubernetesNamespace %>
 spec:
   replicas: 1
   selector:

@@ -97,7 +97,6 @@ export function checkHelm() {
 
 export function loadConfig() {
   loadFromYoRc.call(this);
-  this.deploymentType = this.config.get('deploymentType');  // added deploymentType to access minikube by cmi-tic-lokesh
   this.kubernetesNamespace = this.config.get('kubernetesNamespace');
   this.kubernetesServiceType = this.config.get('kubernetesServiceType');
   this.ingressType = this.config.get('ingressType');
@@ -106,7 +105,6 @@ export function loadConfig() {
   this.dbRandomPassword = this.options.reproducibleTests ? 'SECRET-PASSWORD' : crypto.randomBytes(30).toString('hex');
   this.kubernetesUseDynamicStorage = this.config.get('kubernetesUseDynamicStorage');
   this.kubernetesStorageClassName = this.config.get('kubernetesStorageClassName');
-  this.kubernetesStorageProvisioner = this.config.get('kubernetesStorageProvisioner'); // load new config kubernetesStorageProvisioner @cmi-tic-craxkumar
   this.generatorType = this.config.get('generatorType');
 }
 

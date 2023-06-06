@@ -54,7 +54,8 @@ export default class KubernetesGenerator extends BaseDockerGenerator {
       type: Boolean,
       defaults: false,
     });
-    this.regenerate = this.options.minikubeDeployment;
+
+    this.minikube = this.options.minikube;
   }
 
   async beforeQueue() {
