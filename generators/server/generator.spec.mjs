@@ -25,7 +25,14 @@ import { fileURLToPath } from 'url';
 import { testBlueprintSupport } from '../../test/support/tests.mjs';
 import { defaultHelpers as helpers, checkEnforcements, result as runResult } from '../../test/support/index.mjs';
 import Generator from './index.mjs';
-import { mockedGenerators, shouldComposeWithCouchbase, shouldComposeWithKafka, shouldComposeWithPulsar } from './__test-support/index.mjs';
+import {
+  mockedGenerators,
+  shouldComposeWithCouchbase,
+  shouldComposeWithKafka,
+  shouldComposeWithPulsar,
+  shouldComposeWithRestAPI,
+  shouldComposeWithRabbitMQ,
+} from './__test-support/index.mjs';
 import { GENERATOR_SERVER } from '../generator-list.mjs';
 
 const { snakeCase } = lodash;
@@ -102,6 +109,7 @@ describe(`generator - ${generator}`, () => {
             .withMockedGenerators(mockedGenerators);
         });
         shouldComposeWithRabbitMQ(false, () => runResult); // cmi-tic-varun
+        shouldComposeWithRestAPI(false, () => runResult);
         shouldComposeWithKafka(false, () => runResult);
         shouldComposeWithPulsar(false, () => runResult);
       });
@@ -118,6 +126,8 @@ describe(`generator - ${generator}`, () => {
         });
         shouldComposeWithKafka(true, () => runResult);
         shouldComposeWithPulsar(false, () => runResult);
+        shouldComposeWithRabbitMQ(false, () => runResult); // cmi-tic-varun
+        shouldComposeWithRestAPI(false, () => runResult);
       });
       describe('pulsar', () => {
         let runResult;
@@ -132,6 +142,8 @@ describe(`generator - ${generator}`, () => {
         });
         shouldComposeWithPulsar(true, () => runResult);
         shouldComposeWithKafka(false, () => runResult);
+        shouldComposeWithRabbitMQ(false, () => runResult); // cmi-tic-varun
+        shouldComposeWithRestAPI(false, () => runResult);
       });
       // rabbitmq -- cmi-tic-varun
       describe('rabbitmq', () => {
@@ -146,6 +158,25 @@ describe(`generator - ${generator}`, () => {
             .withMockedGenerators(mockedGenerators);
         });
         shouldComposeWithRabbitMQ(true, () => runResult);
+        shouldComposeWithPulsar(false, () => runResult);
+        shouldComposeWithKafka(false, () => runResult);
+        shouldComposeWithRestAPI(false, () => runResult);
+      });
+      describe('rest-api', () => {
+        let runResult;
+        before(async () => {
+          runResult = await helpers
+            .run(generatorPath)
+            .withJHipsterConfig({
+              messageBroker: 'rest-api',
+            })
+            .withSkipWritingPriorities()
+            .withMockedGenerators(mockedGenerators);
+        });
+        shouldComposeWithRestAPI(true, () => runResult);
+        shouldComposeWithPulsar(false, () => runResult);
+        shouldComposeWithKafka(false, () => runResult);
+        shouldComposeWithRabbitMQ(false, () => runResult); // cmi-tic-varun
       });
     });
 

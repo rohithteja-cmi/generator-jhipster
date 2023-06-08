@@ -67,7 +67,13 @@ import {
 } from '../generator-constants.mjs';
 import { removeFieldsWithNullishValues, parseCreationTimestamp, getHipster } from './support/index.mjs';
 import { getDefaultAppName } from '../project-name/support/index.mjs';
-import { MESSAGE_BROKER_KAFKA, MESSAGE_BROKER_RABBITMQ, MESSAGE_BROKER_NO, MESSAGE_BROKER_PULSAR } from '../server/options/index.mjs';
+import {
+  MESSAGE_BROKER_KAFKA,
+  MESSAGE_BROKER_RABBITMQ,
+  MESSAGE_BROKER_NO,
+  MESSAGE_BROKER_PULSAR,
+  MESSAGE_BROKER_REST_API,
+} from '../server/options/index.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -995,8 +1001,7 @@ templates: ${JSON.stringify(existingTemplates, null, 2)}`;
     dest.skipJhipsterDependencies = !!config.skipJhipsterDependencies;
     dest.withAdminUi = config.withAdminUi;
     // declaring withExample param in clint-side @cmi-tic-harika
-    dest.withExample = config.withExample,
-    dest.gatewayServerPort = config.gatewayServerPort;
+    (dest.withExample = config.withExample), (dest.gatewayServerPort = config.gatewayServerPort);
 
     dest.capitalizedBaseName = config.capitalizedBaseName;
     dest.dasherizedBaseName = config.dasherizedBaseName;
@@ -1235,6 +1240,7 @@ templates: ${JSON.stringify(existingTemplates, null, 2)}`;
     }
     dest.messageBrokerKafka = dest.messageBroker === MESSAGE_BROKER_KAFKA;
     dest.messageBrokerRabbitMQ = dest.messageBroker === MESSAGE_BROKER_RABBITMQ;
+    dest.messageBrokerRestAPI = dest.messageBroker === MESSAGE_BROKER_REST_API;
     dest.messageBrokerPulsar = dest.messageBroker === MESSAGE_BROKER_PULSAR;
     dest.messageBrokerAny = dest.messageBroker && dest.messageBroker !== MESSAGE_BROKER_NO;
 
@@ -1288,7 +1294,7 @@ templates: ${JSON.stringify(existingTemplates, null, 2)}`;
 
     dest.authenticationUsesCsrf = [OAUTH2, SESSION].includes(dest.authenticationType);
 
-    dest.logManagementTypeEck = dest.logManagementType === ECK_LOG;    //added eck option cmi-tic-lokesh
+    dest.logManagementTypeEck = dest.logManagementType === ECK_LOG; //added eck option cmi-tic-lokesh
 
     if (dest.databaseTypeSql) {
       prepareSqlApplicationProperties(dest);

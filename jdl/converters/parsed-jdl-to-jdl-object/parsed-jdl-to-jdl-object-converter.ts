@@ -30,6 +30,7 @@ import { convertValidations } from './validation-converter.js';
 import { convertOptions } from './option-converter.js';
 import { convertRelationships } from './relationship-converter.js';
 import { convertDeployments } from './deployment-converter.js';
+import { convertCommunications } from './communication-converter.js';
 
 let parsedContent;
 let configuration;
@@ -55,6 +56,7 @@ export function parseFromConfigurationObject(configurationObject): JDLObject {
   init(configurationObject);
   fillApplications();
   fillDeployments();
+  fillCommunications();
   fillEnums();
   fillClassesAndFields();
   fillAssociations();
@@ -91,6 +93,13 @@ function fillDeployments() {
   const jdlDeployments = convertDeployments(parsedContent.deployments);
   jdlDeployments.forEach(jdlDeployment => {
     jdlObject.addDeployment(jdlDeployment);
+  });
+}
+
+function fillCommunications() {
+  const jdlCommunications = convertCommunications(parsedContent.communications);
+  jdlCommunications.forEach(jdlCommunication => {
+    jdlObject.addCommunication(jdlCommunication);
   });
 }
 

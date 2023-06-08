@@ -46,7 +46,7 @@ export default class JDLAstBuilderVisitor extends BaseJDLCSTVisitor {
     const ast = {
       applications: [],
       deployments: [],
-      communications: [],      // added communications list to the prog  @cmi-tic-craxkumar
+      communications: [], // added communications list to the prog  @cmi-tic-craxkumar
       constants: {},
       entities: [],
       relationships: [],
@@ -70,7 +70,7 @@ export default class JDLAstBuilderVisitor extends BaseJDLCSTVisitor {
       ast.deployments = context.deploymentDeclaration.map(this.visit, this);
     }
 
-    /** 
+    /**
      * if context.communicationDeclaration exists, then add values to ast
      * @cmi-tic-craxkumar
      */
@@ -473,8 +473,8 @@ export default class JDLAstBuilderVisitor extends BaseJDLCSTVisitor {
   /**
    * Adding parased value from the commuication options to configProps
    * @cmi-tic-craxkumar
-   * @param context 
-   * @returns 
+   * @param context
+   * @returns
    */
   communicationDeclaration(context) {
     const config = {};

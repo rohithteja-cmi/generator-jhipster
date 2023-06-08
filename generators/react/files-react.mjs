@@ -62,7 +62,7 @@ export const files = {
     },
     //adding FE files for usecase @cmi-tic-harika
     {
-      condition: generator => (generator.clientFrameworkReact && (generator.applicationTypeGateway && generator.withExample)),
+      condition: generator => generator.clientFrameworkReact && generator.applicationTypeGateway && generator.withExample,
       ...clientApplicationBlock,
       templates: [
         'entities/reminder/index.tsx',
@@ -74,7 +74,7 @@ export const files = {
         'entities/reminder/reminder-update.scss',
         'entities/reminder/reminder.reducer.ts',
         'entities/reminder/reminder.tsx',
-        'shared/model/reminder.model.ts'
+        'shared/model/reminder.model.ts',
       ],
     },
     {

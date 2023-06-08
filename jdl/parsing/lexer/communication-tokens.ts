@@ -7,9 +7,9 @@ import createTokenFromConfig from './token-creator.js';
 import { UNARY_OPTION, KEYWORD } from './shared-tokens.js';
 import { communicationOptions } from '../../jhipster/index.mjs';
 
-const { OptionNames } = communicationOptions;
+const { communicationOptionNames } = communicationOptions;
 
-const { CLIENT, SERVER, COMMUNICATION_TYPE, FRAMEWORK_TYPE } = OptionNames;
+const { CLIENT, SERVER, COMMUNICATION_TYPE, FRAMEWORK_TYPE } = communicationOptionNames;
 
 const communicationCategoryToken = createTokenFromConfig({ name: 'COMM_KEY', pattern: Lexer.NA });
 

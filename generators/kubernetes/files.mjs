@@ -119,7 +119,7 @@ export function writeFiles() {
       if (!this.istio) return;
       const keycloakOut = 'keycloak'.concat('-', suffix);
       this.writeFile('keycloak/keycloak-destination-rule.yml.ejs', `${keycloakOut}/keycloak-destination-rule.yml`);
-      this.writeFile('keycloak/keycloak-virtual-service.yml.ejs' , `${keycloakOut}/keycloak-virtual-service.yml`);
+      this.writeFile('keycloak/keycloak-virtual-service.yml.ejs', `${keycloakOut}/keycloak-virtual-service.yml`);
       this.writeFile('keycloak/keycloak-gateway.yml.ejs', `${keycloakOut}/keycloak-gateway.yml`);
     },
 
@@ -214,5 +214,4 @@ export function writeFiles() {
       this.writeFile('skaffold/skaffold.yml.ejs', 'skaffold.yml');
     },
   };
-  
 }

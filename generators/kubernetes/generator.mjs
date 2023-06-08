@@ -120,11 +120,11 @@ export default class KubernetesGenerator extends BaseDockerGenerator {
           }
         });
 
-       /*  added parameters
+        /*  added parameters
         1) usesIngress (default: nginx)
         2) useKeycloak (default: depends on usesIngress or istio) @cmi-tic-craxkumar */
         this.usesOauth2 = this.appConfigs.some(appConfig => appConfig.authenticationTypeOauth2);
-        this.usesIngress = this.kubernetesServiceType === 'Ingress'  && this.ingressType === 'nginx';
+        this.usesIngress = this.kubernetesServiceType === 'Ingress' && this.ingressType === 'nginx';
         this.useKeycloak = (this.usesOauth2 && this.usesIngress) || (this.usesOauth2 && this.istio);
       },
       saveConfig,
@@ -227,5 +227,4 @@ export default class KubernetesGenerator extends BaseDockerGenerator {
   get [BaseDockerGenerator.END]() {
     return this.delegateTasksToBlueprint(() => this.end);
   }
-  
 }

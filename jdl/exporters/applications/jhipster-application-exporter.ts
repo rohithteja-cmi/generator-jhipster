@@ -63,7 +63,7 @@ function writeApplicationFileForMultipleApplications(application, content) {
     applicationBaseName,
     path.join(applicationBaseName, 'comm.yo-rc.json')
   );
-  application[GENERATOR_NAME].messageBroker = messageBroker;
+  application[GENERATOR_NAME].messageBroker = messageBroker || application[GENERATOR_NAME].messageBroker;
   writeConfigFile(application, path.join(applicationBaseName, '.yo-rc.json'));
 
   // This method write's communication File in each dir  @cmi-tic-craxkumar

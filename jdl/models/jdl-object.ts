@@ -30,6 +30,7 @@ import JDLRelationship from './jdl-relationship.js';
 export default class JDLObject {
   applications: Record<string, any>;
   deployments: Record<string, any>;
+  communications: Record<string, any>;
   entities: Record<string, JDLEntity>;
   enums: JDLEnums;
   relationships: JDLRelationships;
@@ -38,6 +39,7 @@ export default class JDLObject {
   constructor() {
     this.applications = {};
     this.deployments = {};
+    this.communications = {};
     this.entities = {};
     this.enums = new JDLEnums();
     this.relationships = new JDLRelationships();
@@ -107,6 +109,31 @@ export default class JDLObject {
     Object.keys(this.deployments).forEach((deploymentName, index, array) => {
       const deployment = this.deployments[deploymentName];
       passedFunction(deployment, index, array);
+    });
+  }
+
+  /**
+   * Adds or replaces a communication.
+   * @param communication the communication.
+   */
+  addCommunication(communication) {
+    if (!communication) {
+      throw new Error("Can't add nil communication.");
+    }
+    this.communications[communication.communicationType] = communication;
+  }
+
+  getCommunicationQuantity() {
+    return Object.keys(this.communications).length;
+  }
+
+  forEachCommunication(passedFunction) {
+    if (!passedFunction) {
+      return;
+    }
+    Object.keys(this.communications).forEach((communicationName, index, array) => {
+      const communication = this.communications[communicationName];
+      passedFunction(communication, index, array);
     });
   }
 

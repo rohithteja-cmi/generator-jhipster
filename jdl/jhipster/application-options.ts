@@ -39,7 +39,7 @@ import messageBrokerTypes from './message-broker-types.js';
 const { GATEWAY, MONOLITH, MICROSERVICE } = applicationTypes;
 const { CASSANDRA, COUCHBASE, MARIADB, MONGODB, MSSQL, MYSQL, NEO4J, ORACLE, POSTGRESQL, SQL, H2_DISK, H2_MEMORY } = databaseTypes;
 const NO_DATABASE = databaseTypes.NO;
-const { ECK, NO_LOG} = logManagementTypes;
+const { ECK, NO_LOG } = logManagementTypes;
 const { JWT, OAUTH2, SESSION } = authenticationTypes;
 const { MAVEN, GRADLE } = buildToolTypes;
 const { CAFFEINE, EHCACHE, HAZELCAST, INFINISPAN, MEMCACHED, REDIS } = cacheTypes;
@@ -61,7 +61,7 @@ const { SPRING_WEBSOCKET } = websocketTypes;
 
 const NO_WEBSOCKET = websocketTypes.NO;
 
-const { KAFKA, RABBITMQ, PULSAR} = messageBrokerTypes;
+const { KAFKA, RABBITMQ, PULSAR, REST_API } = messageBrokerTypes;
 const NO_MESSAGE_BROKER = messageBrokerTypes.NO;
 
 const ApplicationOptionTypes: Record<string, JDLApplicationOptionTypeValue> = {
@@ -204,6 +204,7 @@ export const jhipsterOptionValues: Record<string, JDLApplicationOptionValue> = {
   [optionNames.MESSAGE_BROKER]: {
     [KAFKA]: KAFKA,
     [RABBITMQ]: RABBITMQ,
+    [REST_API]: REST_API,
     [PULSAR]: PULSAR,
     [NO_MESSAGE_BROKER]: NO_MESSAGE_BROKER,
   },

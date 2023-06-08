@@ -1,20 +1,22 @@
-# Pre installation steps 
+# Pre installation steps
 
 Change the docker Version in the following file before linking:-
+
 > Change directory
+
 ```
 cd generators/base-docker
 ```
 
-open docker-utils.mjs  and change the line 
+open docker-utils.mjs and change the line
 
 > const dockerVersion = stdout.split(' ')[2].replace(/,/g, '');
 
-to 
+to
 
-> const dockerVersion = [DockerVersion]; 
+> const dockerVersion = [DockerVersion];
 
-for example 
+for example
 
 > const dockerVersion = "20.10.17";
 
@@ -26,29 +28,31 @@ TypeError: Cannot read properties of undefined (reading 'replace')
     at file:///${PATH_TO_JHIPSTER_DIR}/generator-jhipster/dist/generators/base-docker/docker-utils.mjs:45:55
 
 Change the docker Version in the following file before linking:-
+
 > Change directory
+
 ```
 cd generators/docker-compose
 ```
 
-open generator.mjs  and change the line 
+open generator.mjs and change the line
 
 > const composeVersion = stdout.split(' ')[2].replace(/,/g, '');
 
-to 
+to
 
-> const composeVersion = [ComposeVersion]; 
+> const composeVersion = [ComposeVersion];
 
-for example 
+for example
 
 > const composeVersion = "1.29.2";
-
-
 
 # Link Jhipster
 
 Link the updated version of the jhipster to generator-jhipster
+
 > Run cmd :-
+
 ```
 npm link
 ```
@@ -60,8 +64,9 @@ Run the example jdl file to generate the microservices.
 Copy the jdl file example/jdl/reminder.jdl to the project directory.
 
 > Run cmd:-
+
 ```
-jhipster jdl reminder.jdl    
+jhipster jdl reminder.jdl
 ```
 
 # Example with istio enabled
@@ -71,8 +76,9 @@ Run the example jdl file to generate the microservices.
 Copy the jdl file example/jdl/reminder-istio.jdl to the project directory.
 
 > Run cmd:-
+
 ```
-jhipster jdl reminder-istio.jdl    
+jhipster jdl reminder-istio.jdl
 ```
 
 # Example with istio enabled & communication b/w microservices/gateway
@@ -82,17 +88,19 @@ Run the example jdl file to generate the microservices.
 Copy the jdl file example/jdl/reminder-comm.jdl to the project directory.
 
 > Run cmd:-
+
 ```
-jhipster jdl reminder-comm.jdl    
+jhipster jdl reminder-comm.jdl
 ```
 
 # Possible solution for the errors
 
 > ### Webpack: TypeError: Cannot read property 'properties' of undefined
-> Excute below command:- 
+>
+> Excute below command:-
 
->npm remove webpack webpack-cli
+> npm remove webpack webpack-cli
 
->npm install --save-dev webpack webpack-cli
+> npm install --save-dev webpack webpack-cli
 
->references : https://stackoverflow.com/questions/52724312/webpack-typeerror-cannot-read-property-properties-of-undefined
+> references : https://stackoverflow.com/questions/52724312/webpack-typeerror-cannot-read-property-properties-of-undefined

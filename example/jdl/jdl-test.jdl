@@ -73,8 +73,13 @@ deployment {
 communication {
   client "fe"
   server "be1"
-  commType "async"
-  frameworkType "rabbitmq"
+  type "async"
+  framework "rabbitmq"
 }
 
-
+communication {
+  client "be1"
+  server "fe"
+  type "async"
+  framework "rabbitmq"
+}

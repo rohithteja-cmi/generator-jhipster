@@ -28,7 +28,13 @@ import { defaultHelpers as helpers } from '../../test/support/helpers.mjs';
 import { matchElasticSearch, matchElasticSearchUser } from './__test-support/elastic-search-matcher.mjs';
 
 import { databaseTypes, searchEngineTypes, authenticationTypes, applicationTypes } from '../../jdl/jhipster/index.mjs';
-import { mockedGenerators, shouldComposeWithKafka, shouldComposeWithPulsar, shouldComposeWithRabbitMQ } from '../server/__test-support/index.mjs'; // cmi-tic-varun
+import {
+  mockedGenerators,
+  shouldComposeWithKafka,
+  shouldComposeWithPulsar,
+  shouldComposeWithRabbitMQ,
+  shouldComposeWithRestAPI,
+} from '../server/__test-support/index.mjs'; // cmi-tic-varun
 
 const { snakeCase } = lodash;
 
@@ -105,6 +111,7 @@ describe('generator - elasticsearch', () => {
       });
       shouldComposeWithKafka(sampleConfig, () => runResult);
       shouldComposeWithRabbitMQ(sampleConfig, () => runResult); // cmi-tic-varun
+      shouldComposeWithRestAPI(sampleConfig, () => runResult);
       shouldComposeWithPulsar(sampleConfig, () => runResult);
     });
   });

@@ -99,7 +99,7 @@ export default class JDLParser extends CstParser {
           { ALT: () => this.SUBRULE(this.binaryOptionDeclaration) },
           { ALT: () => this.SUBRULE(this.applicationDeclaration) },
           { ALT: () => this.SUBRULE(this.deploymentDeclaration) },
-          { ALT: () => this.SUBRULE(this.communicationDeclaration) },    // check for rules and subrules for communicationDeclaration      @cmi-tic-craxkumar
+          { ALT: () => this.SUBRULE(this.communicationDeclaration) }, // check for rules and subrules for communicationDeclaration      @cmi-tic-craxkumar
           // a constantDeclaration starts with a NAME, but any keyword is also a NAME
           // So to avoid conflicts with most of the above alternatives (which start with keywords)
           // this alternative must be last.
@@ -497,9 +497,9 @@ export default class JDLParser extends CstParser {
   }
 
   /**
-  * Defining communicationDeclaration as part of communication to be parsed by jdl 
-  * @cmi-tic-craxkumar
-  */
+   * Defining communicationDeclaration as part of communication to be parsed by jdl
+   * @cmi-tic-craxkumar
+   */
   communicationDeclaration(): any {
     this.RULE('communicationDeclaration', () => {
       this.CONSUME(LexerTokens.COMMUNICATION);
@@ -511,9 +511,9 @@ export default class JDLParser extends CstParser {
     });
   }
   /**
-  * Defining communicationConfigDeclaration as part of communication to be parsed by jdl 
-  * @cmi-tic-craxkumar
-  */
+   * Defining communicationConfigDeclaration as part of communication to be parsed by jdl
+   * @cmi-tic-craxkumar
+   */
   communicationConfigDeclaration(): any {
     this.RULE('communicationConfigDeclaration', () => {
       this.CONSUME(LexerTokens.COMM_KEY);
@@ -525,14 +525,12 @@ export default class JDLParser extends CstParser {
   }
 
   /**
-  * Defining communicationConfigValue as part of communication to be parsed by jdl 
-  * @cmi-tic-craxkumar
-  */
+   * Defining communicationConfigValue as part of communication to be parsed by jdl
+   * @cmi-tic-craxkumar
+   */
   communicationConfigValue(): any {
     this.RULE('communicationConfigValue', () => {
-      this.OR([
-        { ALT: () => this.CONSUME(LexerTokens.STRING) },
-      ]);
+      this.OR([{ ALT: () => this.CONSUME(LexerTokens.STRING) }]);
     });
   }
 

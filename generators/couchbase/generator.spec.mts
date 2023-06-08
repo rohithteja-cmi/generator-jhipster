@@ -31,6 +31,7 @@ import {
   mockedGenerators as serverGenerators,
   shouldComposeWithKafka,
   shouldComposeWithRabbitMQ, // cmi-tic-varun
+  shouldComposeWithRestAPI,
   shouldComposeWithPulsar,
   shouldComposeWithLiquibase,
 } from '../server/__test-support/index.mjs';
@@ -92,6 +93,7 @@ describe(`generator - ${databaseType}`, () => {
       });
       shouldComposeWithKafka(sampleConfig, () => runResult);
       shouldComposeWithRabbitMQ(sampleConfig, () => runResult); // cmi-tic-varun
+      shouldComposeWithRestAPI(sampleConfig, () => runResult);
       shouldComposeWithPulsar(sampleConfig, () => runResult);
       shouldComposeWithLiquibase(false, () => runResult);
     });

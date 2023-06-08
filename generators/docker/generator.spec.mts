@@ -29,7 +29,12 @@ import { matchConsul, matchEureka } from './__test-support/service-discovery-mat
 
 import { databaseTypes, searchEngineTypes, serviceDiscoveryTypes, cacheTypes } from '../../jdl/jhipster/index.mjs';
 import { buildServerMatrix } from '../../test/support/server-samples.mjs';
-import { MESSAGE_BROKER_KAFKA, MESSAGE_BROKER_RABBITMQ, MESSAGE_BROKER_NO, MESSAGE_BROKER_PULSAR } from '../server/options/message-broker.mjs';
+import {
+  MESSAGE_BROKER_KAFKA,
+  MESSAGE_BROKER_RABBITMQ,
+  MESSAGE_BROKER_NO,
+  MESSAGE_BROKER_PULSAR,
+} from '../server/options/message-broker.mjs';
 
 const { snakeCase } = lodash;
 

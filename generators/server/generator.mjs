@@ -22,7 +22,7 @@
 import { existsSync } from 'fs';
 import chalk from 'chalk';
 import os from 'os';
-import { loadCommunicationConfigs  } from './server-base.mjs';
+import { loadCommunicationConfigs } from './server-base.mjs';
 
 import {
   getDBTypeFromDBValue,
@@ -53,6 +53,7 @@ import {
   GENERATOR_JAVA,
   GENERATOR_KAFKA,
   GENERATOR_RABBITMQ, // cmi-tic-varun
+  GENERATOR_REST_API,
   GENERATOR_LANGUAGES,
   GENERATOR_MAVEN,
   GENERATOR_MONGODB,
@@ -130,7 +131,7 @@ const { CAFFEINE, EHCACHE, HAZELCAST, INFINISPAN, MEMCACHED, REDIS, NO: NO_CACHE
 const { NO: NO_WEBSOCKET, SPRING_WEBSOCKET } = websocketTypes;
 const { CASSANDRA, COUCHBASE, MONGODB, NEO4J, SQL, NO: NO_DATABASE } = databaseTypes;
 const { MICROSERVICE, GATEWAY } = applicationTypes;
-const { KAFKA, PULSAR, RABBITMQ } = messageBrokerTypes; // added rabbitmq option cmi-tic-varun
+const { KAFKA, PULSAR, RABBITMQ, REST_API } = messageBrokerTypes; // added rabbitmq option cmi-tic-varun
 
 const { NO: NO_SEARCH_ENGINE, ELASTICSEARCH } = searchEngineTypes;
 const { CommonDBTypes, RelationalOnlyDBTypes } = fieldTypes;
@@ -206,7 +207,7 @@ export default class JHipsterServerGenerator extends BaseApplicationGenerator {
         }
       },
       // Initialize the configuration for communication in each application  @cmi-tic-craxkumar
-      loadCommunicationConfigs
+      loadCommunicationConfigs,
     });
   }
 
@@ -286,6 +287,9 @@ export default class JHipsterServerGenerator extends BaseApplicationGenerator {
         // cmi-tic-varun
         if (messageBroker === RABBITMQ) {
           await this.composeWithJHipster(GENERATOR_RABBITMQ);
+        }
+        if (messageBroker === REST_API) {
+          await this.composeWithJHipster(GENERATOR_REST_API);
         }
         if (messageBroker === PULSAR) {
           await this.composeWithJHipster(GENERATOR_PULSAR);

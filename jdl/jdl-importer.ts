@@ -258,10 +258,10 @@ function importOneApplicationAndEntities(jdlObject, configuration) {
 
 /**
  * // Passing content to this method to write communication config file (comm.yo-rc.json) in each dir @cmi-tic-craxkumar
- * @param jdlObject 
- * @param configuration 
- * @param content 
- * @returns 
+ * @param jdlObject
+ * @param configuration
+ * @param content
+ * @returns
  */
 function importApplicationsAndEntities(jdlObject, configuration, content) {
   const { skipFileGeneration, forceNoFiltering } = configuration;

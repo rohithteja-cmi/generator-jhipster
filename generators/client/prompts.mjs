@@ -76,7 +76,10 @@ export async function askForExample({ control }) {
       type: 'confirm',
       name: 'withExample',
       // restricting example question only for gateway/microservice and REACT FRAMEWORK & POSTGRESS DB @cmi-tic-harika
-      when: this.jhipsterConfig.applicationType !== 'monolith' && this.jhipsterConfig.clientFramework === REACT && (this.jhipsterConfig.devDatabaseType) === 'postgresql',
+      when:
+        this.jhipsterConfig.applicationType !== 'monolith' &&
+        this.jhipsterConfig.clientFramework === REACT &&
+        this.jhipsterConfig.devDatabaseType === 'postgresql',
       message: 'Do you want to generate an example for your react application?',
       default: config.withExample,
     },

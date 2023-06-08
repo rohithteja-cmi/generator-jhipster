@@ -197,7 +197,7 @@ const generateApplicationFiles = async ({ processor, applicationWithEntities }) 
   const { force, reproducible, createEnvBuilder, multiplesApplications } = processor;
   const baseName = applicationWithEntities.config.baseName;
   // const cwd = multiplesApplications ? path.join(processor.pwd, baseName) : processor.pwd;
-  const cwd = path.join(processor.pwd, baseName);     // create the single/multiple applications in subdirectories  @cmi-tic-craxkumar
+  const cwd = path.join(processor.pwd, baseName); // create the single/multiple applications in subdirectories  @cmi-tic-craxkumar
   if (processor.options.jsonOnly) {
     writeApplicationConfig(applicationWithEntities, cwd);
   } else {

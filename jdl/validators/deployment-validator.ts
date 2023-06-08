@@ -67,7 +67,7 @@ function validateKubernetesRelatedDeployment(jdlDeployment) {
     );
   }
   // when istio is set to true no need to provide ingress Type @cmi-tic-craxkumar
-  if (jdlDeployment.kubernetesServiceType === Options.kubernetesServiceType.ingress && (!jdlDeployment.ingressType && !jdlDeployment.istio)) {
+  if (jdlDeployment.kubernetesServiceType === Options.kubernetesServiceType.ingress && !jdlDeployment.ingressType && !jdlDeployment.istio) {
     throw new Error('An ingress type is required when dealing with kubernetes-related deployments and when the service type is ingress.');
   }
 }

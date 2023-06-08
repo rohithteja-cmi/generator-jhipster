@@ -18,8 +18,8 @@
  */
 
 import fs from 'fs';
-import { createFolderIfItDoesNotExist, doesFileExist } from '../utils/file-utils.js';
-import { communications } from '../../generators/server/server-base.mjs';
+import { doesFileExist } from '../utils/file-utils.js';
+import { Communication } from '../jhipster/communication-options.js';
 
 export const GENERATOR_NAME = 'generator-jhipster';
 
@@ -55,16 +55,13 @@ export function writeConfigFile(config, yoRcPath = '.yo-rc.json') {
  * @param yoRcPath the communication config file path
  */
 export function writeCommunicationFile(content, applicationBaseName, yoRcPath = 'comm.yo-rc.json') {
-  const getCommunication = content.communications;
-  const appComminucation = [];
+  const getCommunication: Communication[] = content.communications;
+  const appComminucation: Communication[] = [];
   let messageBroker;
-  console.log(applicationBaseName);
   getCommunication.forEach(communication => {
-    console.log(communication.server === applicationBaseName);
-    console.log(communication.client === applicationBaseName);
     if (communication.server === applicationBaseName || communication.client === applicationBaseName) {
       appComminucation.push(communication);
-      messageBroker = communication.frameworkType;
+      messageBroker = communication.framework;
     }
   });
   fs.writeFileSync(yoRcPath, JSON.stringify(appComminucation, null, 2).concat('\n'));

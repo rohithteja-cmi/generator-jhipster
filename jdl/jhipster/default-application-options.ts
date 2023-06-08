@@ -234,7 +234,7 @@ export function getServerConfigForGatewayApplication(customOptions: any = {}): a
     [WITH_ADMIN_UI]: true,
     ...customOptions,
   };
-  
+
   options[CACHE_PROVIDER] = NO_CACHE_PROVIDER;
   options[ENABLE_HIBERNATE_CACHE] = false;
 

@@ -10,7 +10,7 @@ import {
   GENERATOR_SQL,
 } from '../../generator-list.mjs';
 
-const { KAFKA, PULSAR, RABBITMQ } = messageBrokerTypes;
+const { KAFKA, PULSAR, RABBITMQ, REST_API } = messageBrokerTypes;
 const { SQL, COUCHBASE } = databaseTypes;
 
 export const mockedGenerators = [
@@ -23,6 +23,7 @@ export const mockedGenerators = [
   'jhipster:gradle',
   'jhipster:kafka',
   'jhipster:rabbitmq', // cmi-tic-varun
+  'jhipster:rest-api',
   'jhipster:languages',
   'jhipster:liquibase',
   'jhipster:maven',
@@ -69,6 +70,19 @@ export const shouldComposeWithRabbitMQ = (sampleConfig, runResultSupplier) => {
   } else {
     it(`should not compose with ${RABBITMQ} generator`, () => {
       assert(runResultSupplier().mockedGenerators['jhipster:rabbitmq'].notCalled);
+    });
+  }
+};
+
+export const shouldComposeWithRestAPI = (sampleConfig, runResultSupplier) => {
+  const RabbitMQEnabled = typeof sampleConfig === 'boolean' ? sampleConfig : sampleConfig?.messageBroker === RABBITMQ;
+  if (RabbitMQEnabled) {
+    it(`should compose with ${REST_API} generator`, () => {
+      assert(runResultSupplier().mockedGenerators['jhipster:rest-api'].calledOnce);
+    });
+  } else {
+    it(`should not compose with ${REST_API} generator`, () => {
+      assert(runResultSupplier().mockedGenerators['jhipster:rest-api'].notCalled);
     });
   }
 };

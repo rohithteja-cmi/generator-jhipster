@@ -18,8 +18,8 @@
  */
 
 const logManagementTypes = {
-    ECK: 'eck',
-    NO_LOG: 'no',
+  ECK: 'eck',
+  NO_LOG: 'no',
 };
 
 export default logManagementTypes;

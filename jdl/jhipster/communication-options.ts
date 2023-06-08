@@ -1,56 +1,100 @@
+import messageBrokerTypes from './message-broker-types.js';
+
 /**
  * Added new Options to jdl to collect communication parameters
  * @param client : Name of the application from which the communication will be sent
  * @param server : Name of the server to which the communication will be received
  * @cmi-tic-craxkumar
  */
-const CommunicationOptionTypes = {
+const optionTypes = {
   STRING: 'string',
 };
 
-const optionNames = {
+export const CommunicationTypes = {
+  ASYNC: 'async',
+  SYNC: 'sync',
+  exists: (communicationtType?: any) => !!communicationtType && !!CommunicationTypes[communicationtType.toUpperCase().replace('-', '')],
+};
+
+export const CommunicationFrameworks = {
+  ASYNC: {
+    RABBITMQ: 'rabbitmq',
+    PULSAR: 'pulsar',
+  },
+  SYNC: {
+    API: 'rest-api',
+  },
+  exists: (communicationtFramework?: any) =>
+    !!communicationtFramework && !!CommunicationFrameworks[communicationtFramework.toUpperCase().replace('-', '')],
+};
+
+export const CommunicationFrameworkTypes = {
+  ASYNC: [CommunicationFrameworks.ASYNC.RABBITMQ, CommunicationFrameworks.ASYNC.PULSAR],
+  SYNC: ['rest-api'],
+};
+
+export const RABBITMQ = CommunicationFrameworks.ASYNC.RABBITMQ;
+export const PULSAR = CommunicationFrameworks.ASYNC.PULSAR;
+
+const CommunicationOptionNames = {
   CLIENT: 'client',
   SERVER: 'server',
-  COMMUNICATION_TYPE: 'commType',
-  FRAMEWORK_TYPE: 'frameworkType',
+  COMMUNICATION_TYPE: 'type',
+  FRAMEWORK_TYPE: 'framework',
 };
 
-const optionTypes = {
-  [optionNames.CLIENT]: { type: CommunicationOptionTypes.STRING },
-  [optionNames.SERVER]: { type: CommunicationOptionTypes.STRING },
-  [optionNames.COMMUNICATION_TYPE]: { type: CommunicationOptionTypes.STRING },
-  [optionNames.FRAMEWORK_TYPE]: { type: CommunicationOptionTypes.STRING },
+const CommunicationOptionValues = {
+  [CommunicationOptionNames.CLIENT]: undefined,
+  [CommunicationOptionNames.SERVER]: undefined,
+  [CommunicationOptionNames.COMMUNICATION_TYPE]: {
+    ASYNC: CommunicationTypes.ASYNC,
+    SYNC: CommunicationTypes.SYNC,
+  },
+  [CommunicationOptionNames.FRAMEWORK_TYPE]: {
+    RABBITMQ: CommunicationFrameworks.ASYNC.RABBITMQ,
+    PULSAR: CommunicationFrameworks.ASYNC.PULSAR,
+    API: CommunicationFrameworks.SYNC.API,
+  },
 };
 
-/**
- * Returns the option's type, one of string, boolean, list or integer.
- * @param {String} optionName - the option's name.
- * @returns {string} the option's type.
- */
-function getTypeForOption(optionName) {
-  if (!optionName) {
-    throw new Error('A name has to be passed to get the option type.');
-  }
-  if (!optionTypes[optionName]) {
-    throw new Error(`Unrecognised communication option name: ${optionName}.`);
-  }
-  return optionTypes[optionName].type;
+export interface Communication {
+  server: string;
+  client: string;
+  type: string;
+  framework: string;
+  // Add other properties if present
 }
 
-/**
- * Checks whether the option's exists.
- * @param {String} optionName - the option's name.
- * @returns {Boolean} the option's existence.
- */
-function doesOptionExist(optionName) {
-  return !!optionName && !!optionTypes[optionName];
-}
+const CommunicationOptions: any = {
+  communicationType: {
+    async: CommunicationTypes.ASYNC,
+    sync: CommunicationTypes.SYNC,
+  },
+  frameworkTypes: {
+    rabbitmq: CommunicationFrameworks.ASYNC.RABBITMQ,
+    pulsar: CommunicationFrameworks.ASYNC.PULSAR,
+    api: CommunicationFrameworks.SYNC.API,
+  },
+};
 
-const OptionTypes = CommunicationOptionTypes;
-const OptionNames = optionNames;
+const CommunicationOptionTypes = {
+  [CommunicationOptionNames.CLIENT]: { type: optionTypes.STRING },
+  [CommunicationOptionNames.SERVER]: { type: optionTypes.STRING },
+  [CommunicationOptionNames.COMMUNICATION_TYPE]: { type: optionTypes.STRING },
+  [CommunicationOptionNames.FRAMEWORK_TYPE]: { type: optionTypes.STRING },
+};
+
+const communicationOptionTypes = CommunicationOptionTypes;
+const communicationOptionNames = CommunicationOptionNames;
+const communicationOptionValues = CommunicationOptionValues;
+
+export { CommunicationOptions };
+
 export default {
-  OptionTypes,
-  OptionNames,
-  getTypeForOption,
-  doesOptionExist,
+  CommunicationOptions,
+  communicationOptionTypes,
+  communicationOptionNames,
+  communicationOptionValues,
+  CommunicationTypes,
+  CommunicationFrameworkTypes,
 };

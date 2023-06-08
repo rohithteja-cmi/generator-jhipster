@@ -141,7 +141,6 @@ export default class KubernetesKnativeGenerator extends BaseDockerGenerator {
         // added useKeycloak parameter(default: false)  @cmi-tic-craxkumar
         this.usesOauth2 = this.appConfigs.some(appConfig => appConfig.authenticationTypeOauth2);
         this.useKeycloak = false;
-
       },
       saveConfig,
     };
@@ -245,5 +244,4 @@ export default class KubernetesKnativeGenerator extends BaseDockerGenerator {
   get [BaseDockerGenerator.END]() {
     return this.delegateTasksToBlueprint(() => this.end);
   }
-  
 }

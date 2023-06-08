@@ -99,7 +99,7 @@ export function loadConfigs() {
   this.logger.debug(`Apps folders: ${this.appsFolders}`);
   this.appsFolders.forEach((appFolder, index) => {
     const path = this.destinationPath(`${this.directoryPath + appFolder}`);
-    
+
     // added log @cmi-tic-craxkumar
     this.logger.debug(`Apps folders: ${this.appsFolders}`);
 
@@ -108,7 +108,9 @@ export function loadConfigs() {
       config.composePort = serverPort + index;
 
       // added log @cmi-tic-craxkumar
-      this.logger.debug(chalk.red.bold(`${config.baseName} has compose port ${config.composePort} and appIndex ${config.applicationIndex}`));
+      this.logger.debug(
+        chalk.red.bold(`${config.baseName} has compose port ${config.composePort} and appIndex ${config.applicationIndex}`)
+      );
 
       this.loadAppConfig(config, config);
       this.loadServerConfig(config, config);

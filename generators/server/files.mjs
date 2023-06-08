@@ -292,7 +292,9 @@ const gatewayFiles = {
     },
     // adding BE files for usecase only when it is gateway or microservice application @cmi-tic-harika
     {
-      condition: generator => (generator.clientFrameworkReact && (generator.applicationTypeGateway && generator.withExample)) || (generator.applicationTypeMicroservice),
+      condition: generator =>
+        (generator.clientFrameworkReact && generator.applicationTypeGateway && generator.withExample) ||
+        generator.applicationTypeMicroservice,
       path: `${SERVER_MAIN_SRC_DIR}package/`,
       renameTo: moveToJavaPackageSrcDir,
       templates: [
@@ -302,19 +304,20 @@ const gatewayFiles = {
         'repository/ReminderRepositoryInternalImpl.java',
         'repository/ReminderSqlHelper.java',
         'repository/rowmapper/ReminderRowMapper.java',
-        'web/rest/ReminderResource.java'       
-    ],
+        'web/rest/ReminderResource.java',
+      ],
     },
     {
-      condition: generator => (generator.clientFrameworkReact && (generator.applicationTypeGateway && generator.withExample)) || (generator.applicationTypeMicroservice),
+      condition: generator =>
+        (generator.clientFrameworkReact && generator.applicationTypeGateway && generator.withExample) ||
+        generator.applicationTypeMicroservice,
       path: `${SERVER_MAIN_RES_DIR}`,
-      templates: [    
-        'config/liquibase/changelog/20230228095256_added_entity_Reminder.xml',
-        'config/liquibase/fake-data/reminder.csv'
-    ],
+      templates: ['config/liquibase/changelog/20230228095256_added_entity_Reminder.xml', 'config/liquibase/fake-data/reminder.csv'],
     },
     {
-      condition: generator => (generator.clientFrameworkReact && (generator.applicationTypeGateway && generator.withExample)) || (generator.applicationTypeMicroservice),
+      condition: generator =>
+        (generator.clientFrameworkReact && generator.applicationTypeGateway && generator.withExample) ||
+        generator.applicationTypeMicroservice,
       path: `${SERVER_TEST_SRC_DIR}package/`,
       renameTo: moveToJavaPackageTestDir,
       templates: ['web/rest/ReminderResourceIT.java'],
@@ -605,6 +608,7 @@ export const baseServerFiles = {
       condition: generator =>
         generator.messageBrokerKafka ||
         generator.messageBrokerRabbitMQ || // cmi-tic-varun
+        generator.messageBrokerRestAPI ||
         generator.cacheProviderRedis ||
         generator.databaseTypeMongodb ||
         generator.searchEngineElasticsearch ||
@@ -648,82 +652,5 @@ export function writeFiles() {
         context: application,
       });
     },
-    /**
-     * This function will write the files which will allow the communication
-     * between the server and the client simply saying between gateway/microservice
-     * applications.
-     * @cmi-tic-craxkumar
-     */
-    writeCommunicationFile() {
-      // Write client files
-      for (let i = 0; i < communications.length;i++){
-        if(this.jhipsterConfig.baseName === communications[i].client){
-          var capitalizeServerName = communications[i].server.charAt(0).toUpperCase() + communications[i].server.slice(1)
-          this.fs.copyTpl(
-            this.templatePath("src/main/java/package/web/rest/ClientResource.java.ejs"),
-            this.destinationPath(`${SERVER_MAIN_SRC_DIR}`.concat(this.jhipsterConfig.packageFolder).concat("/web/rest/comm/ClientResource".concat(capitalizeServerName).concat(".java"))),{
-              packageName : this.jhipsterConfig.packageName,
-              capitalizeServerName : capitalizeServerName,
-              serverName  : communications[i].server.toLowerCase()
-            }
-          );
-        }
-      }
-      
-      // Write client UT files
-      for (let i = 0; i < communications.length;i++){
-        if(this.jhipsterConfig.baseName === communications[i].client){
-          var capitalizeServerName = communications[i].server.charAt(0).toUpperCase() + communications[i].server.slice(1)
-          this.fs.copyTpl(
-            this.templatePath("src/test/java/package/web/rest/ClientResourceUT.java.ejs"),
-            this.destinationPath(`${SERVER_TEST_SRC_DIR}`.concat(this.jhipsterConfig.packageFolder).concat("/web/rest/comm/ClientResource".concat(capitalizeServerName).concat("UT").concat(".java"))),{
-              packageName : this.jhipsterConfig.packageName,
-              capitalizeServerName : capitalizeServerName,
-              serverName  : communications[i].server.toLowerCase()
-            }
-          );
-        }
-      }
-
-      // Write server files
-      for (let i = 0; i < communications.length;i++){
-        if(this.jhipsterConfig.baseName === communications[i].server){
-          this.fs.copyTpl(
-            this.templatePath("src/main/java/package/web/rest/ServerResource.java.ejs"),
-            this.destinationPath(`${SERVER_MAIN_SRC_DIR}`.concat(this.jhipsterConfig.packageFolder).concat("/web/rest/comm/ServerResource.java")),{
-              packageName : this.jhipsterConfig.packageName,
-              serverName  : communications[i].server.toLowerCase()
-            }
-          );
-        }
-      }
-
-      // Write server UT files
-      for (let i = 0; i < communications.length;i++){
-        if(this.jhipsterConfig.baseName === communications[i].server){
-          this.fs.copyTpl(
-            this.templatePath("src/test/java/package/web/rest/ServerResourceUT.java.ejs"),
-            this.destinationPath(`${SERVER_TEST_SRC_DIR}`.concat(this.jhipsterConfig.packageFolder).concat("/web/rest/comm/ServerResourceUT.java")),{
-              packageName : this.jhipsterConfig.packageName,
-              serverName  : communications[i].server.toLowerCase()
-            }
-          );
-        }
-      }
-
-      this.fs.copyTpl(
-        this.templatePath("src/main/java/package/config/webClient/AccessToken.java.ejs"),
-        this.destinationPath(`${SERVER_MAIN_SRC_DIR}`.concat(this.jhipsterConfig.packageFolder).concat("/config/webClient/AccessToken.java")),{
-          packageName : this.jhipsterConfig.packageName
-        }
-      );
-
-      this.fs.copyTpl(
-        this.templatePath("src/main/java/package/config/webClient/WebClientConfig.java.ejs"),
-        this.destinationPath(`${SERVER_MAIN_SRC_DIR}`.concat(this.jhipsterConfig.packageFolder).concat("/config/webClient/WebClientConfig.java")),{
-          packageName : this.jhipsterConfig.packageName
-        }
-      );
-    }
   });
 }

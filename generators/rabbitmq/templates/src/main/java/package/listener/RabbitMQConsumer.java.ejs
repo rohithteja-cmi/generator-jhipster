@@ -1,6 +1,6 @@
 package <%= packageName %>.listener;
 
-import <%= packageName %>.config.RabbitMQConfig<%= queueName %>;
+import <%= packageName %>.config.RabbitMQConfig<%= uniqueName %>;
 import <%= packageName %>.domain.RabbitMessageModel;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
@@ -8,11 +8,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Component
-public class RabbitMQConsumer<%= queueName %> {
+public class RabbitMQConsumer<%= uniqueName %> {
 
-    private static final Logger logger = LoggerFactory.getLogger(RabbitMQConsumer<%= queueName %>.class);
+    private static final Logger logger = LoggerFactory.getLogger(RabbitMQConsumer<%= uniqueName %>.class);
 
-    @RabbitListener(queues = RabbitMQConfig<%= queueName %>.QUEUE)
+    @RabbitListener(queues = RabbitMQConfig<%= uniqueName %>.QUEUE)
     public void listener(RabbitMessageModel message) {
         logger.info("Received message: {}", message);
     }

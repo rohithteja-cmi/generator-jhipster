@@ -17,11 +17,18 @@
  * limitations under the License.
  */
 
-const messageBrokerTypes = {
-  KAFKA: 'kafka',
-  RABBITMQ: 'rabbitmq', // cmi-tic-varun
-  PULSAR: 'pulsar',
-  REST_API: 'rest-api',
-  NO: 'no',
-};
-export default messageBrokerTypes;
+import JDLCommunication from '../../models/jdl-communication.js';
+
+export default { convertCommunications };
+
+/**
+ * Converts a parsed JDL content corresponding to deployments to an array of JDLCommunication objects.
+ * @param {Array} parsedCommunications - parsed JDL deployments.
+ * @return the converted JDLCommunication objects.
+ */
+export function convertCommunications(parsedCommunications): JDLCommunication[] {
+  if (!parsedCommunications) {
+    throw new Error('Communications have to be passed so as to be converted.');
+  }
+  return parsedCommunications.map(parsedCommunication => new JDLCommunication(parsedCommunication));
+}
