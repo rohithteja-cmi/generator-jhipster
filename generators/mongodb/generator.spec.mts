@@ -31,7 +31,7 @@ import {
   mockedGenerators as serverGenerators,
   shouldComposeWithKafka,
   shouldComposeWithRabbitMQ, // cmi-tic-varun
-  shouldComposeWithRestAPI
+  shouldComposeWithRestAPI,
   shouldComposeWithLiquibase,
   shouldComposeWithPulsar,
 } from '../server/__test-support/index.mjs';
