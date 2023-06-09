@@ -85,6 +85,13 @@ spec:
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: prod
+      <%_ if (minikube) { _%>
+        - name: MINIKUBE_IP
+          valueFrom:
+            configMapKeyRef:
+              name: minikube-cm
+              key: minikube-ip
+      <%_ } _%>
 <%_ if (app.serviceDiscoveryEureka) { _%>
         - name: SPRING_CLOUD_CONFIG_URI
           value: http://admin:${jhipster.registry.password}@jhipster-registry.<%= kubernetesNamespace %>.svc.cluster.local:8761/config
@@ -231,7 +238,7 @@ spec:
           value: http://keycloak.<%= kubernetesNamespace %>.<%= ingressDomain %>/realms/jhipster
       <%_ } _%>
       <%_ if (minikube) { _%>        
-          value: http://192.168.49.2:30001/realms/jhipster
+          value: http://$(MINIKUBE_IP):30001/realms/jhipster
       <%_ } _%>
       <%_ if (app.applicationTypeGateway || app.applicationTypeMonolith) { _%>
         - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID
@@ -270,7 +277,7 @@ spec:
           value: http://keycloak.<%= kubernetesNamespace %>.<%= ingressDomain %>/realms/jhipster
         <%_ } _%>
         <%_ if (minikube) { _%>
-          value: http://192.168.49.2:30001/realms/jhipster
+          value: http://$(MINIKUBE_IP):30001/realms/jhipster
         <%_ } _%>
         - name: SERVICE_REGISTRY_URL
           value: http://admin:$(JHIPSTER_REGISTRY_PASSWORD)@jhipster-registry.<%= kubernetesNamespace %>.svc.cluster.local:8761/eureka/apps/

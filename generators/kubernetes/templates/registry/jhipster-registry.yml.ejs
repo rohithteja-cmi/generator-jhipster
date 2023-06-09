@@ -101,6 +101,13 @@ spec:
             secretKeyRef:
               name: registry-secret
               key: registry-admin-password
+      <%_ if (minikube) { _%>
+        - name: MINIKUBE_IP
+          valueFrom:
+            configMapKeyRef:
+              name: minikube-cm
+              key: minikube-ip
+      <%_ } _%>
     <%_ if (istio) { _%>
         - name: EUREKA_INSTANCE_PREFER_IP_ADDRESS
           value: "false"
@@ -137,7 +144,7 @@ spec:
           value: http://keycloak.<%= kubernetesNamespace %>.<%= ingressDomain %>/realms/jhipster
         <%_ } _%>
         <%_ if (minikube) { _%>        
-          value: http://192.168.49.2:30001/realms/jhipster
+          value: http://$(MINIKUBE_IP):30001/realms/jhipster
         <%_ } _%>
         # Custom trustStore required when using Let's Encrypt staging
         - name: JAVA_OPTS
