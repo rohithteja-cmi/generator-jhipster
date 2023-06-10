@@ -75,7 +75,10 @@ default() {
     kubectl apply -f storage-class.yml
 <%_ } _%>  <%_ if (istio) { _%>
     kubectl label namespace <%-kubernetesNamespace%> istio-injection=enabled --overwrite=true
-<%_ } _%> 
+<%_ } _%>
+<%_ if (useECK) { _%>
+    kubectl apply -f eck-${suffix}/
+<%_ } _%>
 <%_ if (useKeycloak) { _%>    
     kubectl apply -f keycloak-${suffix}/
     until [ $(curl -LI http://keycloak.<%= kubernetesNamespace %>.<%= ingressDomain %>/realms/master -o /dev/null -w '%{http_code}\n' -s) == 200 ]; do
@@ -102,9 +105,6 @@ default() {
 <%_ } _%>
 <%_ if (istio) { _%>
     kubectl apply -f istio-${suffix}/
-<%_ } _%>
-<%_ if (useECK) { _%>
-    kubectl apply -f eck-${suffix}/
 <%_ } _%>
 }
 
