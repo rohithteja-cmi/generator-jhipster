@@ -19,7 +19,7 @@ public class ServerResource {
 
     @GetMapping("/services/<%= serverName %>")
     public Mono<ResponseEntity<Map<String,String>>> getServer() {
-        log.info("This is Server <%= serverName %>");z
+        log.info("This is Server <%= serverName %>");
         Map<String,String> serverMap = new HashMap<>();
         serverMap.put("server","This is Server <%= serverName %>");
         return Mono.just(ResponseEntity.ok(serverMap));

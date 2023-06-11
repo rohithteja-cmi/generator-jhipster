@@ -73,6 +73,7 @@ describe('jdl - JSONToJDLConverter', () => {
     jhipsterVersion "6.0.1"
     jwtSecretKey "HIDDEN"
     languages []
+    logManagementType no
     messageBroker no
     nativeLanguage en
     packageName com.mycompany.myapp
@@ -86,6 +87,7 @@ describe('jdl - JSONToJDLConverter', () => {
     testFrameworks []
     websocket no
     withAdminUi false
+    withExample false
   }
 }
 
@@ -124,6 +126,7 @@ describe('jdl - JSONToJDLConverter', () => {
     jhipsterVersion "6.0.1"
     jwtSecretKey "HIDDEN"
     languages []
+    logManagementType no
     messageBroker no
     nativeLanguage en
     packageName com.mycompany.myapp
@@ -137,6 +140,7 @@ describe('jdl - JSONToJDLConverter', () => {
     testFrameworks []
     websocket no
     withAdminUi false
+    withExample false
   }
 
   entities Country, Department, Employee, Job, JobHistory, Location, Region, Task
@@ -246,6 +250,7 @@ paginate Country with pager
     jhipsterVersion "6.0.1"
     jwtSecretKey "HIDDEN"
     languages []
+    logManagementType no
     messageBroker no
     nativeLanguage en
     packageName com.mycompany.app1
@@ -259,6 +264,7 @@ paginate Country with pager
     testFrameworks []
     websocket no
     withAdminUi false
+    withExample false
   }
 
   entities Region
@@ -284,6 +290,7 @@ application {
     jhipsterVersion "6.0.1"
     jwtSecretKey "HIDDEN"
     languages []
+    logManagementType no
     messageBroker no
     nativeLanguage en
     packageName com.mycompany.app2
@@ -297,6 +304,7 @@ application {
     testFrameworks []
     websocket no
     withAdminUi false
+    withExample false
   }
 
   entities Country, Location
@@ -322,6 +330,7 @@ application {
     jhipsterVersion "6.0.1"
     jwtSecretKey "HIDDEN"
     languages []
+    logManagementType no
     messageBroker no
     nativeLanguage en
     packageName com.mycompany.app3
@@ -335,6 +344,7 @@ application {
     testFrameworks []
     websocket no
     withAdminUi false
+    withExample false
   }
 }
 

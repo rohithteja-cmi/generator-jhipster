@@ -75,8 +75,8 @@ export const shouldComposeWithRabbitMQ = (sampleConfig, runResultSupplier) => {
 };
 
 export const shouldComposeWithRestAPI = (sampleConfig, runResultSupplier) => {
-  const RabbitMQEnabled = typeof sampleConfig === 'boolean' ? sampleConfig : sampleConfig?.messageBroker === RABBITMQ;
-  if (RabbitMQEnabled) {
+  const RestAPIEnabled = typeof sampleConfig === 'boolean' ? sampleConfig : sampleConfig?.messageBroker === REST_API;
+  if (RestAPIEnabled) {
     it(`should compose with ${REST_API} generator`, () => {
       assert(runResultSupplier().mockedGenerators['jhipster:rest-api'].calledOnce);
     });

@@ -23,7 +23,7 @@ export default class RestAPIGenerator extends BaseApplicationGenerator {
 
   get writing() {
     return this.asWritingTaskGroup({
-      // cleanupRestAPIFilesTask,
+      cleanupRestAPIFilesTask,
       writeRestAPIFilesTask,
     });
   }

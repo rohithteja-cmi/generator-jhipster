@@ -64,7 +64,7 @@ export default async function writeRabbitMQFilesTask({ application }) {
           ),
           {
             packageName: this.jhipsterConfig.packageName,
-            queueName: queueName,
+            queueName,
             uniqueName: queueName,
             serverName: communications[i].server,
           }
@@ -73,7 +73,7 @@ export default async function writeRabbitMQFilesTask({ application }) {
     }
 
     for (let i = 0; i < communications.length; i++) {
-      if (this.jhipsterConfig.baseName === communications[i].server || communications.length === 0) {
+      if (this.jhipsterConfig.baseName === communications[i].server) {
         const capitalizeServerName = communications[i].server.charAt(0).toUpperCase() + communications[i].server.slice(1);
         const capitalizeClientName = communications[i].client.charAt(0).toUpperCase() + communications[i].client.slice(1);
         const queueName = capitalizeServerName.concat('To').concat(capitalizeClientName);
@@ -86,7 +86,7 @@ export default async function writeRabbitMQFilesTask({ application }) {
           ),
           {
             packageName: this.jhipsterConfig.packageName,
-            queueName: queueName,
+            queueName,
             uniqueName: queueName,
             baseName: this.jhipsterConfig.baseName,
             serverName: communications[i].server,
@@ -117,7 +117,7 @@ export default async function writeRabbitMQFilesTask({ application }) {
           ),
           {
             packageName: this.jhipsterConfig.packageName,
-            queueName: queueName,
+            queueName,
             uniqueName: queueName,
             serverName: communications[i].server,
           }

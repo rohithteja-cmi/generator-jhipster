@@ -143,6 +143,7 @@ describe('jdl - JHipsterDeploymentExporter', () => {
   "kubernetesNamespace": "default",
   "kubernetesServiceType": "LoadBalancer",
   "kubernetesStorageClassName": "",
+  "kubernetesStorageProvisioner": "",
   "kubernetesUseDynamicStorage": false,
   "monitoring": "no",
   "serviceDiscoveryType": "consul",

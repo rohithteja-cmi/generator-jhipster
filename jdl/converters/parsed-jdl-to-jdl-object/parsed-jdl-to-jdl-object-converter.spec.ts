@@ -610,6 +610,11 @@ JDLApplication {
         "name": "languages",
         "value": Set {},
       },
+      "logManagementType": StringJDLApplicationConfigurationOption {
+        "name": "logManagementType",
+        "quoted": false,
+        "value": "no",
+      },
       "messageBroker": StringJDLApplicationConfigurationOption {
         "name": "messageBroker",
         "quoted": false,
@@ -669,6 +674,10 @@ JDLApplication {
       "withAdminUi": BooleanJDLApplicationConfigurationOption {
         "name": "withAdminUi",
         "value": true,
+      },
+      "withExample": BooleanJDLApplicationConfigurationOption {
+        "name": "withExample",
+        "value": false,
       },
     },
   },
