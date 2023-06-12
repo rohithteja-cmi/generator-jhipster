@@ -25,18 +25,18 @@ export const rabbitFiles = {
       templates: ['domain/RabbitMessageModel.java'],
     },
   ],
-  listener: [
+  consumer: [
     {
       path: `${SERVER_MAIN_SRC_DIR}package/`,
       renameTo: moveToJavaPackageSrcDir,
-      templates: ['listener/RabbitMQConsumer.java'],
+      templates: ['config/rabbitMQ/RabbitMQConsumer.java'],
     },
   ],
-  publisher: [
+  producer: [
     {
       path: `${SERVER_MAIN_SRC_DIR}package/`,
       renameTo: moveToJavaPackageSrcDir,
-      templates: ['publisher/RabbitMQPublisher.java'],
+      templates: ['config/rabbitMQ/RabbitMQProducer.java'],
     },
   ],
 };
@@ -56,11 +56,11 @@ export default async function writeRabbitMQFilesTask({ application }) {
         const capitalizeClientName = communications[i].client.charAt(0).toUpperCase() + communications[i].client.slice(1);
         const queueName = capitalizeServerName.concat('To').concat(capitalizeClientName);
         this.fs.copyTpl(
-          this.templatePath('src/main/java/package/listener/RabbitMQConsumer.java.ejs'),
+          this.templatePath('src/main/java/package/consumer/RabbitMQConsumer.java.ejs'),
           this.destinationPath(
             `${SERVER_MAIN_SRC_DIR}`
               .concat(this.jhipsterConfig.packageFolder)
-              .concat('/listener/RabbitMQConsumer'.concat(queueName).concat('.java'))
+              .concat('/config/rabbitMQ/RabbitMQConsumer'.concat(queueName).concat('.java'))
           ),
           {
             packageName: this.jhipsterConfig.packageName,
@@ -78,11 +78,11 @@ export default async function writeRabbitMQFilesTask({ application }) {
         const capitalizeClientName = communications[i].client.charAt(0).toUpperCase() + communications[i].client.slice(1);
         const queueName = capitalizeServerName.concat('To').concat(capitalizeClientName);
         this.fs.copyTpl(
-          this.templatePath('src/main/java/package/publisher/RabbitMQPublisher.java.ejs'),
+          this.templatePath('src/main/java/package/producer/RabbitMQProducer.java.ejs'),
           this.destinationPath(
             `${SERVER_MAIN_SRC_DIR}`
               .concat(this.jhipsterConfig.packageFolder)
-              .concat('/publisher/RabbitMQPublisher'.concat(queueName).concat('.java'))
+              .concat('/config/rabbitMQ/RabbitMQProducer'.concat(queueName).concat('.java'))
           ),
           {
             packageName: this.jhipsterConfig.packageName,

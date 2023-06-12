@@ -229,6 +229,7 @@ export default class DockerGenerator extends BaseApplicationGenerator {
         if (this.hasServicesFile) {
           scriptsStorage.set({
             'services:up': `docker compose -f ${application.dockerServicesDir}services.yml up --wait`,
+            'services:down': `docker compose -f ${application.dockerServicesDir}services.yml down -v`,
             'ci:e2e:teardown:docker': `docker compose -f ${application.dockerServicesDir}services.yml down -v && docker ps -a`,
           });
         }
