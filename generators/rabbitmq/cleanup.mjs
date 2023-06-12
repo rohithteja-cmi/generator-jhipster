@@ -19,7 +19,7 @@ import { communications } from '../server/server-base.mjs';
  * @param {CleanupTaskParam} - args
  */
 export default function cleanupRabbitMQFilesTask({ application }) {
-  if (this.isJhipsterVersionLessThan('7.0.0') && communications.length === 0) {
+  if (communications.length === 0) {
     this.removeFile(`${application.javaPackageSrcDir}config/RabbitMQConfig.java`);
     this.removeFile(`${application.javaPackageSrcDir}domain/RabbitMessageModel.java`);
     this.removeFile(`${application.javaPackageSrcDir}config/rabbitMQ/RabbitMQConsumer.java`);
