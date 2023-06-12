@@ -1383,7 +1383,6 @@ exports[`jdl - JDLImporter import when parsing deployment config should export t
       "kubernetesNamespace": "default",
       "kubernetesServiceType": "LoadBalancer",
       "kubernetesStorageClassName": "KubernetesStorageClassName",
-      "kubernetesStorageProvisioner": "",
       "kubernetesUseDynamicStorage": false,
       "monitoring": "no",
       "serviceDiscoveryType": "consul",

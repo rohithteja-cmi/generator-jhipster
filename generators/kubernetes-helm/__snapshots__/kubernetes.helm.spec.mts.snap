@@ -331,24 +331,12 @@ spec:
               value: " -Xmx256m -Xms256m"
             - name: SERVER_SHUTDOWN
               value: graceful
-            ## GO ##
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: samplekafka-postgresql
-                  key: postgresql-password
-            - name: DB_URL
-              value: postgresql://samplekafka:$(DB_PASSWORD)@samplekafka-postgresql.default.svc.cluster.local:5432/samplekafka
-            - name: KEYCLOAK_URL
-              value: http://keycloak.default./realms/jhipster
-            - name: SERVICE_REGISTRY_URL
-              value: http://admin:$(JHIPSTER_REGISTRY_PASSWORD)@jhipster-registry.default.svc.cluster.local:8761/eureka/apps/
           resources:
             requests:
-              memory: "1Gi"
+              memory: "512Mi"
               cpu: "500m"
             limits:
-              memory: "2Gi"
+              memory: "1Gi"
               cpu: "1"
           ports:
             - name: http
@@ -985,24 +973,12 @@ spec:
               value: " -Xmx256m -Xms256m"
             - name: SERVER_SHUTDOWN
               value: graceful
-            ## GO ##
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: msmysql-postgresql
-                  key: postgresql-password
-            - name: DB_URL
-              value: postgresql://msmysql:$(DB_PASSWORD)@msmysql-postgresql.default.svc.cluster.local:5432/msmysql
-            - name: KEYCLOAK_URL
-              value: http://keycloak.default./realms/jhipster
-            - name: SERVICE_REGISTRY_URL
-              value: http://admin:$(JHIPSTER_REGISTRY_PASSWORD)@jhipster-registry.default.svc.cluster.local:8761/eureka/apps/
           resources:
             requests:
-              memory: "1Gi"
+              memory: "512Mi"
               cpu: "500m"
             limits:
-              memory: "2Gi"
+              memory: "1Gi"
               cpu: "1"
           ports:
             - name: http
@@ -1176,24 +1152,12 @@ spec:
               value: " -Xmx256m -Xms256m"
             - name: SERVER_SHUTDOWN
               value: graceful
-            ## GO ##
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mspsql-postgresql
-                  key: postgresql-password
-            - name: DB_URL
-              value: postgresql://mspsql:$(DB_PASSWORD)@mspsql-postgresql.default.svc.cluster.local:5432/mspsql
-            - name: KEYCLOAK_URL
-              value: http://keycloak.default./realms/jhipster
-            - name: SERVICE_REGISTRY_URL
-              value: http://admin:$(JHIPSTER_REGISTRY_PASSWORD)@jhipster-registry.default.svc.cluster.local:8761/eureka/apps/
           resources:
             requests:
-              memory: "1Gi"
+              memory: "512Mi"
               cpu: "500m"
             limits:
-              memory: "2Gi"
+              memory: "1Gi"
               cpu: "1"
           ports:
             - name: http
@@ -1885,24 +1849,12 @@ spec:
               value: " -Xmx256m -Xms256m"
             - name: SERVER_SHUTDOWN
               value: graceful
-            ## GO ##
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: jhgate-postgresql
-                  key: postgresql-password
-            - name: DB_URL
-              value: postgresql://jhgate:$(DB_PASSWORD)@jhgate-postgresql.default.svc.cluster.local:5432/jhgate
-            - name: KEYCLOAK_URL
-              value: http://keycloak.default.example.com/realms/jhipster
-            - name: SERVICE_REGISTRY_URL
-              value: http://admin:$(JHIPSTER_REGISTRY_PASSWORD)@jhipster-registry.default.svc.cluster.local:8761/eureka/apps/
           resources:
             requests:
-              memory: "1Gi"
+              memory: "512Mi"
               cpu: "500m"
             limits:
-              memory: "2Gi"
+              memory: "1Gi"
               cpu: "1"
           ports:
             - name: http
@@ -1939,7 +1891,7 @@ spec:
               service:
                 name: jhgate
                 port:
-                  number: 8080
+                  name: http
 ",
     "stateCleared": "modified",
   },
@@ -2561,24 +2513,12 @@ spec:
               value: " -Xmx256m -Xms256m"
             - name: SERVER_SHUTDOWN
               value: graceful
-            ## GO ##
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: jhgate-postgresql
-                  key: postgresql-password
-            - name: DB_URL
-              value: postgresql://jhgate:$(DB_PASSWORD)@jhgate-postgresql.default.svc.cluster.local:5432/jhgate
-            - name: KEYCLOAK_URL
-              value: http://keycloak.default./realms/jhipster
-            - name: SERVICE_REGISTRY_URL
-              value: http://admin:$(JHIPSTER_REGISTRY_PASSWORD)@jhipster-registry.default.svc.cluster.local:8761/eureka/apps/
           resources:
             requests:
-              memory: "1Gi"
+              memory: "512Mi"
               cpu: "500m"
             limits:
-              memory: "2Gi"
+              memory: "1Gi"
               cpu: "1"
           ports:
             - name: http
@@ -2744,24 +2684,12 @@ spec:
               value: " -Xmx256m -Xms256m"
             - name: SERVER_SHUTDOWN
               value: graceful
-            ## GO ##
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: msmysql-postgresql
-                  key: postgresql-password
-            - name: DB_URL
-              value: postgresql://msmysql:$(DB_PASSWORD)@msmysql-postgresql.default.svc.cluster.local:5432/msmysql
-            - name: KEYCLOAK_URL
-              value: http://keycloak.default./realms/jhipster
-            - name: SERVICE_REGISTRY_URL
-              value: http://admin:$(JHIPSTER_REGISTRY_PASSWORD)@jhipster-registry.default.svc.cluster.local:8761/eureka/apps/
           resources:
             requests:
-              memory: "1Gi"
+              memory: "512Mi"
               cpu: "500m"
             limits:
-              memory: "2Gi"
+              memory: "1Gi"
               cpu: "1"
           ports:
             - name: http
@@ -3529,24 +3457,12 @@ spec:
               value: " -Xmx256m -Xms256m"
             - name: SERVER_SHUTDOWN
               value: graceful
-            ## GO ##
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: jhgate-postgresql
-                  key: postgresql-password
-            - name: DB_URL
-              value: postgresql://jhgate:$(DB_PASSWORD)@jhgate-postgresql.default.svc.cluster.local:5432/jhgate
-            - name: KEYCLOAK_URL
-              value: http://keycloak.default.example.com/realms/jhipster
-            - name: SERVICE_REGISTRY_URL
-              value: http://admin:$(JHIPSTER_REGISTRY_PASSWORD)@jhipster-registry.default.svc.cluster.local:8761/eureka/apps/
           resources:
             requests:
-              memory: "1Gi"
+              memory: "512Mi"
               cpu: "500m"
             limits:
-              memory: "2Gi"
+              memory: "1Gi"
               cpu: "1"
           ports:
             - name: http
@@ -4337,24 +4253,12 @@ spec:
               value: " -Xmx256m -Xms256m"
             - name: SERVER_SHUTDOWN
               value: graceful
-            ## GO ##
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: jhgate-postgresql
-                  key: postgresql-password
-            - name: DB_URL
-              value: postgresql://jhgate:$(DB_PASSWORD)@jhgate-postgresql.default.svc.cluster.local:5432/jhgate
-            - name: KEYCLOAK_URL
-              value: http://keycloak.default./realms/jhipster
-            - name: SERVICE_REGISTRY_URL
-              value: http://admin:$(JHIPSTER_REGISTRY_PASSWORD)@jhipster-registry.default.svc.cluster.local:8761/eureka/apps/
           resources:
             requests:
-              memory: "1Gi"
+              memory: "512Mi"
               cpu: "500m"
             limits:
-              memory: "2Gi"
+              memory: "1Gi"
               cpu: "1"
           ports:
             - name: http
@@ -4525,24 +4429,12 @@ spec:
               value: " -Xmx256m -Xms256m"
             - name: SERVER_SHUTDOWN
               value: graceful
-            ## GO ##
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: msmariadb-postgresql
-                  key: postgresql-password
-            - name: DB_URL
-              value: postgresql://msmariadb:$(DB_PASSWORD)@msmariadb-postgresql.default.svc.cluster.local:5432/msmariadb
-            - name: KEYCLOAK_URL
-              value: http://keycloak.default./realms/jhipster
-            - name: SERVICE_REGISTRY_URL
-              value: http://admin:$(JHIPSTER_REGISTRY_PASSWORD)@jhipster-registry.default.svc.cluster.local:8761/eureka/apps/
           resources:
             requests:
-              memory: "1Gi"
+              memory: "512Mi"
               cpu: "500m"
             limits:
-              memory: "2Gi"
+              memory: "1Gi"
               cpu: "1"
           ports:
             - name: http
@@ -4706,24 +4598,12 @@ spec:
               value: " -Xmx256m -Xms256m"
             - name: SERVER_SHUTDOWN
               value: graceful
-            ## GO ##
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: msmongodb-postgresql
-                  key: postgresql-password
-            - name: DB_URL
-              value: postgresql://msmongodb:$(DB_PASSWORD)@msmongodb-postgresql.default.svc.cluster.local:5432/msmongodb
-            - name: KEYCLOAK_URL
-              value: http://keycloak.default./realms/jhipster
-            - name: SERVICE_REGISTRY_URL
-              value: http://admin:$(JHIPSTER_REGISTRY_PASSWORD)@jhipster-registry.default.svc.cluster.local:8761/eureka/apps/
           resources:
             requests:
-              memory: "1Gi"
+              memory: "512Mi"
               cpu: "500m"
             limits:
-              memory: "2Gi"
+              memory: "1Gi"
               cpu: "1"
           ports:
             - name: http
@@ -4885,24 +4765,12 @@ spec:
               value: " -Xmx256m -Xms256m"
             - name: SERVER_SHUTDOWN
               value: graceful
-            ## GO ##
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: msmysql-postgresql
-                  key: postgresql-password
-            - name: DB_URL
-              value: postgresql://msmysql:$(DB_PASSWORD)@msmysql-postgresql.default.svc.cluster.local:5432/msmysql
-            - name: KEYCLOAK_URL
-              value: http://keycloak.default./realms/jhipster
-            - name: SERVICE_REGISTRY_URL
-              value: http://admin:$(JHIPSTER_REGISTRY_PASSWORD)@jhipster-registry.default.svc.cluster.local:8761/eureka/apps/
           resources:
             requests:
-              memory: "1Gi"
+              memory: "512Mi"
               cpu: "500m"
             limits:
-              memory: "2Gi"
+              memory: "1Gi"
               cpu: "1"
           ports:
             - name: http
@@ -5076,24 +4944,12 @@ spec:
               value: " -Xmx256m -Xms256m"
             - name: SERVER_SHUTDOWN
               value: graceful
-            ## GO ##
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mspsql-postgresql
-                  key: postgresql-password
-            - name: DB_URL
-              value: postgresql://mspsql:$(DB_PASSWORD)@mspsql-postgresql.default.svc.cluster.local:5432/mspsql
-            - name: KEYCLOAK_URL
-              value: http://keycloak.default./realms/jhipster
-            - name: SERVICE_REGISTRY_URL
-              value: http://admin:$(JHIPSTER_REGISTRY_PASSWORD)@jhipster-registry.default.svc.cluster.local:8761/eureka/apps/
           resources:
             requests:
-              memory: "1Gi"
+              memory: "512Mi"
               cpu: "500m"
             limits:
-              memory: "2Gi"
+              memory: "1Gi"
               cpu: "1"
           ports:
             - name: http
@@ -5457,24 +5313,12 @@ spec:
               value: " -Xmx256m -Xms256m"
             - name: SERVER_SHUTDOWN
               value: graceful
-            ## GO ##
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: samplemysql-postgresql
-                  key: postgresql-password
-            - name: DB_URL
-              value: postgresql://samplemysql:$(DB_PASSWORD)@samplemysql-postgresql.default.svc.cluster.local:5432/samplemysql
-            - name: KEYCLOAK_URL
-              value: http://keycloak.default./realms/jhipster
-            - name: SERVICE_REGISTRY_URL
-              value: http://admin:$(JHIPSTER_REGISTRY_PASSWORD)@jhipster-registry.default.svc.cluster.local:8761/eureka/apps/
           resources:
             requests:
-              memory: "1Gi"
+              memory: "512Mi"
               cpu: "500m"
             limits:
-              memory: "2Gi"
+              memory: "1Gi"
               cpu: "1"
           ports:
             - name: http
@@ -8516,24 +8360,12 @@ spec:
               value: " -Xmx256m -Xms256m"
             - name: SERVER_SHUTDOWN
               value: graceful
-            ## GO ##
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: msmysql-postgresql
-                  key: postgresql-password
-            - name: DB_URL
-              value: postgresql://msmysql:$(DB_PASSWORD)@msmysql-postgresql.mynamespace.svc.cluster.local:5432/msmysql
-            - name: KEYCLOAK_URL
-              value: http://keycloak.mynamespace./realms/jhipster
-            - name: SERVICE_REGISTRY_URL
-              value: http://admin:$(JHIPSTER_REGISTRY_PASSWORD)@jhipster-registry.mynamespace.svc.cluster.local:8761/eureka/apps/
           resources:
             requests:
-              memory: "1Gi"
+              memory: "512Mi"
               cpu: "500m"
             limits:
-              memory: "2Gi"
+              memory: "1Gi"
               cpu: "1"
           ports:
             - name: http
@@ -9162,24 +8994,12 @@ spec:
               value: " -Xmx256m -Xms256m"
             - name: SERVER_SHUTDOWN
               value: graceful
-            ## GO ##
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: msmysql-postgresql
-                  key: postgresql-password
-            - name: DB_URL
-              value: postgresql://msmysql:$(DB_PASSWORD)@msmysql-postgresql.mynamespace.svc.cluster.local:5432/msmysql
-            - name: KEYCLOAK_URL
-              value: http://keycloak.mynamespace./realms/jhipster
-            - name: SERVICE_REGISTRY_URL
-              value: http://admin:$(JHIPSTER_REGISTRY_PASSWORD)@jhipster-registry.mynamespace.svc.cluster.local:8761/eureka/apps/
           resources:
             requests:
-              memory: "1Gi"
+              memory: "512Mi"
               cpu: "500m"
             limits:
-              memory: "2Gi"
+              memory: "1Gi"
               cpu: "1"
           ports:
             - name: http
@@ -9810,24 +9630,12 @@ spec:
               value: " -Xmx256m -Xms256m"
             - name: SERVER_SHUTDOWN
               value: graceful
-            ## GO ##
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: jhgate-postgresql
-                  key: postgresql-password
-            - name: DB_URL
-              value: postgresql://jhgate:$(DB_PASSWORD)@jhgate-postgresql.jhipsternamespace.svc.cluster.local:5432/jhgate
-            - name: KEYCLOAK_URL
-              value: http://keycloak.jhipsternamespace./realms/jhipster
-            - name: SERVICE_REGISTRY_URL
-              value: http://admin:$(JHIPSTER_REGISTRY_PASSWORD)@jhipster-registry.jhipsternamespace.svc.cluster.local:8761/eureka/apps/
           resources:
             requests:
-              memory: "1Gi"
+              memory: "512Mi"
               cpu: "500m"
             limits:
-              memory: "2Gi"
+              memory: "1Gi"
               cpu: "1"
           ports:
             - name: http

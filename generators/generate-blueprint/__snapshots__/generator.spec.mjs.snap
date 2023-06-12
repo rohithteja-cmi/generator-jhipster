@@ -629,18 +629,6 @@ exports[`generator - generate-blueprint with all option should match snapshot 1`
   "generators/pulsar/templates/template-file-pulsar.ejs": {
     "stateCleared": "modified",
   },
-  "generators/rabbitmq/generator.mjs": {
-    "stateCleared": "modified",
-  },
-  "generators/rabbitmq/generator.spec.mjs": {
-    "stateCleared": "modified",
-  },
-  "generators/rabbitmq/index.mjs": {
-    "stateCleared": "modified",
-  },
-  "generators/rabbitmq/templates/template-file-rabbitmq.ejs": {
-    "stateCleared": "modified",
-  },
   "generators/react/generator.mjs": {
     "stateCleared": "modified",
   },
@@ -651,18 +639,6 @@ exports[`generator - generate-blueprint with all option should match snapshot 1`
     "stateCleared": "modified",
   },
   "generators/react/templates/template-file-react.ejs": {
-    "stateCleared": "modified",
-  },
-  "generators/rest-api/generator.mjs": {
-    "stateCleared": "modified",
-  },
-  "generators/rest-api/generator.spec.mjs": {
-    "stateCleared": "modified",
-  },
-  "generators/rest-api/index.mjs": {
-    "stateCleared": "modified",
-  },
-  "generators/rest-api/templates/template-file-rest-api.ejs": {
     "stateCleared": "modified",
   },
   "generators/server/generator.mjs": {

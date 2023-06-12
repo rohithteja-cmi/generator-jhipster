@@ -22,7 +22,6 @@ exports[`generator - export-jdl exports entities to a JDL file with file argumen
     jhiPrefix jhi
     jhipsterVersion "3.7.1"
     languages [en]
-    logManagementType no
     messageBroker no
     nativeLanguage en
     packageName com.mycompany.myapp
@@ -38,7 +37,6 @@ exports[`generator - export-jdl exports entities to a JDL file with file argumen
     testFrameworks []
     websocket no
     withAdminUi true
-    withExample false
   }
 
   entities Country, Department, Employee, Job, JobHistory, Region, Task
@@ -151,7 +149,6 @@ exports[`generator - export-jdl exports entities to a JDL file without argument 
     jhiPrefix jhi
     jhipsterVersion "3.7.1"
     languages [en]
-    logManagementType no
     messageBroker no
     nativeLanguage en
     packageName com.mycompany.myapp
@@ -167,7 +164,6 @@ exports[`generator - export-jdl exports entities to a JDL file without argument 
     testFrameworks []
     websocket no
     withAdminUi true
-    withExample false
   }
 
   entities Country, Department, Employee, Job, JobHistory, Region, Task

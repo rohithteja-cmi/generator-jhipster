@@ -151,7 +151,6 @@ jhipster:
       - TYPE=MASTER
       - BUCKET=mscouchbase
   
-<!-- Condition to generate container for rabbitmq -- cmi-tic-varun -->
   consul:
     image: consul-placeholder
     ports:
@@ -327,7 +326,6 @@ jhipster:
       timeout: 25s
       retries: 10
   
-<!-- Condition to generate container for rabbitmq -- cmi-tic-varun -->
   consul:
     image: consul-placeholder
     ports:
@@ -642,7 +640,6 @@ jhipster:
       timeout: 5s
       retries: 10
   
-<!-- Condition to generate container for rabbitmq -- cmi-tic-varun -->
   consul:
     image: consul-placeholder
     ports:
@@ -985,7 +982,6 @@ jhipster:
       timeout: 5s
       retries: 10
   
-<!-- Condition to generate container for rabbitmq -- cmi-tic-varun -->
   consul:
     image: consul-placeholder
     ports:
@@ -1280,7 +1276,6 @@ jhipster:
     image: mongodb-placeholder
     command: mongos --configdb csvr/msmongodb-mongodb-config --bind_ip 0.0.0.0
   
-<!-- Condition to generate container for rabbitmq -- cmi-tic-varun -->
   consul:
     image: consul-placeholder
     ports:
@@ -1597,7 +1592,6 @@ jhipster:
       timeout: 5s
       retries: 10
   
-<!-- Condition to generate container for rabbitmq -- cmi-tic-varun -->
   consul:
     image: consul-placeholder
     ports:
@@ -1768,7 +1762,6 @@ jhipster:
       timeout: 5s
       retries: 10
   
-<!-- Condition to generate container for rabbitmq -- cmi-tic-varun -->
   consul:
     image: consul-placeholder
     ports:
@@ -1939,7 +1932,6 @@ jhipster:
       timeout: 5s
       retries: 10
   
-<!-- Condition to generate container for rabbitmq -- cmi-tic-varun -->
   consul:
     image: consul-placeholder
     ports:
@@ -2135,7 +2127,6 @@ management:
       timeout: 5s
       retries: 10
   
-<!-- Condition to generate container for rabbitmq -- cmi-tic-varun -->
   consul:
     image: consul-placeholder
     ports:
@@ -2395,7 +2386,6 @@ jhipster:
       timeout: 5s
       retries: 10
   
-<!-- Condition to generate container for rabbitmq -- cmi-tic-varun -->
   consul:
     image: consul-placeholder
     ports:
@@ -2520,7 +2510,6 @@ Launch all your infrastructure by running: \`docker compose up -d\`.
       timeout: 10s
       retries: 10
   
-<!-- Condition to generate container for rabbitmq -- cmi-tic-varun -->
 ",
     "stateCleared": "modified",
   },
@@ -2630,7 +2619,6 @@ jhipster:
       timeout: 5s
       retries: 10
   
-<!-- Condition to generate container for rabbitmq -- cmi-tic-varun -->
   consul:
     image: consul-placeholder
     ports:
@@ -2757,7 +2745,6 @@ jhipster:
       timeout: 5s
       retries: 10
   
-<!-- Condition to generate container for rabbitmq -- cmi-tic-varun -->
   consul:
     image: consul-placeholder
     ports:
@@ -2882,7 +2869,6 @@ jhipster:
       timeout: 5s
       retries: 10
   
-<!-- Condition to generate container for rabbitmq -- cmi-tic-varun -->
   consul:
     image: consul-placeholder
     ports:
@@ -2968,7 +2954,6 @@ Launch all your infrastructure by running: \`docker compose up -d\`.
       timeout: 5s
       retries: 40
   
-<!-- Condition to generate container for rabbitmq -- cmi-tic-varun -->
 ",
     "stateCleared": "modified",
   },
