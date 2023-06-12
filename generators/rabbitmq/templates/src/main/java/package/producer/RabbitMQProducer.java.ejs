@@ -1,4 +1,4 @@
-package <%= packageName %>.config.rabbitMQ.publisher;
+package <%= packageName %>.config.rabbitMQ;
 
 import <%= packageName %>.config.RabbitMQConfig<%= uniqueName %>;
 import <%= packageName %>.domain.RabbitMessageModel;
@@ -13,9 +13,9 @@ import org.slf4j.LoggerFactory;
 import java.util.Date;
 
 @Component
-public class RabbitMQPublisher<%= uniqueName %> {
+public class RabbitMQProducer<%= uniqueName %> {
 
-    private static final Logger logger = LoggerFactory.getLogger(RabbitMQPublisher<%= uniqueName %>.class);
+    private static final Logger logger = LoggerFactory.getLogger(RabbitMQProducer<%= uniqueName %>.class);
 
     @Autowired
     private RabbitTemplate template;

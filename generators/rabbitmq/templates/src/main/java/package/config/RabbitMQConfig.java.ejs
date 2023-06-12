@@ -22,15 +22,15 @@ public class RabbitMQConfig<%= uniqueName %> {
     }
 
     @Bean
-    public TopicExchange exchange() {
+    public TopicExchange exchange<%= uniqueName %>() {
         return new TopicExchange(EXCHANGE);
     }
 
     @Bean
-    public Binding binding(Queue queue, TopicExchange exchange) {
+    public Binding binding<%= uniqueName %>() {
         return BindingBuilder
-            .bind(queue)
-            .to(exchange)
+            .bind(this.queue<%= uniqueName %>())
+            .to(this.exchange<%= uniqueName %>())
             .with(ROUTING_KEY);
     }
 

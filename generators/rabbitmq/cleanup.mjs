@@ -23,7 +23,7 @@ export default function cleanupRabbitMQFilesTask({ application }) {
     this.removeFile(`${application.javaPackageSrcDir}config/RabbitMQConfig.java`);
     this.removeFile(`${application.javaPackageSrcDir}domain/RabbitMessageModel.java`);
     this.removeFile(`${application.javaPackageSrcDir}config/rabbitMQ/RabbitMQConsumer.java`);
-    this.removeFile(`${application.javaPackageSrcDir}config/rabbitMQ/RabbitMQPublisher.java`);
+    this.removeFile(`${application.javaPackageSrcDir}config/rabbitMQ/RabbitMQProducer.java`);
   }
   if (communications.length >= 0) {
     for (let i = 0; i < communications.length; i++) {
@@ -47,7 +47,7 @@ export default function cleanupRabbitMQFilesTask({ application }) {
         this.removeFile(
           `${SERVER_MAIN_SRC_DIR}`
             .concat(this.jhipsterConfig.packageFolder)
-            .concat('/config/rabbitMQ/RabbitMQPublisher'.concat(queueName).concat('.java'))
+            .concat('/config/rabbitMQ/RabbitMQProducer'.concat(queueName).concat('.java'))
         );
       }
     }
