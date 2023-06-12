@@ -17,7 +17,7 @@ public class RabbitMQConfig<%= uniqueName %> {
     public static final String ROUTING_KEY = "<%= queueName %>_message_routingKey";
 
     @Bean
-    public Queue queue() {
+    public Queue queue<%= uniqueName %>() {
         return new Queue(QUEUE);
     }
 
