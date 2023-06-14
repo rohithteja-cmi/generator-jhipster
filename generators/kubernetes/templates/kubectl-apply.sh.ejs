@@ -71,6 +71,9 @@ default() {
 <%_ if (!kubernetesNamespaceDefault) { _%>
     kubectl apply -f namespace.yml
 <%_ } _%> 
+<%_ if (minikube) { _%>
+    kubectl create configmap minikube-cm  --from-literal=minikube-ip=$(kubectl get node -o jsonpath='{.items[0].status.addresses[?(@.type=="InternalIP")].address}') -n <%-kubernetesNamespace%>
+<%_ } _%>
 <%_ if (kubernetesStorageClassName !== '') { _%>
     kubectl apply -f storage-class.yml
 <%_ } _%>  <%_ if (istio) { _%>
