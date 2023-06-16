@@ -43,7 +43,6 @@ export function writeFiles() {
   const suffix = 'k8s';
   return {
     writeDeployments() {
-      this.logger.info("minikube: " + this.minikube);
       for (let i = 0; i < this.appConfigs.length; i++) {
         const appName = this.appConfigs[i].baseName.toLowerCase();
         const appOut = appName.concat('-', suffix);

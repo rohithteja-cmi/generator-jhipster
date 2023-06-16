@@ -28,11 +28,8 @@ spec:
   resources:
     requests:
       storage: 2Gi
-  <%_ if (kubernetesStorageClassName && !minikube) { _%>
-  storageClassName: <%= kubernetesStorageClassName %>
-  <%_ } _%>
-  <%_ if (kubernetesStorageClassName && minikube) { _%>
-  storageClassName: standard
+  <%_ if (kubernetesStorageClassName) { _%>
+  storageClassName: !minkuibe ? <%= kubernetesStorageClassName %> : standard
   <%_ } _%>
 ---
 <%_ } _%>
