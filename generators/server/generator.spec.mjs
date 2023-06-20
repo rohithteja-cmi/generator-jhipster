@@ -162,22 +162,6 @@ describe(`generator - ${generator}`, () => {
         shouldComposeWithKafka(false, () => runResult);
         shouldComposeWithRestAPI(false, () => runResult);
       });
-      describe('rest-api', () => {
-        let runResult;
-        before(async () => {
-          runResult = await helpers
-            .run(generatorPath)
-            .withJHipsterConfig({
-              messageBroker: 'rest-api',
-            })
-            .withSkipWritingPriorities()
-            .withMockedGenerators(mockedGenerators);
-        });
-        shouldComposeWithRestAPI(true, () => runResult);
-        shouldComposeWithPulsar(false, () => runResult);
-        shouldComposeWithKafka(false, () => runResult);
-        shouldComposeWithRabbitMQ(false, () => runResult); // cmi-tic-varun
-      });
     });
 
     describe('databaseType option', () => {

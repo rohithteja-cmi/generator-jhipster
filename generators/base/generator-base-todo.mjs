@@ -1245,7 +1245,6 @@ templates: ${JSON.stringify(existingTemplates, null, 2)}`;
     }
     dest.messageBrokerKafka = dest.messageBroker === MESSAGE_BROKER_KAFKA;
     dest.messageBrokerRabbitMQ = dest.messageBroker === MESSAGE_BROKER_RABBITMQ;
-    dest.messageBrokerRestAPI = dest.messageBroker === MESSAGE_BROKER_REST_API;
     dest.messageBrokerPulsar = dest.messageBroker === MESSAGE_BROKER_PULSAR;
     dest.messageBrokerAny = dest.messageBroker && dest.messageBroker !== MESSAGE_BROKER_NO;
 

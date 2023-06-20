@@ -61,7 +61,7 @@ const { SPRING_WEBSOCKET } = websocketTypes;
 
 const NO_WEBSOCKET = websocketTypes.NO;
 
-const { KAFKA, RABBITMQ, PULSAR, REST_API } = messageBrokerTypes;
+const { KAFKA, RABBITMQ, PULSAR } = messageBrokerTypes;
 const NO_MESSAGE_BROKER = messageBrokerTypes.NO;
 
 const ApplicationOptionTypes: Record<string, JDLApplicationOptionTypeValue> = {
@@ -205,7 +205,6 @@ export const jhipsterOptionValues: Record<string, JDLApplicationOptionValue> = {
   [optionNames.MESSAGE_BROKER]: {
     [KAFKA]: KAFKA,
     [RABBITMQ]: RABBITMQ,
-    [REST_API]: REST_API,
     [PULSAR]: PULSAR,
     [NO_MESSAGE_BROKER]: NO_MESSAGE_BROKER,
   },
