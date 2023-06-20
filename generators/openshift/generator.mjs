@@ -149,7 +149,7 @@ export default class OpenshiftGenerator extends BaseDockerGenerator {
             this.useKafka = true;
             return true;
           }
-          if (element.messageBroker === RABBITMQ) {
+          if (element.messageBroker === RABBITMQ || element.communicationsFrameworkRabbitMQ) {
             this.useRabbitMQ = true;
             return true;
           }

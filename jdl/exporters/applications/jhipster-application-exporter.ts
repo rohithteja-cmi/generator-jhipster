@@ -58,12 +58,12 @@ function writeApplicationFileForMultipleApplications(application, content) {
     );
   }
   createFolderIfItDoesNotExist(applicationBaseName);
-  const messageBroker = writeCommunicationFileForMultipleApplications(
+  const communicationsList = writeCommunicationFileForMultipleApplications(
     content,
     applicationBaseName,
     path.join(applicationBaseName, 'comm.yo-rc.json')
   );
-  application[GENERATOR_NAME].messageBroker = messageBroker || application[GENERATOR_NAME].messageBroker;
+  application[GENERATOR_NAME].communicationsList = communicationsList;
   writeConfigFile(application, path.join(applicationBaseName, '.yo-rc.json'));
 
   // This method write's communication File in each dir  @cmi-tic-craxkumar

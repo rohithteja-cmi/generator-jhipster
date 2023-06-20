@@ -54,6 +54,7 @@ import {
   GENERATOR_KAFKA,
   GENERATOR_RABBITMQ, // cmi-tic-varun
   GENERATOR_REST_API,
+  GENERATOR_COMMUNICATIONS,
   GENERATOR_LANGUAGES,
   GENERATOR_MAVEN,
   GENERATOR_MONGODB,
@@ -254,8 +255,17 @@ export default class JHipsterServerGenerator extends BaseApplicationGenerator {
   get composing() {
     return this.asComposingTaskGroup({
       async composing() {
-        const { buildTool, enableTranslation, databaseType, messageBroker, searchEngine, testFrameworks, websocket, cacheProvider } =
-          this.jhipsterConfigWithDefaults;
+        const {
+          buildTool,
+          enableTranslation,
+          databaseType,
+          messageBroker,
+          communicationsList,
+          searchEngine,
+          testFrameworks,
+          websocket,
+          cacheProvider,
+        } = this.jhipsterConfigWithDefaults;
         if (buildTool === GRADLE) {
           await this.composeWithJHipster(GENERATOR_GRADLE);
         } else if (buildTool === MAVEN) {
@@ -281,10 +291,12 @@ export default class JHipsterServerGenerator extends BaseApplicationGenerator {
         } else if (databaseType === NEO4J) {
           await this.composeWithJHipster(GENERATOR_NEO4J);
         }
+        if (communicationsList) {
+          await this.composeWithJHipster(GENERATOR_COMMUNICATIONS);
+        }
         if (messageBroker === KAFKA) {
           await this.composeWithJHipster(GENERATOR_KAFKA);
         }
-        // cmi-tic-varun
         if (messageBroker === RABBITMQ) {
           await this.composeWithJHipster(GENERATOR_RABBITMQ);
         }

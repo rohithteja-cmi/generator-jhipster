@@ -131,7 +131,7 @@ export const dockerFiles = {
     },
     // generator condition for rabbitmq.yml file - cmi-tic-varun
     {
-      condition: generator => generator.messageBrokerRabbitMQ,
+      condition: generator => generator.messageBrokerRabbitMQ || generator.communicationsFrameworkRabbitMQ,
       path: DOCKER_DIR,
       templates: ['rabbitmq.yml'],
     },

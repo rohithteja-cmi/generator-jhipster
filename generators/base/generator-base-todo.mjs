@@ -803,6 +803,9 @@ templates: ${JSON.stringify(existingTemplates, null, 2)}`;
     if (options.withAdminUi !== undefined) {
       this.jhipsterConfig.withAdminUi = options.withAdminUi;
     }
+    if (options.communicationsList !== undefined) {
+      this.jhipsterConfig.communicationsList = options.communicationsList;
+    }
     // adding withExample param in server-side @cmi-tic-harika
     if (options.withExample !== undefined) {
       this.jhipsterConfig.withExample = options.withExample;
@@ -1000,6 +1003,7 @@ templates: ${JSON.stringify(existingTemplates, null, 2)}`;
     dest.pages = config.pages;
     dest.skipJhipsterDependencies = !!config.skipJhipsterDependencies;
     dest.withAdminUi = config.withAdminUi;
+    dest.communicationsList = config.communicationsList;
     // declaring withExample param in clint-side @cmi-tic-harika
     (dest.withExample = config.withExample), (dest.gatewayServerPort = config.gatewayServerPort);
 
@@ -1198,6 +1202,7 @@ templates: ${JSON.stringify(existingTemplates, null, 2)}`;
     }
 
     dest.logManagementType = config.logManagementType;
+    dest.communicationsList = config.communicationsList;
     // adding withExample param in server-side @cmi-tic-harika
     dest.withExample = config.withExample;
   }
@@ -1294,7 +1299,12 @@ templates: ${JSON.stringify(existingTemplates, null, 2)}`;
 
     dest.authenticationUsesCsrf = [OAUTH2, SESSION].includes(dest.authenticationType);
 
-    dest.logManagementTypeEck = dest.logManagementType === ECK_LOG; //added eck option cmi-tic-lokesh
+    dest.logManagementTypeEck = dest.logManagementType === ECK_LOG;
+
+    dest.communicationsFrameworkKafka = dest.communicationsList.includes(MESSAGE_BROKER_KAFKA);
+    dest.communicationsFrameworkRabbitMQ = dest.communicationsList.includes(MESSAGE_BROKER_RABBITMQ);
+    dest.communicationsFrameworkRestAPI = dest.communicationsList.includes(MESSAGE_BROKER_REST_API);
+    dest.communicationsFrameworkPulsar = dest.communicationsList.includes(MESSAGE_BROKER_PULSAR);
 
     if (dest.databaseTypeSql) {
       prepareSqlApplicationProperties(dest);

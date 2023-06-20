@@ -113,6 +113,7 @@ const configPropsValidations: Record<string, JDLValidatorOption> = {
     msg: 'clientThemeVariant property',
   },
   WITH_ADMIN_UI: { type: 'BOOLEAN' },
+  COMMUNICATIONS_LIST: { type: 'list', pattern: ALPHANUMERIC_DASH, msg: 'communicationsList property' },
   WITH_EXAMPLE: { type: 'BOOLEAN' }, // adding withExample for generating jhipster through JDL file @cmi-tic-harika
   CLIENT_PACKAGE_MANAGER: {
     type: 'NAME',

@@ -110,7 +110,7 @@ export default class KubernetesHelmGenerator extends BaseDockerGenerator {
           if (element.messageBroker === KAFKA) {
             this.useKafka = true;
           }
-          if (element.messageBroker === RABBITMQ) {
+          if (element.messageBroker === RABBITMQ || element.communicationsFrameworkRabbitMQ) {
             this.useRabbitMQ = true;
           }
         });

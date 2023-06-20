@@ -166,7 +166,7 @@ export default class DockerGenerator extends BaseApplicationGenerator {
           );
         }
         // added to generate rabbitmq.yml file  --  cmi-tic-varun
-        if (application.messageBrokerRabbitMQ) {
+        if (application.messageBrokerRabbitMQ || application.communicationsFrameworkRabbitMQ) {
           source.addDockerExtendedServiceToApplicationAndServices({ serviceName: 'rabbitmq' });
         }
         if (application.messageBrokerPulsar) {

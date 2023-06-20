@@ -57,13 +57,13 @@ export function writeConfigFile(config, yoRcPath = '.yo-rc.json') {
 export function writeCommunicationFile(content, applicationBaseName, yoRcPath = 'comm.yo-rc.json') {
   const getCommunication: Communication[] = content.communications;
   const appComminucation: Communication[] = [];
-  let messageBroker;
+  const communicationsList: string[] = [];
   getCommunication.forEach(communication => {
     if (communication.server === applicationBaseName || communication.client === applicationBaseName) {
       appComminucation.push(communication);
-      messageBroker = communication.framework;
+      communicationsList.push(communication.framework);
     }
   });
   fs.writeFileSync(yoRcPath, JSON.stringify(appComminucation, null, 2).concat('\n'));
-  return messageBroker;
+  return communicationsList;
 }

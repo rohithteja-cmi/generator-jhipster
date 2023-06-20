@@ -1,0 +1,31 @@
+package <%= packageName %>.config.rabbitMQ;
+
+import <%= packageName %>.config.RabbitMQConfig<%= uniqueName %>;
+import <%= packageName %>.domain.RabbitMessageModel;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Date;
+
+@Component
+public class RabbitMQProducer<%= uniqueName %> {
+
+    private static final Logger logger = LoggerFactory.getLogger(RabbitMQProducer<%= uniqueName %>.class);
+
+    @Autowired
+    private RabbitTemplate template;
+
+    @Scheduled(cron = "0/15 * * * * *")
+    public void publishMessage() {
+        RabbitMessageModel message = new RabbitMessageModel();
+        message.setMessage("Publishing this message from <%= baseName %> with key: " + RabbitMQConfig<%= uniqueName %>.QUEUE);
+        message.setDateTime(new Date());
+        template.convertAndSend(RabbitMQConfig<%= uniqueName %>.EXCHANGE, RabbitMQConfig<%= uniqueName %>.ROUTING_KEY, message);
+        logger.info("Message Published Successfully");
+    }
+}
