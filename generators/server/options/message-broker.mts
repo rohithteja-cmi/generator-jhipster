@@ -25,7 +25,6 @@ export const MESSAGE_BROKER = 'messageBroker';
 export const MESSAGE_BROKER_KAFKA = 'kafka';
 export const MESSAGE_BROKER_RABBITMQ = 'rabbitmq'; // added rabbitMQ - cmi-tic-varun - updated while syncing with upstream
 export const MESSAGE_BROKER_PULSAR = 'pulsar';
-export const MESSAGE_BROKER_REST_API = 'rest-api';
 export const MESSAGE_BROKER_NO = 'no';
 
 const ALPHANUMERIC_PATTERN_DASH = /^[A-Za-z][A-Za-z0-9-]*$/;
@@ -35,7 +34,7 @@ const optionDefinition: JHipsterOptionDefinition = {
   type: 'string',
   tokenType: 'NAME',
   tokenValuePattern: ALPHANUMERIC_PATTERN_DASH,
-  knownChoices: [MESSAGE_BROKER_NO, MESSAGE_BROKER_KAFKA, MESSAGE_BROKER_RABBITMQ, MESSAGE_BROKER_PULSAR, MESSAGE_BROKER_REST_API],
+  knownChoices: [MESSAGE_BROKER_NO, MESSAGE_BROKER_KAFKA, MESSAGE_BROKER_RABBITMQ, MESSAGE_BROKER_PULSAR],
 };
 
 export default optionDefinition;
@@ -44,7 +43,6 @@ type MessageBrokerTypes = [
   typeof MESSAGE_BROKER_KAFKA,
   typeof MESSAGE_BROKER_RABBITMQ,
   typeof MESSAGE_BROKER_PULSAR,
-  typeof MESSAGE_BROKER_REST_API,
   typeof MESSAGE_BROKER_NO
 ];
 

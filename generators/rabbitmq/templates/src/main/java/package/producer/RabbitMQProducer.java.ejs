@@ -1,6 +1,6 @@
 package <%= packageName %>.config.rabbitMQ;
 
-import <%= packageName %>.config.RabbitMQConfig<%= uniqueName %>;
+import <%= packageName %>.config.RabbitMQConfig;
 import <%= packageName %>.domain.RabbitMessageModel;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +13,9 @@ import org.slf4j.LoggerFactory;
 import java.util.Date;
 
 @Component
-public class RabbitMQProducer<%= uniqueName %> {
+public class RabbitMQProducer {
 
-    private static final Logger logger = LoggerFactory.getLogger(RabbitMQProducer<%= uniqueName %>.class);
+    private static final Logger logger = LoggerFactory.getLogger(RabbitMQProducer.class);
 
     @Autowired
     private RabbitTemplate template;
@@ -23,9 +23,9 @@ public class RabbitMQProducer<%= uniqueName %> {
     @Scheduled(cron = "0/15 * * * * *")
     public void publishMessage() {
         RabbitMessageModel message = new RabbitMessageModel();
-        message.setMessage("Publishing this message from <%= baseName %> with key: " + RabbitMQConfig<%= uniqueName %>.QUEUE);
+        message.setMessage("Publishing this message from <%= baseName %> with key: " + RabbitMQConfig.QUEUE);
         message.setDateTime(new Date());
-        template.convertAndSend(RabbitMQConfig<%= uniqueName %>.EXCHANGE, RabbitMQConfig<%= uniqueName %>.ROUTING_KEY, message);
+        template.convertAndSend(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, message);
         logger.info("Message Published Successfully");
     }
 }
