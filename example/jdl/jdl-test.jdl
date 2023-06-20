@@ -80,6 +80,6 @@ communication {
 communication {
   client "be1"
   server "fe"
-  type "async"
-  framework "rabbitmq"
+  type "sync"
+  framework "rest-api"
 }

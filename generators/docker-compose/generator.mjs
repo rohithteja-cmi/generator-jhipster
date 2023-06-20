@@ -141,7 +141,9 @@ export default class DockerComposeGenerator extends BaseDockerGenerator {
       loadConfig() {
         this.usesOauth2 = this.appConfigs.some(appConfig => appConfig.authenticationTypeOauth2);
         this.useKafka = this.appConfigs.some(appConfig => appConfig.messageBroker === KAFKA);
-        this.useRabbitMQ = this.appConfigs.some(appConfig => appConfig.messageBroker === RABBITMQ); // added rabbitmq option cmi-tic-varun
+        this.useRabbitMQ = this.appConfigs.some(
+          appConfig => appConfig.messageBroker === RABBITMQ || appConfig.communicationsFrameworkRabbitMQ
+        );
         this.usePulsar = this.appConfigs.some(appConfig => appConfig.messageBroker === PULSAR);
         this.entryPort = 8080;
       },

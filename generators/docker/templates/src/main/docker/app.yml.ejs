@@ -90,7 +90,7 @@ _%>
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
 <%_ } _%>
 <%#  rabbitmq-cmi-tic-varun  -%>
-<%_ if (messageBrokerRabbitMQ) { _%>
+<%_ if (messageBrokerRabbitMQ || communicationsFrameworkRabbitMQ) { _%>
       - SPRING_RABBITMQ_HOST=rabbitmq
       - SPRING_RABBITMQ_PORT=5672
 <%_ } _%>

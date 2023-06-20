@@ -1,0 +1,19 @@
+package <%= packageName %>.config.rabbitMQ;
+
+import <%= packageName %>.config.RabbitMQConfig<%= uniqueName %>;
+import <%= packageName %>.domain.RabbitMessageModel;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.stereotype.Component;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+@Component
+public class RabbitMQConsumer<%= uniqueName %> {
+
+    private static final Logger logger = LoggerFactory.getLogger(RabbitMQConsumer<%= uniqueName %>.class);
+
+    @RabbitListener(queues = RabbitMQConfig<%= uniqueName %>.QUEUE)
+    public void listener(RabbitMessageModel message) {
+        logger.info("Received message: {}", message);
+    }
+}

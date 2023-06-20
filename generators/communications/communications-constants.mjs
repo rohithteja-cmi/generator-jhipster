@@ -17,18 +17,13 @@
  * limitations under the License.
  */
 
-import JDLCommunication from '../../models/jdl-communication.js';
+export const MAIN_DIR = 'src/main';
+export const TEST_DIR = 'src/test';
 
-export default { convertCommunications };
+export const REST_API_DIR = 'rest-api';
+export const RABBITMQ_DIR = 'rabbitmq';
 
-/**
- * Converts a parsed JDL content corresponding to communication to an array of JDLCommunication objects.
- * @param {Array} parsedCommunications - parsed JDL communication.
- * @return the converted JDLCommunication objects.
- */
-export function convertCommunications(parsedCommunications): JDLCommunication[] {
-  if (!parsedCommunications) {
-    throw new Error('Communications have to be passed so as to be converted.');
-  }
-  return parsedCommunications.map(parsedCommunication => new JDLCommunication(parsedCommunication));
-}
+export const REST_API_MAIN_DIR = `${REST_API_DIR}/${MAIN_DIR}`;
+export const REST_API_TEST_DIR = `${REST_API_DIR}/${TEST_DIR}`;
+export const RABBITMQ_MAIN_DIR = `${RABBITMQ_DIR}/${MAIN_DIR}`;
+export const RABBITMQ_TEST_DIR = `${RABBITMQ_DIR}/${TEST_DIR}`;

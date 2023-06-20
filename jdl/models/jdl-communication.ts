@@ -32,13 +32,13 @@ export default class JDLCommunication {
           if (CommunicationFrameworkTypes.ASYNC.includes(args[communicationOptions.communicationOptionNames.FRAMEWORK_TYPE])) {
             this[key] = option;
           } else {
-            throw new Error('Available Async Types "rabbitmq", "pulsar".');
+            throw new Error('Available Async Types "rabbitmq".');
           }
         } else if (option === CommunicationTypes.SYNC) {
           if (CommunicationFrameworkTypes.SYNC.includes(args[communicationOptions.communicationOptionNames.FRAMEWORK_TYPE])) {
             this[key] = option;
           } else {
-            throw new Error('Available Async Types "rest-api".');
+            throw new Error('Available Sync Types "rest-api".');
           }
         }
       } else {

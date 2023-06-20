@@ -53,6 +53,7 @@ const {
   CLIENT_THEME,
   CLIENT_THEME_VARIANT,
   WITH_ADMIN_UI,
+  COMMUNICATIONS_LIST,
   WITH_EXAMPLE, // adding withExample @cmi-tic-harika
   DATABASE_TYPE,
   DEV_DATABASE_TYPE,
@@ -93,6 +94,7 @@ const commonDefaultOptions = {
   [SEARCH_ENGINE]: (OptionValues[SEARCH_ENGINE] as Record<string, string>).no,
   [WEBSOCKET]: (OptionValues[WEBSOCKET] as Record<string, string>).no,
   [WITH_EXAMPLE]: false,
+  [COMMUNICATIONS_LIST]: undefined,
 };
 
 export function getConfigWithDefaults(customOptions: string | Record<string, any> = {}) {

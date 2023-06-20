@@ -20,7 +20,6 @@ import cleanupOldServerFiles from './cleanup.mjs';
 import { SERVER_MAIN_SRC_DIR, SERVER_MAIN_RES_DIR, SERVER_TEST_SRC_DIR, SERVER_TEST_RES_DIR } from '../generator-constants.mjs';
 import { addSectionsCondition, mergeSections } from '../base/support/index.mjs';
 import { moveToJavaPackageSrcDir, moveToJavaPackageTestDir, moveToSrcMainResourcesDir } from './support/index.mjs';
-import { communications } from './server-base.mjs';
 
 const imperativeConfigFiles = {
   imperativeFiles: [
@@ -607,7 +606,8 @@ export const baseServerFiles = {
     {
       condition: generator =>
         generator.messageBrokerKafka ||
-        generator.messageBrokerRabbitMQ || // cmi-tic-varun
+        generator.messageBrokerRabbitMQ ||
+        generator.communicationsFrameworkRabbitMQ ||
         generator.messageBrokerRestAPI ||
         generator.cacheProviderRedis ||
         generator.databaseTypeMongodb ||

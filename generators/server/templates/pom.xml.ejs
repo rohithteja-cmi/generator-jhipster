@@ -279,7 +279,7 @@
         </dependency>
 <%_ } _%>
 <!-- Dependency for rabbitmq cmi-tic-varun -->
-<%_ if (messageBrokerRabbitMQ) { _%>
+<%_ if (messageBrokerRabbitMQ || communicationsFrameworkRabbitMQ) { _%>
     <dependency>
         <groupId>org.springframework.amqp</groupId>
         <artifactId>spring-rabbit</artifactId>
