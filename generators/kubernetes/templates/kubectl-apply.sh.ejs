@@ -37,6 +37,7 @@ exit 0
 }
 
 logSummary() {
+<%_ if (!minikube) { _%>
     echo ""
 <%_ if (monitoringPrometheus || kubernetesServiceTypeIngress || istio) { _%>
         echo "#####################################################"
@@ -64,6 +65,19 @@ logSummary() {
   <%_ } _%>
         echo "#####################################################"
 <%_ } _%>
+<%_ } _%>
+<%_ if (minikube) { _%>
+    echo ""
+        echo "#####################################################"
+        echo "Please find the below useful endpoints,"
+        echo "Gateway - http://minikube_ip_placeholder:30003"
+        echo "Grafana - http://grafana.istio-system.shopt.gq"
+        echo "Kiali - http://kiali.istio-system.shopt.gq"
+        echo "Keycloak - http://minikube_ip_placeholder:30001/"
+        echo "Elasticsearch - https://minikube_ip_placeholder:30221/"
+        echo "Kibana - https://minikube_ip_placeholder:31810/"
+        echo "#####################################################"
+<%_ } _%>
 }
 
 default() {
@@ -84,10 +98,18 @@ default() {
 <%_ } _%>
 <%_ if (useKeycloak) { _%>    
     kubectl apply -f keycloak-${suffix}/
+    <%_ if (minikube) { _%>
+    until [ $(curl -LI http://minikube_ip_placeholder:30001/realms/master -o /dev/null -w '%{http_code}\n' -s) == 200 ]; do
+        echo "Waiting for the keycloak server to get initialised";
+        sleep 5;
+    done
+    <%_ } _%>
+    <%_ if (!minikube) { _%>
     until [ $(curl -LI http://keycloak.<%= kubernetesNamespace %>.<%= ingressDomain %>/realms/master -o /dev/null -w '%{http_code}\n' -s) == 200 ]; do
         echo "Waiting for the keycloak server to get initialised";
         sleep 5;
     done
+    <%_ } _%>
 <%_ } _%>
 <%_ if (serviceDiscoveryEureka || serviceDiscoveryConsul) { _%>
     kubectl apply -f registry-${suffix}/
