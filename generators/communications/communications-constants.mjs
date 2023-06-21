@@ -17,6 +17,8 @@
  * limitations under the License.
  */
 
+export const REST_API = 'rest-api';
+
 export const MAIN_DIR = 'src/main';
 export const TEST_DIR = 'src/test';
 
