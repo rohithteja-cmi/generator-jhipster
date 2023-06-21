@@ -281,6 +281,23 @@ spec:
         <%_ } _%>
         - name: SERVICE_REGISTRY_URL
           value: http://admin:$(JHIPSTER_REGISTRY_PASSWORD)@jhipster-registry.<%= kubernetesNamespace %>.svc.cluster.local:8761/eureka/apps/
+          ## GO MICRO ##
+        - name: GO_MICRO_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: <%= app.baseName.toLowerCase() %>-postgresql
+              key: postgresql-password
+        - name: GO_MICRO_DB_URL
+          value: postgresql://<%= app.baseName.toLowerCase() %>:$(GO_MICRO_DB_PASSWORD)@<%= app.baseName.toLowerCase() %>-postgresql.<%= kubernetesNamespace %>.svc.cluster.local:5432/<%= app.baseName.toLowerCase() %>
+        - name: GO_MICRO_KEYCLOAK_URL
+        <%_ if (!minikube) { _%>
+          value: http://keycloak.<%= kubernetesNamespace %>.<%= ingressDomain %>
+        <%_ } _%>
+        <%_ if (minikube) { _%>
+          value: http://$(MINIKUBE_IP):30001
+        <%_ } _%>
+        - name: GO_MICRO_SERVICE_REGISTRY_URL
+          value: http://admin:$(JHIPSTER_REGISTRY_PASSWORD)@jhipster-registry.<%= kubernetesNamespace %>.svc.cluster.local:8761/eureka
         resources:
           requests:
             memory: "1Gi"
