@@ -67,14 +67,9 @@ import {
 } from '../generator-constants.mjs';
 import { removeFieldsWithNullishValues, parseCreationTimestamp, getHipster } from './support/index.mjs';
 import { getDefaultAppName } from '../project-name/support/index.mjs';
-import {
-  MESSAGE_BROKER_KAFKA,
-  MESSAGE_BROKER_RABBITMQ,
-  MESSAGE_BROKER_NO,
-  MESSAGE_BROKER_PULSAR,
-  MESSAGE_BROKER_REST_API,
-} from '../server/options/index.mjs';
+import { MESSAGE_BROKER_KAFKA, MESSAGE_BROKER_RABBITMQ, MESSAGE_BROKER_NO, MESSAGE_BROKER_PULSAR } from '../server/options/index.mjs';
 
+const MESSAGE_BROKER_REST_API = 'rest-api';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 

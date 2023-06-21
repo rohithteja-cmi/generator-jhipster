@@ -23,11 +23,6 @@ import BaseApplicationGenerator from '../base-application/index.mjs';
 import { GENERATOR_COMMUNICATIONS, GENERATOR_BOOTSTRAP_APPLICATION } from '../generator-list.mjs';
 // import cleanupRestAPIFilesTask from './cleanup.mjs';
 import writeCommunicationsFilesTask from './files.mjs';
-import { communications } from '../server/server-base.mjs';
-import messageBrokerTypes from '../../jdl/jhipster/message-broker-types.js';
-
-const { REST_API, RABBITMQ, KAFKA, PULSAR } = messageBrokerTypes;
-
 /**
  * @typedef {import('../server/types.mjs').SpringBootApplication} SpringBootApplication
  */
