@@ -2,9 +2,9 @@
 import { SERVER_MAIN_SRC_DIR, SERVER_TEST_SRC_DIR } from '../generator-constants.mjs';
 import { communications } from '../server/server-base.mjs';
 import messageBrokerTypes from '../../jdl/jhipster/message-broker-types.js';
-import { REST_API_MAIN_DIR, REST_API_TEST_DIR, RABBITMQ_MAIN_DIR, RABBITMQ_TEST_DIR } from './communications-constants.mjs';
+import { REST_API_MAIN_DIR, REST_API_TEST_DIR, RABBITMQ_MAIN_DIR, RABBITMQ_TEST_DIR, REST_API } from './communications-constants.mjs';
 
-const { REST_API, RABBITMQ, KAFKA, PULSAR } = messageBrokerTypes;
+const { RABBITMQ, KAFKA, PULSAR } = messageBrokerTypes;
 
 export default async function writeCommunicationsFilesTask({ application }) {
   // Write client files
