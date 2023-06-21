@@ -70,6 +70,12 @@ export default class JHipsterAppGenerator extends BaseApplicationGenerator {
       type: Boolean,
     });
 
+    // This adds support for a `--minikube` flag
+    this.option('minikube', { // added this.option(minikube) by cmi-tic-lokesh
+      desc: 'Selects minikube as deployment type',
+      type: Boolean,
+    });
+
     // This adds support for a `--skip-server` flag
     this.option('skip-server', {
       desc: 'Skip the server-side application generation',

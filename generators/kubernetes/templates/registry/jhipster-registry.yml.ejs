@@ -50,7 +50,13 @@ spec:
   ports:
   - port: 8761
     name: http
+<%_ if (minikube) { _%>
+    nodePort: 30002
+  type: NodePort
+<%_ } _%>
+<%_ if (!minikube) { _%>
   clusterIP: None
+<%_ } _%>
   publishNotReadyAddresses: true
   selector:
     app: jhipster-registry
@@ -95,6 +101,13 @@ spec:
             secretKeyRef:
               name: registry-secret
               key: registry-admin-password
+      <%_ if (minikube) { _%>
+        - name: MINIKUBE_IP
+          valueFrom:
+            configMapKeyRef:
+              name: minikube-cm
+              key: minikube-ip
+      <%_ } _%>
     <%_ if (istio) { _%>
         - name: EUREKA_INSTANCE_PREFER_IP_ADDRESS
           value: "false"
@@ -127,7 +140,12 @@ spec:
           value: '/central-config/'
   <%_ if (useKeycloak) { _%>
         - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI
+        <%_ if (!minikube) { _%>        
           value: http://keycloak.<%= kubernetesNamespace %>.<%= ingressDomain %>/realms/jhipster
+        <%_ } _%>
+        <%_ if (minikube) { _%>        
+          value: http://$(MINIKUBE_IP):30001/realms/jhipster
+        <%_ } _%>
         # Custom trustStore required when using Let's Encrypt staging
         - name: JAVA_OPTS
           value: "-Djavax.net.ssl.trustStore=/etc/pki/java/cacerts -Djavax.net.ssl.trustStorePassword=123456"

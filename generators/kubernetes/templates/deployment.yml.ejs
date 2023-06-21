@@ -85,6 +85,13 @@ spec:
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: prod
+      <%_ if (minikube) { _%>
+        - name: MINIKUBE_IP
+          valueFrom:
+            configMapKeyRef:
+              name: minikube-cm
+              key: minikube-ip
+      <%_ } _%>
 <%_ if (app.serviceDiscoveryEureka) { _%>
         - name: SPRING_CLOUD_CONFIG_URI
           value: http://admin:${jhipster.registry.password}@jhipster-registry.<%= kubernetesNamespace %>.svc.cluster.local:8761/config
@@ -226,8 +233,13 @@ spec:
         # Custom trustStore required when using Let's Encrypt staging
         - name: JAVA_OPTS
           value: " -Xmx256m -Xms256m"
-        - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI        
+        - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI 
+      <%_ if (!minikube) { _%>        
           value: http://keycloak.<%= kubernetesNamespace %>.<%= ingressDomain %>/realms/jhipster
+      <%_ } _%>
+      <%_ if (minikube) { _%>        
+          value: http://$(MINIKUBE_IP):30001/realms/jhipster
+      <%_ } _%>
       <%_ if (app.applicationTypeGateway || app.applicationTypeMonolith) { _%>
         - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID
           value: web_app
@@ -261,7 +273,12 @@ spec:
         - name: DB_URL
           value: postgresql://<%= app.baseName.toLowerCase() %>:$(DB_PASSWORD)@<%= app.baseName.toLowerCase() %>-postgresql.<%= kubernetesNamespace %>.svc.cluster.local:5432/<%= app.baseName.toLowerCase() %>
         - name: KEYCLOAK_URL
+        <%_ if (!minikube) { _%>
           value: http://keycloak.<%= kubernetesNamespace %>.<%= ingressDomain %>/realms/jhipster
+        <%_ } _%>
+        <%_ if (minikube) { _%>
+          value: http://$(MINIKUBE_IP):30001/realms/jhipster
+        <%_ } _%>
         - name: SERVICE_REGISTRY_URL
           value: http://admin:$(JHIPSTER_REGISTRY_PASSWORD)@jhipster-registry.<%= kubernetesNamespace %>.svc.cluster.local:8761/eureka/apps/
         resources:

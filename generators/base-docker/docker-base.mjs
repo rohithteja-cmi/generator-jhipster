@@ -68,7 +68,16 @@ export function generateJwtSecret() {
 export function configureImageNames() {
   for (let i = 0; i < this.appsFolders.length; i++) {
     const originalImageName = this.appConfigs[i].baseName.toLowerCase();
-    const targetImageName = this.dockerRepositoryName ? `${this.dockerRepositoryName}/${originalImageName}` : originalImageName;
+    let targetImageName = '';
+    if (this.dockerRepositoryName !== undefined) {
+      if (this.dockerRepositoryName.includes(".azurecr.io")) {
+        targetImageName = `${this.dockerRepositoryName}/${originalImageName}/${originalImageName}`;
+      } else {
+        targetImageName = `${this.dockerRepositoryName}/${originalImageName}`;
+      }
+    } else {
+      targetImageName = originalImageName;
+    }
     this.appConfigs[i].targetImageName = targetImageName;
   }
 }

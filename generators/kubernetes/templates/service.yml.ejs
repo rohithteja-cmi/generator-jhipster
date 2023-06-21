@@ -27,10 +27,15 @@ spec:
   selector:
     app: <%= app.baseName.toLowerCase() %>
 <%_ if (app.applicationTypeMonolith || app.applicationTypeGateway) { _%>
+  <%_ if (!minikube) { _%>
   <%_ if (!kubernetesServiceTypeIngress) { _%>
   type: <%= kubernetesServiceType %>
   <%_ } else { _%>
   type: <%= ingressTypeGke ? 'NodePort' : 'ClusterIP' %>
+  <%_ } _%>
+  <%_ } _%>
+  <%_ if (minikube) { _%>
+  type: NodePort
   <%_ } _%>
 <%_ } _%>
   ports:
@@ -40,4 +45,8 @@ spec:
     targetPort: <%= app.serverPort %>
 <%_ } else { _%>
     port: <%= app.serverPort %>
+  <%_ if (minikube && app.applicationTypeGateway) { _%>
+    targetPort: <%= app.serverPort %>
+    nodePort: 30003
+  <%_ } _%>
 <%_ } _%>

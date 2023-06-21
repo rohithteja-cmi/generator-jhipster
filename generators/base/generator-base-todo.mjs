@@ -777,6 +777,9 @@ templates: ${JSON.stringify(existingTemplates, null, 2)}`;
     if (options.reproducible !== undefined) {
       dest.reproducible = options.reproducible;
     }
+    if (options.minikube !== undefined) {
+      dest.minikube = options.minikube;
+    }
   }
 
   /**
