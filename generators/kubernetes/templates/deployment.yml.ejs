@@ -297,7 +297,7 @@ spec:
           value: http://$(MINIKUBE_IP):30001
         <%_ } _%>
         - name: GO_MICRO_SERVICE_REGISTRY_URL
-          value: http://admin:$(JHIPSTER_REGISTRY_PASSWORD)@jhipster-registry.<%= kubernetesNamespace %>.svc.cluster.local:8761/eureka
+          value: http://admin:$(JHIPSTER_REGISTRY_PASSWORD)@jhipster-registry.<%= kubernetesNamespace %>.svc.cluster.local:8761/eureka/apps/
         resources:
           requests:
             memory: "1Gi"
