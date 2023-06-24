@@ -126,7 +126,7 @@ management:
         liveness:
           include: livenessState
         readiness:
-          include: readinessState<% if (databaseTypeSql) { %>,db<% } %>
+          include: readinessState<% if (databaseTypeSql) { %><%= reactive ? ',r2dbc' : ',db' %><% } %>
     jhimetrics:
       enabled: true
   info:
