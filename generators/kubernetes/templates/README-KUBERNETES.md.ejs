@@ -33,6 +33,59 @@ If you want to deploy using skaffold binary, then run
 skaffold run [or] skaffold deploy
 ```
 
+## Endpoints
+
+<%_ if (!minikube) { _%>
+<%_ if (monitoringPrometheus || kubernetesServiceTypeIngress || istio) { _%>
+Please find the below useful endpoints
+
+<%_ if (monitoringPrometheus) { _%>
+JHipster Grafana - http://jhipster-grafana.<%= kubernetesNamespace %>.<%= ingressDomain %>
+
+<%_ } _%>
+<%_ if (istio) { _%>
+  <%_ appConfigs.forEach((appConfig) =>  { _%>
+    <%_ if (appConfig.applicationTypeGateway) {_%>
+Gateway - http://<%= appConfig.baseName.toLowerCase() %>.<%= kubernetesNamespace %>.<%= ingressDomain %>
+
+    <%_ } _%>
+    <%_ if (appConfig.applicationTypeMonolith) {_%>
+<%= appConfig.baseName %> - http://<%= appConfig.baseName.toLowerCase() %>.<%= kubernetesNamespace %>.<%= ingressDomain %>
+
+    <%_ } _%>
+  <%_ }) _%>
+  <%_ if (istio) { _%>
+Zipkin - http://zipkin.istio-system.<%= ingressDomain %>
+
+Grafana - http://grafana.istio-system.<%= ingressDomain %>
+
+Kiali - http://kiali.istio-system.<%= ingressDomain %>
+
+  <%_ } _%>
+<%_ } _%>
+<%_ if (useKeycloak) { _%>
+Keycloak - http://keycloak.<%= kubernetesNamespace %>.<%= ingressDomain %>
+
+<%_ } _%>
+<%_ } _%>
+<%_ } _%>
+<%_ if (minikube) { _%>
+Please find the below useful endpoints
+
+Gateway - http://minikube_ip_placeholder:30003
+
+Grafana - http://grafana.istio-system.shopt.gq
+
+Kiali - http://kiali.istio-system.shopt.gq
+
+Keycloak - http://minikube_ip_placeholder:30001/
+
+Elasticsearch - https://minikube_ip_placeholder:30221/
+
+Kibana - https://minikube_ip_placeholder:31810/
+
+<%_ } _%>
+
 ## Destroy
 
 You can delete all your apps by running the below bash command:
