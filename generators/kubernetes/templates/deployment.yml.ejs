@@ -284,6 +284,8 @@ spec:
         - name: SERVICE_REGISTRY_URL
           value: http://admin:$(JHIPSTER_REGISTRY_PASSWORD)@jhipster-registry.<%= kubernetesNamespace %>.svc.cluster.local:8761/eureka/apps/
           ## GO MICRO ##
+        - name: GO_MICRO_PROFILE
+          value: prod
         <%_ if (app.prodDatabaseTypePostgres) { _%>
         - name: GO_MICRO_DB_PASSWORD
           valueFrom:
