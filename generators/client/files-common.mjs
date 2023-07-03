@@ -28,8 +28,11 @@ export const files = {
       templates: ['webpack/webpack.microfrontend.js.jhi'],
     },
     {
-      condition: generator => generator.clientFrameworkReact && generator.applicationTypeGateway && generator.withExample,
-      templates: ['src/main/webapp/content/images/TIC.png'], // added logo @cmi-tic-harika
+      condition: generator => generator.clientFrameworkReact,
+      templates: [
+        'src/main/webapp/content/images/TIC.png',
+        'src/main/webapp/content/images/TIC_logo.png'
+      ], // added logo @cmi-tic-harika
     },
     {
       ...clientSrcBlock,

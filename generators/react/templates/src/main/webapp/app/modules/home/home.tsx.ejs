@@ -35,9 +35,10 @@ import { getLoginUrl, REDIRECT_URL } from 'app/shared/util/url-utils';
 <%_ } _%>
 import { useAppSelector } from 'app/config/store';
 <%_ if(withExample) { _%>
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
 <%_ } _%>
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPhone } from '@fortawesome/free-solid-svg-icons';
 
 export const Home = () => {
   const account = useAppSelector(state => state.authentication.account);
@@ -60,160 +61,280 @@ export const Home = () => {
 <%_ } _%>
 
   return (
-    <Row>
-      <%_ if(withExample) { _%>
-        <span></span>
-      <%_ } else { _%>
-      <Col md="3" className="pad">
-        <span className="hipster rounded" />
-      </Col>
-      <Col md="9">
-        <h2><Translate contentKey="home.title">Welcome, <%= backendType %> Hipster!</Translate></h2>
-        <p className="lead"><Translate contentKey="home.subtitle">This is your homepage</Translate></p>
-        <%_ } _%>
-        {
-          (account?.login) ? (
-            <div>
-              <%_ if(withExample) { _%>
-                  <h1 style={{ textAlign: 'center', padding: 50, color: '#012C78' }}>Welcome to <%= capitalizedBaseName %> home page</h1>
-                  <Alert style={{ backgroundColor: '#EDEDED', borderColor: '#EDEDED' }}>
-                    <span style={{ color: '#012C78' }}>
+    <div style={{ backgroundColor: '#dadef7', height: '192vh', overflow: 'hidden' }}>
+      {account?.login ? (
+        <div style={{ backgroundColor: '#dadef7' }}>
+          <h1 style={{ textAlign: 'center', fontFamily: 'public-sans', fontWeight: '500', padding: 50, color: '#012C78' }}>
+            Welcome to <%= capitalizedBaseName %> home page
+          </h1>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginLeft: 150,
+              marginTop: 0,
+              marginBottom: 50,
+            }}
+          >
+            <div style={{ marginTop: 100, marginRight:50 }}>
+              <span style={{ fontSize: '62px', fontWeight: 800, fontFamily: 'public-sans', color: '#012C78' }}>
+                A stunning web application generated using WDA
+              </span>
+              <br />
+              <br />
+              <div style={{ paddingTop: '10px', fontFamily: 'public-sans' }}>
+                <span>
+                  Features provided as part of your architecture design are:
+                  <br />
+                  UI Framework - React / Angular / Vue
+                  <br />
+                  Application Framework - Spring boot / Go Micro
+                  <br />
+                  Authorisation - Keycloak
+                  <br />
+                  Deployment Infrastructure - Azure / Aws / Minikube
+                  <br />
+                </span>
+              </div>
+              <br />
+              <h5>
+                <Alert style={{ backgroundColor: '#EDEDED', borderColor: '#EDEDED', marginRight: '50px' }}>
+                  <span style={{ color: '#012C78' }}>
                     <Translate contentKey="home.logged.message" interpolate={{ username: account.login }}>
                       You are logged in as user {account.login}.
                     </Translate>
                   </span>
-                  </Alert>
-                    <br></br>
-                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                      Here is an example of reminder application, you can click the icon to add your own reminder
-                      <div>
-                        <Link to="/reminder/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton"style={{ backgroundColor: '#CADCFC', borderColor: '#CADCFC' }}
-                        >
-                          <FontAwesomeIcon icon="plus" style={{ color: '#012C78' }} />
-                          &nbsp; <span style={{ color: '#012C78' }}>Create new Reminder</span>
-                        </Link>
-                      </div>
-                    </div>
-              <%_ } else { _%>
-              <Alert color="success">
-                <Translate contentKey="home.logged.message" interpolate={{ username: account.login }}>You are logged in as user {account.login}.</Translate>
-              </Alert>
-              <%_ } _%>
+                </Alert>
+              </h5>
+              <br />
+              <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                <h5>To explore about our products you can refer here</h5>
+                <button
+                  style={{
+                    backgroundColor: '#dadef7',
+                    height: '60px',
+                    width: '250px',
+                    borderRadius: '35px',
+                    borderColor: 'black',
+                    marginLeft: '20px',
+                  }}
+                >
+                  <a
+                    href="http://wda-ui.s3-website.ap-south-1.amazonaws.com/"
+                    target="_blank"
+                    style={{ color: 'black', textDecoration: 'none', fontSize: '18px' }}
+                  >
+                    Explore
+                  </a>
+                </button>
+                </div>
+                <%_ if(withExample) { _%>
+                  <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop:'30px', alignItems:'center' }}>
+                    Here is an example of reminder application, you can click the icon to add your own reminder
+                    <div>
+                      <Link to="/reminder/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton"
+                      style={{ border:'1px solid black', borderRadius:'40px',height:'40px', width:'250px', backgroundColor:'transparent' }}
+                      
+                      >
+                      <FontAwesomeIcon icon="plus" style={{ color: '#012C78' }} />
+                      &nbsp; <span style={{ color: '#012C78' }}>Create new Reminder</span>
+                    </Link>
+                  </div>
+                </div>
+                <%_ } _%>
             </div>
-          ) : (
             <div>
-              <%_ if(withExample) { _%>
-                <h1 style={{ textAlign: 'center', padding: 50, color: '#012C78' }}>Welcome to <%= capitalizedBaseName %> home page</h1> 
-                <div
+              <img src="content/images/TIC.png" style={{ width: '750px', height: '750px', marginTop: '100px', left: '376px', border:'1px solid transparent', borderTopLeftRadius:"60px" }}></img>
+            </div>
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginLeft: 150,
+              marginBottom: 50,
+              marginTop: '100px',
+            }}
+          >
+            <div
+              style={{
+                width: '800px',
+                height: '600px',
+                textAlign: 'center',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <FontAwesomeIcon icon={faPhone} style={{ color: '#012C78', fontSize: '150px' }} />
+            </div>
+            <div style={{ marginRight: '100px' }}>
+              <h2 style={{ fontFamily: 'public-sans' }}>
+                We're here to help! If you have any questions or need support, please don't hesitate to get in touch with us.
+              </h2>
+              <br />
+              <div style={{ paddingTop: '10px', fontFamily: 'public-sans' }}>
+                <p style={{ fontStyle: 'italic', fontWeight: 'bold', fontFamily: 'public-sans' }}>Email:</p>
+                <p style={{ fontFamily: 'public-sans' }}>tic.dev@comakeit.com</p>
+                <p style={{ fontStyle: 'italic', fontWeight: 'bold', fontFamily: 'public-sans' }}>Phone:</p>
+                <p style={{ fontFamily: 'public-sans' }}> 040 4035 1000</p>
+                <p style={{ fontStyle: 'italic', fontWeight: 'bold', fontFamily: 'public-sans' }}>Address:</p>
+                <p>
+                  9th Floor, Aurobindo Galaxy Plot No. 1, Forming part of Sy. No. 83/1, Hyderabad Knowledge City, TSIIC Raidurgam
+                  (Panmaktha) Village, Serilingampally, Hyderabad, Telangana 500019
+                </p>
+              </div>
+              <br />
+              <h2 style={{ fontFamily: 'public-sans' }}>
+                Feel free to contact us using any of the methods above, and we'll get back to you as soon as possible. Thank you for using
+                our app!
+              </h2>
+            </div>
+          </div>
+          <div
+            style={{
+              backgroundColor: '#012C78',
+              height: '80px',
+              marginTop: '50px',
+              textAlign: 'center',
+              fontSize: '20px',
+              fontFamily: 'open-sans',
+              paddingTop: '10px',
+            }}
+          >
+            <span style={{ color: '#FFF' }}>TIC@coMakeIT</span>
+          </div>
+        </div>
+      ) : (
+        <div style={{ backgroundColor: '#dadef7' }}>
+          <h1 style={{ textAlign: 'center', fontFamily: 'public-sans', fontWeight: '500', padding: 50, color: '#012C78' }}>
+            Welcome to <%= capitalizedBaseName %> home page
+          </h1>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginLeft: 150,
+              marginTop: 0,
+              marginBottom: 50,
+            }}
+          >
+            <div style={{ marginTop: 100, marginRight:50 }}>
+              <span style={{ fontSize: '62px', fontWeight: 800, fontFamily: 'public-sans', color: '#012C78' }}>
+                A stunning web application generated using WDA
+              </span>
+              <br />
+              <br />
+              <div style={{ paddingTop: '10px', fontFamily: 'public-sans' }}>
+                <span>
+                  Features provided as part of your architecture design are:
+                  <br />
+                  UI Framework - React / Angular / Vue
+                  <br />
+                  Application Framework - Spring boot / Go Micro
+                  <br />
+                  Authorisation - Keycloak
+                  <br />
+                  Deployment Infrastructure - Azure / Aws / Minikube
+                  <br />
+                </span>
+              </div>
+              <br />
+
+              <h5>To explore about our products you can refer here</h5>
+              <br />
+              <button
                 style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  marginLeft: 150,
-                  marginRight: 150,
-                  marginTop: 0,
-                  marginBottom: 50,
-                  color: '#012C78',
+                  backgroundColor: 'blue',
+                  marginRight: '100px',
+                  height: '60px',
+                  width: '250px',
+                  borderRadius: '35px',
+                  borderColor: 'blue',
                 }}
               >
-                <div>
-                  <img src="content/images/TIC.png" style={{ width: '650px', height: '650px' }}></img>
-                </div>
-                <div style={{marginTop:100}}>
-                  <h5>
-                    Click here to <span></span>
-                    <a href={getLoginUrl()} style={{ color: '#012C78' }}>
-                      sign in
-                    </a>
-                  </h5>
-                  <br />
-                  <h5>This is an application using our WDA</h5>
-                  <h5>
-                    Our products can be found here... &nbsp;
-                    <a href="http://wda-ui.s3-website.ap-south-1.amazonaws.com/" target="_blank" style={{ color: '#012C78' }}>
-                      TIC_HomePage
-                    </a>
-                  </h5>
-                  <br />
-                  <h5>
-                    For more detailed information regarding our project you can refer our &nbsp;
-                    <a href=" https://comakeit-tic.github.io/" target="_blank" style={{ color: '#012C78' }}>
-                      Documentation
-                    </a>
-                  </h5>
-                </div>
-              </div>
-              <%_ } else { _%>
-              <Alert color="warning">
-                <Translate contentKey="global.messages.info.authenticated.prefix">If you want to </Translate>
-                <% if (!enableTranslation) { %><span>&nbsp;</span><% } %>
-<%_ if (authenticationTypeOauth2) { _%>
-                <a href={getLoginUrl()} className="alert-link">
-                  <Translate contentKey="global.messages.info.authenticated.link">sign in</Translate>
+                <a href={getLoginUrl()} style={{ color: '#FFF', textDecoration: 'none', fontSize: '18px' }}>
+                  Sign in
                 </a>
-<%_ } else { _%>
-                <Link to="/login" className="alert-link"><Translate contentKey="global.messages.info.authenticated.link"> sign in</Translate></Link>
-<%_ } _%>
-                <Translate contentKey="global.messages.info.authenticated.suffix">, you can try the default accounts:
-                  <br />- Administrator (login=&quot;admin&quot; and password=&quot;admin&quot;)
-                  <br />- User (login=&quot;user&quot; and password=&quot;user&quot;).
-                </Translate>
-              </Alert>
-              
-
-<%_ if (generateUserManagement) { _%>
-              <Alert color="warning">
-                <Translate contentKey="global.messages.info.register.noaccount">You do not have an account yet?</Translate>&nbsp;
-                <Link to="/account/register" className="alert-link"><Translate contentKey="global.messages.info.register.link">Register a new account</Translate></Link>
-              </Alert>
-<%_ } _%>
-<%_ } _%>
+              </button>
+              <button style={{ backgroundColor: '#dadef7', height: '60px', width: '250px', borderRadius: '35px', borderColor: 'black' }}>
+                <a
+                  href="http://wda-ui.s3-website.ap-south-1.amazonaws.com/"
+                  target="_blank"
+                  style={{ color: 'black', textDecoration: 'none', fontSize: '18px' }}
+                >
+                  Explore
+                </a>
+              </button>
             </div>
-          )
-        }
-        <%_ if(withExample) { _%>
-          <span></span>
-        <%_ } else { _%>
-        <p>
-          <Translate contentKey="home.question">If you have any question on JHipster:</Translate>
-        </p>
-
-        <ul>
-          <li>
-            <a href="https://www.jhipster.tech/" target="_blank" rel="noopener noreferrer">
-              <Translate contentKey="home.link.homepage">JHipster homepage</Translate>
-            </a>
-          </li>
-          <li>
-            <a href="https://stackoverflow.com/tags/jhipster/info" target="_blank" rel="noopener noreferrer">
-              <Translate contentKey="home.link.stackoverflow">JHipster on Stack Overflow</Translate>
-            </a>
-          </li>
-          <li>
-            <a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" rel="noopener noreferrer">
-              <Translate contentKey="home.link.bugtracker">JHipster bug tracker</Translate>
-            </a>
-          </li>
-          <li>
-            <a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">
-              <Translate contentKey="home.link.chat">JHipster public chat room</Translate>
-            </a>
-          </li>
-          <li>
-            <a href="https://twitter.com/jhipster" target="_blank" rel="noopener noreferrer">
-              <Translate contentKey="home.link.follow">follow @jhipster on Twitter</Translate>
-            </a>
-          </li>
-        </ul>
-
-        <p>
-          <Translate contentKey="home.like">If you like JHipster, do not forget to give us a star on</Translate>
-          {' '}
-          <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">GitHub</a>!
-        </p>
-      </Col>
-        <%_ } _%>
-    </Row>
+            <div>
+              <img src="content/images/TIC.png" style={{ width: '750px', height: '750px', marginTop: '100px', left: '376px', border:'1px solid transparent', borderTopLeftRadius:"60px" }}></img>
+            </div>
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginLeft: 150,
+              marginBottom: 50,
+              marginTop: '100px',
+            }}
+          >
+            <div
+              style={{
+                width: '800px',
+                height: '600px',
+                textAlign: 'center',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <FontAwesomeIcon icon={faPhone} style={{ color: '#012C78', fontSize: '150px' }} />
+            </div>
+            <div style={{ marginRight: '100px' }}>
+              <h2 style={{ fontFamily: 'public-sans' }}>
+                We're here to help! If you have any questions or need support, please don't hesitate to get in touch with us.
+              </h2>
+              <br />
+              <div style={{ paddingTop: '10px', fontFamily: 'public-sans' }}>
+                <p style={{ fontStyle: 'italic', fontWeight: 'bold', fontFamily: 'public-sans' }}>Email:</p>
+                <p style={{ fontFamily: 'public-sans' }}>tic.dev@comakeit.com</p>
+                <p style={{ fontStyle: 'italic', fontWeight: 'bold', fontFamily: 'public-sans' }}>Phone:</p>
+                <p style={{ fontFamily: 'public-sans' }}> 040 4035 1000</p>
+                <p style={{ fontStyle: 'italic', fontWeight: 'bold', fontFamily: 'public-sans' }}>Address:</p>
+                <p>
+                  9th Floor, Aurobindo Galaxy Plot No. 1, Forming part of Sy. No. 83/1, Hyderabad Knowledge City, TSIIC Raidurgam
+                  (Panmaktha) Village, Serilingampally, Hyderabad, Telangana 500019
+                </p>
+              </div>
+              <br />
+              <h2 style={{ fontFamily: 'public-sans' }}>
+                Feel free to contact us using any of the methods above, and we'll get back to you as soon as possible. Thank you for using
+                our app!
+              </h2>
+            </div>
+          </div>
+          <div
+            style={{
+              backgroundColor: '#012C78',
+              height: '80px',
+              marginTop: '50px',
+              textAlign: 'center',
+              fontSize: '20px',
+              fontFamily: 'open-sans',
+              paddingTop: '10px',
+            }}
+          >
+            <span style={{ color: '#FFF' }}>TIC@coMakeIT</span>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 

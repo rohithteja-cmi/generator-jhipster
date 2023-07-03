@@ -27,39 +27,28 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export const BrandIcon = props => (
   <div {...props} className="brand-icon">
-    <%_ if(!withExample) { _%>
     <img
-      src="content/images/logo-jhipster.png"
+      src="content/images/TIC_logo.png"
       alt="Logo"
+      style={{marginLeft:'100px'}}
     />
-    <%_ } _%>
   </div>
 );
 
 export const Brand = () => (
 <NavbarBrand tag={Link} to="/" className="brand-logo">
-  <BrandIcon />
-  <%_ if(!withExample) { _%>
-  <span className="brand-title"><Translate contentKey="global.title"><%= capitalizedBaseName %></Translate></span>
-  <span className="navbar-version">{VERSION}</span>
-  <%_ } _%>
-  <%_ if(withExample) { _%>
-    <span className="brand-title" style={{color:'#012C78'}}>WDA of <%= capitalizedBaseName %></span>
-  <%_ } _%>
+  <BrandIcon /> &nbsp; <span style={{ color: '#353d47' }}>TIC-<%= capitalizedBaseName %></span>
 </NavbarBrand>
 );
 
 export const Home = () => (
   <NavItem>
     <NavLink tag={Link} to="/" className="d-flex align-items-center">
-      <%_ if(!withExample) { _%>
-      <FontAwesomeIcon icon="home" />
-      <span><Translate contentKey="global.menu.home">Home</Translate></span>
-      <%_ } _%>
-      <%_ if(withExample) { _%>
-      <FontAwesomeIcon icon="home" style={{color:'#012C78'}} />
-      <span style={{color:'#012C78'}}><Translate contentKey="global.menu.home">Home</Translate></span>
-      <%_ } _%>
-    </NavLink>
+      <div style={{width:'60px',height:'35px', borderBottom:'1px solid #012C78',textAlign:'center'}}>
+        <span style={{ color: '#012C78', fontWeight:'570'}}>
+          <Translate contentKey="global.menu.home">Home</Translate>
+        </span>
+        </div>
+      </NavLink>
   </NavItem>
 );

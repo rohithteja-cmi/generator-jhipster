@@ -18,9 +18,7 @@
 
  changing background color of top nav @cmi-tic-harika
 -%>
-$header-color: #fff;
 $header-color-secondary: #bbb;
-$header-color-hover: darken($header-color, 20%);
 
 /* ==========================================================================
 Developement Ribbon
@@ -59,12 +57,8 @@ Navbar styles
 ========================================================================== */
 <%_ if (clientThemeNone) { _%>
 .jh-navbar {
-  <%_ if(!withExample) { _%>
-  background-color: #353d47;
-  <%_ } _%>
-  <%_ if(withExample) { _%>
-    background-color: #CADCFC;;
-  <%_ } _%>
+  background-color: 'transparent';
+  height: '40px';
   padding: 0.2em 1em;
   .profile-image {
     margin: -10px 0px;
@@ -122,7 +116,7 @@ Navbar styles
     text-decoration: none;
   }
   .brand-icon {
-    height: 35px;
+    height: 50px;
     width: auto;
     display: inline-block;
     img {
@@ -133,9 +127,7 @@ Navbar styles
 
 .brand-title {
   font-size: 24px;
-  color: $header-color;
   &:hover {
-    color: $header-color-hover;
     text-decoration: none;
   }
 }

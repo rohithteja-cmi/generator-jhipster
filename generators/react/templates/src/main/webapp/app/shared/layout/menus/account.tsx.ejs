@@ -39,27 +39,20 @@ const accountMenuItemsAuthenticated = () => (
     <MenuItem icon="cloud" to="/account/sessions"><Translate contentKey="global.menu.account.sessions">Sessions</Translate></MenuItem>
   <%_ } _%>
 <%_ } _%>
-<%_ if(withExample) { _%>
   <MenuItem icon="sign-out-alt" to="/logout" data-cy="logout">
     <span style={{color:'#012C78'}}>Sign out</span>
   </MenuItem>
-  <%_ } _%>
-  <%_ if(!withExample) { _%>
-    <MenuItem icon="sign-out-alt" to="/logout" data-cy="logout"><Translate contentKey="global.menu.account.logout">Sign out</Translate></MenuItem>
-    <%_ } _%>
   </>
   );
 
 const accountMenuItems = () => (
   <>
 <%_ if (!authenticationTypeOauth2) { _%>
-    <MenuItem id="login-item" icon="sign-in-alt" to="/login" data-cy="login"><Translate contentKey="global.menu.account.login">Sign in</Translate></MenuItem>
-<%_ } else if(withExample) { _%>
+  <MenuItem id="login-item" icon="sign-in-alt" to="/login" data-cy="login"><Translate contentKey="global.menu.account.login">Sign in</Translate></MenuItem>
+<%_ } else { _%>
   <DropdownItem id="login-item" tag="a" href={getLoginUrl()} data-cy="login" style={{color:'#012C78'}}>
     <FontAwesomeIcon icon="sign-in-alt" style={{color:'#012C78'}}/> <Translate contentKey="global.menu.account.login">Sign in</Translate>
   </DropdownItem>
-  <%_ } else { _%>
-    <DropdownItem id="login-item" tag="a" href={getLoginUrl()} data-cy="login"><FontAwesomeIcon icon="sign-in-alt" /> <Translate contentKey="global.menu.account.login">Sign in</Translate></DropdownItem>
 <%_ } _%>
 <%_ if (generateUserManagement) { _%>
     <MenuItem icon="user-plus" to="/account/register" data-cy="register"><Translate contentKey="global.menu.account.register">Register</Translate></MenuItem>
