@@ -38,7 +38,7 @@ import Tracker from './tracker/tracker';
 <%_ } _%>
 
 const AdministrationRoutes = () => (
-  <div>
+  <div style={{margin:'50px'}}>
     <ErrorBoundaryRoutes>
 <%_ if (generateUserManagement) { _%>
       <Route path="user-management/*" element={<UserManagement />} />

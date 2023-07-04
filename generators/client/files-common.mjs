@@ -30,8 +30,8 @@ export const files = {
     {
       condition: generator => generator.clientFrameworkReact,
       templates: [
-        'src/main/webapp/content/images/TIC.png',
-        'src/main/webapp/content/images/TIC_logo.png'
+        'src/main/webapp/content/images/logo.png',
+        'src/main/webapp/content/images/logoText.png'
       ], // added logo @cmi-tic-harika
     },
     {

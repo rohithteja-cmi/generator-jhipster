@@ -43,6 +43,7 @@ export interface IHeaderProps {
   isAuthenticated: boolean;
   isAdmin: boolean;
   isOpenAPIEnabled: boolean;
+  isInProduction: boolean;
 <%_ if (enableTranslation) { _%>
   currentLocale: string;
 <%_ } _%>
@@ -81,21 +82,9 @@ const Header = (props: IHeaderProps) => {
           <Nav
             navbar
           >
-            <Home />
-            <a
-              href="http://wda-ui.s3-website.ap-south-1.amazonaws.com/"
-              target="_blank"
-              style={{ color: '#012C78', textDecoration: 'none', fontWeight: '400', marginTop: '8px', marginLeft: '20px' }}
-            >
-              Products
-            </a>
-            <a
-              href=" https://comakeit-tic.github.io/"
-              target="_blank"
-              style={{ color: '#012C78', textDecoration: 'none', fontWeight: '400', marginTop: '8px', marginLeft: '20px' }}
-            >
-              Docs
-            </a>
+            {props.isAuthenticated && props.isAdmin && (
+              <AdminMenu showOpenAPI={props.isOpenAPIEnabled} showDatabase={!props.isInProduction} />
+            )}
           </Nav>
           <Nav id="header-tabs" className="ms-auto" navbar style={{ marginRight: '200px' }}>
           <%_ if (enableTranslation && !withExample) { _%>
