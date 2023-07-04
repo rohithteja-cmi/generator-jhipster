@@ -70,12 +70,12 @@ logSummary() {
     echo ""
         echo "#####################################################"
         echo "Please find the below useful endpoints,"
-        echo "Gateway - http://minikube_ip_placeholder:30003"
-        echo "Grafana - http://grafana.istio-system.shopt.gq"
-        echo "Kiali - http://kiali.istio-system.shopt.gq"
+        echo "Gateway - http://minikube_ip_placeholder:30200"
         echo "Keycloak - http://minikube_ip_placeholder:30001/"
-        echo "Elasticsearch - https://minikube_ip_placeholder:30221/"
-        echo "Kibana - https://minikube_ip_placeholder:31810/"
+    <%_ if (this.useECK) { _%>
+        echo "Elasticsearch - https://minikube_ip_placeholder:30300/"
+        echo "Kibana - https://minikube_ip_placeholder:30301/"
+    <%_ } _%>
         echo "#####################################################"
 <%_ } _%>
 }

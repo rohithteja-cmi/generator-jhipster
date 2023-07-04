@@ -47,6 +47,6 @@ spec:
     port: <%= app.serverPort %>
   <%_ if (minikube && app.applicationTypeGateway) { _%>
     targetPort: <%= app.serverPort %>
-    nodePort: 30003
+    nodePort: 30200
   <%_ } _%>
 <%_ } _%>

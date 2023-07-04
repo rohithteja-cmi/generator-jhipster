@@ -867,14 +867,14 @@ data:
             "http://127.0.0.1:8761/*",
             "http://localhost:8761/*"<%= minikube ? ',' : '' %>
             <%_ if (minikube) { _%>
-            "http://minikube_ip_placeholder:30002/*"
+            "http://minikube_ip_placeholder:30100/*"
             <%_ } _%>
           ],
           "webOrigins": [
             "http://127.0.0.1:8761",
             "http://localhost:8761"<%= minikube ? ',' : '' %>
             <%_ if (minikube) { _%>
-            "http://minikube_ip_placeholder:30002"
+            "http://minikube_ip_placeholder:30100"
             <%_ } _%>
           ],
           "notBefore": 0,
@@ -1041,7 +1041,7 @@ data:
             "http://localhost:9000/*",
             "dev.localhost.ionic:*"<%= minikube ? ',' : '' %>
             <%_ if (minikube) { _%>
-            "http://minikube_ip_placeholder:30003/*"
+            "http://minikube_ip_placeholder:30200/*"
             <%_ } _%>
           ],
           "webOrigins": [
@@ -1050,7 +1050,7 @@ data:
             "http://127.0.0.1:8761",
             "http://localhost:9000"<%= minikube ? ',' : '' %>
             <%_ if (minikube) { _%>
-            "http://minikube_ip_placeholder:30003"
+            "http://minikube_ip_placeholder:30200"
             <%_ } _%>
           ],
           "notBefore": 0,
