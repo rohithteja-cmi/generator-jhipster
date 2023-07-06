@@ -56,23 +56,21 @@ export const Home = () => {
 <%_ } _%>
 
   return (
-    <div style={{ backgroundColor: '#dadef7', height: '119vh', overflow: 'hidden' }}>
+    <div style={{ backgroundColor: '#dadef7', overflow: 'hidden' }}>
       {account?.login ? (
         <div style={{ backgroundColor: '#dadef7' }}>
-          <h1 style={{ textAlign: 'center', fontFamily: 'public-sans', fontWeight: '500', padding: 50, color: '#012C78' }}>
-            Welcome to <%= capitalizedBaseName %> home page
-          </h1>
-          <div
+        <div
             style={{
               display: 'flex',
               flexDirection: 'row',
               justifyContent: 'space-between',
               marginLeft: 150,
-              marginTop: 0,
+              marginTop: 100,
               marginBottom: 50,
             }}
           >
-            <div style={{ marginTop: 100, marginRight: 50 }}>
+            <div style={{ marginTop: 150, marginRight: 50 }}>
+              <h1 style={{ fontSize: '28px', fontWeight: '500' }}>Welcome to <%= capitalizedBaseName %> home page</h1>
               <span style={{ fontSize: '62px', fontWeight: 800, fontFamily: 'public-sans', color: '#012C78' }}>
                 A stunning React application generated using WDA
               </span>
@@ -92,11 +90,11 @@ export const Home = () => {
                 <h5>To explore about our products you can refer here</h5>
                 <button
                   style={{
-                    backgroundColor: '#dadef7',
+                    backgroundColor: '#a6b2ff',
                     height: '60px',
                     width: '250px',
                     borderRadius: '35px',
-                    borderColor: 'black',
+                    borderColor: '#a6b2ff',
                     marginLeft: '20px',
                   }}
                   onClick={() => window.open('https://comakeit-tic.github.io/', '_blank')}
@@ -111,16 +109,22 @@ export const Home = () => {
                 </button>
               </div>
               <%_ if(withExample) { _%>
-                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop:'30px', alignItems:'center' }}>
-                  Here is an example of reminder application, you can click the icon to view reminders
-                  <div>
-                    <Link to="/reminder" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton"
-                    style={{ border:'2px solid black', borderRadius:'40px',height:'60px', width:'250px', backgroundColor:'transparent', paddingTop:'16px' }}
-                    
-                    >
-                    <span style={{ color: 'black', fontWeight:'400' }}>View Reminders</span>
-                  </Link>
-                </div>
+              <div style={{ marginTop: '30px', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                Here is an example of reminder application, you can
+                <Link
+                  to="/reminder"
+                  className="btn btn-primary jh-create-entity"
+                  id="jh-create-entity"
+                  data-cy="entityCreateButton"
+                  style={{
+                    borderColor: 'transparent',
+                    backgroundColor: 'transparent',
+                    padding: '4px',
+                  }}
+                >
+                  <span style={{ color: '#1a256b', fontWeight: '600', borderBottom: '1px solid #1a256b' }}>click here</span>
+                </Link>{' '}
+                to view reminders
               </div>
               <%_ } _%>
             </div>
@@ -137,7 +141,7 @@ export const Home = () => {
                 }}
               ></img>
             </div>
-          </div>
+            </div>
           <div
             style={{
               backgroundColor: '#012C78',
@@ -154,36 +158,33 @@ export const Home = () => {
         </div>
       ) : (
         <div style={{ backgroundColor: '#dadef7' }}>
-          <h1 style={{ textAlign: 'center', fontFamily: 'public-sans', fontWeight: '500', padding: 50, color: '#012C78' }}>
-            Welcome to <%= capitalizedBaseName %> home page
-          </h1>
           <div
             style={{
               display: 'flex',
               flexDirection: 'row',
               justifyContent: 'space-between',
               marginLeft: 150,
-              marginTop: 0,
+              marginTop: 100,
               marginBottom: 50,
             }}
           >
-            <div style={{ marginTop: 100, marginRight: 50 }}>
+            <div style={{ marginTop: 150, marginRight: 50 }}>
+              <h1 style={{ fontSize: '28px', fontWeight: '500' }}>Welcome to <%= capitalizedBaseName %> home page</h1>
               <span style={{ fontSize: '62px', fontWeight: 800, fontFamily: 'public-sans', color: '#012C78' }}>
                 A stunning React application generated using WDA
               </span>
               <br />
               <br />
-
               <h5>To explore about our products you can refer here</h5>
               <br />
               <button
                 style={{
-                  backgroundColor: 'blue',
+                  backgroundColor: '#1a256b',
                   marginRight: '100px',
                   height: '60px',
                   width: '250px',
                   borderRadius: '35px',
-                  borderColor: 'blue',
+                  borderColor: '#1a256b',
                 }}
                 onClick={() => (window.location.href = getLoginUrl())}
               >
@@ -191,8 +192,16 @@ export const Home = () => {
                   Sign in
                 </a>
               </button>
-              <button style={{ backgroundColor: '#dadef7', height: '60px', width: '250px', borderRadius: '35px', borderColor: 'black' }}
-              onClick={() => window.open('https://comakeit-tic.github.io/', '_blank')}>
+              <button
+                style={{
+                  backgroundColor: '#a6b2ff',
+                  height: '60px',
+                  width: '250px',
+                  borderRadius: '35px',
+                  borderColor: '#a6b2ff',
+                }}
+                onClick={() => window.open('https://comakeit-tic.github.io/', '_blank')}
+              >
                 <a
                   href="https://comakeit-tic.github.io/"
                   target="_blank"
