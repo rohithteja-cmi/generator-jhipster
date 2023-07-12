@@ -149,13 +149,13 @@ data:
     done
 
     log "Checking MongoDB replsets..."
-    until mongosh "${ssl_args[@]}" --eval "rs.status()"; do
-        log "Retrying..."
+    until [[ $(mongosh "${ssl_args[@]}" --eval "rs.status()" | grep "no replset config has been received" | wc -l) -lt 1 ]]; do
+        log "Checking MongoDB replsets..."
         sleep 2
     done
 
     # else initiate a replica set with yourself.
-    if mongosh "${ssl_args[@]}" --eval "rs.status()" | grep "no replset config has been received"; then
+    if [[ $(mongosh "${ssl_args[@]}" --eval "rs.status()" | grep "no replset config has been received" | wc -l) -lt 1 ]]; then
         log "Initiating a new replica set with myself ($service_name)..."
         mongosh "${ssl_args[@]}" --eval "rs.initiate({'_id': '$REPLICA_SET', 'members': [{'_id': 0, 'host': '$service_name'}]})"
 
@@ -279,7 +279,7 @@ spec:
           livenessProbe:
             exec:
               command:
-                - mongo
+                - mongosh
                 - --eval
                 - "db.adminCommand('ping')"
             initialDelaySeconds: 30
@@ -290,7 +290,7 @@ spec:
           readinessProbe:
             exec:
               command:
-                - mongo
+                - mongosh
                 - --eval
                 - "db.adminCommand('ping')"
             initialDelaySeconds: 5
