@@ -103,8 +103,8 @@
       "name": "jhipster generate sample-dev from jdl",
       "program": "${workspaceFolder}/bin/jhipster.cjs",
       "timeout": 100000,
-      "args": ["jdl", "${workspaceFolder}/example/jdl/jdl-test.jdl", "-d", "--skip-checks", "--skip-git", "--skip-cache", "--skip-jhipster-dependencies", "--skip-install"],
-      "cwd": "${workspaceFolder}/tmp/jdl-test-communications",
+      "args": ["jdl", "${workspaceFolder}/example/jdl/test.jdl", "-d", "--skip-checks", "--skip-git", "--skip-cache", "--skip-jhipster-dependencies", "--skip-install"],
+      "cwd": "${workspaceFolder}/tmp/test",
       "console": "integratedTerminal"
     },
     {

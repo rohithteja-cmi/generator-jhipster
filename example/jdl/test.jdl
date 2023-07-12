@@ -1,0 +1,46 @@
+
+
+application {
+  config {
+    baseName fe,
+    applicationType gateway,
+    packageName com.cmi.tic,
+    authenticationType oauth2,
+    databaseType sql,
+    prodDatabaseType postgresql,
+    clientFramework react,
+    serviceDiscoveryType eureka,
+    serverPort 9000
+  }
+  entities *
+}
+
+application {
+  config {
+    baseName be,
+    applicationType microservice,
+    packageName com.cmi.tic,
+    authenticationType oauth2,
+    databaseType sql,
+    prodDatabaseType postgresql,
+    serviceDiscoveryType eureka,
+    serverPort 9001
+  }
+  entities *
+}
+
+
+
+deployment {
+  deploymentType kubernetes
+  appsFolders [fe, be]
+  dockerRepositoryName "raxkumar"
+  serviceDiscoveryType eureka
+  kubernetesNamespace k8s
+  kubernetesUseDynamicStorage true
+  kubernetesStorageClassName "demosc"
+  kubernetesStorageProvisioner "ebs.csi.aws.com"
+  monitoring istio
+
+
+}

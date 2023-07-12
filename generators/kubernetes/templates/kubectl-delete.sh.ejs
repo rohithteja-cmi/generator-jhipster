@@ -63,11 +63,14 @@ default() {
 <%_ if (serviceDiscoveryEureka || serviceDiscoveryConsul) { _%>
     kubectl delete -f registry-${suffix}/
 <%_ } _%> 
-<%_ if (useKeycloak) { _%>    
+<%_ if (useKeycloak || externalLB) { _%>    
     kubectl delete -f keycloak-${suffix}/
 <%_ } _%>
 <%_ if (kubernetesStorageClassName !== '') { _%>
     kubectl delete -f storage-class.yml
+<%_ } _%> 
+<%_ if (externalLB) { _%>
+    kubectl delete -f golbal-service-${suffix}/external-lb.yml
 <%_ } _%> 
 <%_ if (!kubernetesNamespaceDefault) { _%>
     kubectl delete -f namespace.yml

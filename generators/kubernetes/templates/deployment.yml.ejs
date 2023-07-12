@@ -25,11 +25,18 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+    <%_ if (externalLB) { _%>
+      lbtype: external
+    <%_ } else { _%>
       app: <%= app.baseName.toLowerCase() %>
+    <%_ } _%>
       version: "v1"
   template:
     metadata:
       labels:
+      <%_ if (externalLB) { _%>
+        lbtype: external
+      <%_ } _%>
         app: <%= app.baseName.toLowerCase() %>
         version: "v1"
     spec:
@@ -229,6 +236,27 @@ spec:
         - name: MANAGEMENT_TRACING_BAGGAGE_REMOTE_FIELDS
           value: "x-request-id,x-ot-span-context"
 <%_ } _%>
+    <%_ if (externalLB) { _%>
+        - name: EXTERNAL_LB
+          valueFrom:
+            configMapKeyRef:
+              name: external-lb
+              key: external-lb
+        - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI      
+          value: http://$(EXTERNAL_LB):8080/realms/jhipster
+      <%_ if (app.applicationTypeGateway || app.applicationTypeMonolith) { _%>
+        - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID
+          value: web_app
+        - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET
+          value: web_app
+      <%_ } _%>
+      <%_ if (app.applicationTypeMicroservice) { _%>
+        - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID
+          value: internal
+        - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET
+          value: internal
+      <%_ } _%>
+    <%_ } _%>
 <%_ if (useKeycloak) { _%>  
         # Custom trustStore required when using Let's Encrypt staging
         - name: JAVA_OPTS
@@ -295,6 +323,7 @@ spec:
         - name: GO_MICRO_DB_URL
           value: postgresql://<%= app.baseName.toLowerCase() %>:$(GO_MICRO_DB_PASSWORD)@<%= app.baseName.toLowerCase() %>-postgresql.<%= kubernetesNamespace %>.svc.cluster.local:5432/<%= app.baseName.toLowerCase() %>
         <%_ } _%>
+        <%_ if (useKeycloak) { _%>
         - name: GO_MICRO_KEYCLOAK_URL
         <%_ if (!minikube) { _%>
           value: http://keycloak.<%= kubernetesNamespace %>.<%= ingressDomain %>
@@ -302,6 +331,16 @@ spec:
         <%_ if (minikube) { _%>
           value: http://$(MINIKUBE_IP):30001
         <%_ } _%>
+      <%_ } _%>  
+      <%_ if (externalLB) { _%>
+        - name: GO_MICRO_KEYCLOAK_URL
+        <%_ if (!minikube) { _%>   
+          value: http://$(EXTERNAL_LB):8080/realms/jhipster
+        <%_ } _%>
+        <%_ if (minikube) { _%>
+          value: http://$(MINIKUBE_IP):30001
+        <%_ } _%>
+      <%_ } _%> 
         - name: GO_MICRO_SERVICE_REGISTRY_URL
           value: http://admin:$(JHIPSTER_REGISTRY_PASSWORD)@jhipster-registry.<%= kubernetesNamespace %>.svc.cluster.local:8761/eureka/apps/
         resources:
@@ -312,17 +351,17 @@ spec:
             memory: "2Gi"
             cpu: "1"
         ports:
-        - name: http
+        - name: <%= (externalLB && app.applicationTypeGateway) ? app.baseName.toLowerCase() + '-port' : 'http' %>
           containerPort: <%= app.serverPort %>
         readinessProbe:
           httpGet:
             path: /management/health/readiness
-            port: http
+            port: <%= (externalLB && app.applicationTypeGateway) ? app.baseName.toLowerCase() + '-port' : 'http' %>
           initialDelaySeconds: 20
           periodSeconds: 15
           failureThreshold: 6
         livenessProbe:
           httpGet:
             path: /management/health/liveness
-            port: http
+            port: <%= (externalLB && app.applicationTypeGateway) ? app.baseName.toLowerCase() + '-port' : 'http' %>
           initialDelaySeconds: 120

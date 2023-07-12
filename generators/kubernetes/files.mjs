@@ -28,7 +28,7 @@ import {
 } from '../../jdl/jhipster/index.mjs';
 
 const { ELASTICSEARCH } = searchEngineTypes;
-const { GATEWAY, MONOLITH } = applicationTypes;
+const { GATEWAY, MONOLITH, MICROSERVICE } = applicationTypes;
 const { JWT } = authenticationTypes;
 const { PROMETHEUS } = monitoringTypes;
 const { CONSUL, EUREKA } = serviceDiscoveryTypes;
@@ -48,7 +48,13 @@ export function writeFiles() {
         const appOut = appName.concat('-', suffix);
         this.app = this.appConfigs[i];
         this.writeFile('deployment.yml.ejs', `${appOut}/${appName}-deployment.yml`);
-        this.writeFile('service.yml.ejs', `${appOut}/${appName}-service.yml`);
+        const isGateway = this.app.applicationType === GATEWAY;
+        const isMicroserviceOrMonolith = this.app.applicationType === MICROSERVICE || this.app.applicationType === MONOLITH;
+        if ((isGateway && !this.externalLB) || isMicroserviceOrMonolith) {
+          const filePath = `${appOut}/${appName}-service.yml`;
+          this.writeFile('service.yml.ejs', filePath);
+        }
+        
         // If we choose microservice with no DB, it is trying to move _no.yml as prodDatabaseType is getting tagged as 'string' type
         if (this.app.databaseType !== NO_DATABASE) {
           const databaseType = this.app.prodDatabaseType ?? this.app.databaseType;
@@ -125,38 +131,49 @@ export function writeFiles() {
 
     // write's keycloak files if useKeycloak is true @cmi-tic-craxkumar
     writeKeycloak() {
-      if (!this.useKeycloak) return;
-      const keycloakOut = 'keycloak'.concat('-', suffix);
-      this.entryPort = '8080';
-      this.keycloakRedirectUris = '';
-      this.appConfigs.forEach(appConfig => {
-        // Add application configuration
-        if (appConfig.applicationType === GATEWAY || appConfig.applicationType === MONOLITH) {
-          this.entryPort = appConfig.composePort;
-          if (this.ingressDomain) {
-            this.keycloakRedirectUris += `"http://${appConfig.baseName.toLowerCase()}.${this.kubernetesNamespace}.${this.ingressDomain}/*", 
-            "https://${appConfig.baseName.toLowerCase()}.${this.kubernetesNamespace}.${this.ingressDomain}/*", `;
-          } else {
-            this.keycloakRedirectUris += `"http://${appConfig.baseName.toLowerCase()}:${appConfig.composePort}/*", 
-            "https://${appConfig.baseName.toLowerCase()}:${appConfig.composePort}/*", `;
+      if (this.useKeycloak || this.externalLB) {
+        const keycloakOut = 'keycloak'.concat('-', suffix);
+        this.entryPort = '8080';
+        this.keycloakRedirectUris = '';
+        this.appConfigs.forEach(appConfig => {
+          // Add application configuration
+          if (appConfig.applicationType === GATEWAY || appConfig.applicationType === MONOLITH) {
+            this.entryPort = appConfig.composePort;
+            if (this.ingressDomain) {
+              this.keycloakRedirectUris += `"http://${appConfig.baseName.toLowerCase()}.${this.kubernetesNamespace}.${this.ingressDomain}/*", 
+              "https://${appConfig.baseName.toLowerCase()}.${this.kubernetesNamespace}.${this.ingressDomain}/*", `;
+            } else {
+              this.keycloakRedirectUris += `"http://${appConfig.baseName.toLowerCase()}:${appConfig.composePort}/*", 
+              "https://${appConfig.baseName.toLowerCase()}:${appConfig.composePort}/*", `;
+            }
+
+            this.keycloakRedirectUris += `"http://localhost:${appConfig.composePort}/*", 
+              "https://localhost:${appConfig.composePort}/*", `;
+
+            if (appConfig.devServerPort !== undefined) {
+              this.keycloakRedirectUris += `"http://localhost:${appConfig.devServerPort}/*", `;
+            }
+
+            this.debug(chalk.red.bold(`${appConfig.baseName} has redirect URIs ${this.keycloakRedirectUris}`));
+            this.debug(chalk.red.bold(`AppConfig is ${JSON.stringify(appConfig)}`));
           }
-
-          this.keycloakRedirectUris += `"http://localhost:${appConfig.composePort}/*", 
-            "https://localhost:${appConfig.composePort}/*", `;
-
-          if (appConfig.devServerPort !== undefined) {
-            this.keycloakRedirectUris += `"http://localhost:${appConfig.devServerPort}/*", `;
-          }
-
-          this.debug(chalk.red.bold(`${appConfig.baseName} has redirect URIs ${this.keycloakRedirectUris}`));
-          this.debug(chalk.red.bold(`AppConfig is ${JSON.stringify(appConfig)}`));
+        });
+        this.writeFile('keycloak/keycloak-configmap.yml.ejs', `${keycloakOut}/keycloak-configmap.yml`);
+        this.writeFile('keycloak/keycloak-postgresql.yml.ejs', `${keycloakOut}/keycloak-postgresql.yml`);
+        this.writeFile('keycloak/keycloak.yml.ejs', `${keycloakOut}/keycloak.yml`);
+        if(!this.externalLB){
+          this.writeFile('keycloak/keycloak-service.yml.ejs', `${keycloakOut}/keycloak-service.yml`);
         }
-      });
-      this.writeFile('keycloak/keycloak-configmap.yml.ejs', `${keycloakOut}/keycloak-configmap.yml`);
-      this.writeFile('keycloak/keycloak-postgresql.yml.ejs', `${keycloakOut}/keycloak-postgresql.yml`);
-      this.writeFile('keycloak/keycloak.yml.ejs', `${keycloakOut}/keycloak.yml`);
-      // this.writeFile('cert-manager/letsencrypt-staging-ca-secret.yml.ejs', 'cert-manager/letsencrypt-staging-ca-secret.yml');
-      // this.writeFile('cert-manager/letsencrypt-staging-issuer.yml.ejs', 'cert-manager/letsencrypt-staging-issuer.yml');
+        // this.writeFile('cert-manager/letsencrypt-staging-ca-secret.yml.ejs', 'cert-manager/letsencrypt-staging-ca-secret.yml');
+        // this.writeFile('cert-manager/letsencrypt-staging-issuer.yml.ejs', 'cert-manager/letsencrypt-staging-issuer.yml');
+      }
+    },
+
+    writeGlobalServiceFiles(){
+      if(!this.externalLB) return;
+      const globalServiceOut = 'global-service'.concat('-', suffix);
+      this.writeFile('global-service/external-lb.yml.ejs', `${globalServiceOut}/external-lb.yml`);
+      this.writeFile('global-service/configMap.sh.ejs', `${globalServiceOut}/configMap.sh`);      
     },
 
     writePrometheusGrafanaFiles() {
