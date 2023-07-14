@@ -134,7 +134,7 @@ default() {
     kubectl apply -f istio-${suffix}/
 <%_ } _%>
 <%_ if (externalLB) { _%>
-    chmod 777 -R ./global-service-${suffix}/configMap.sh
+    chmod -R 777 ./global-service-${suffix}/configMap.sh
     kubectl apply -f global-service-${suffix}/external-lb.yml
     ./global-service-${suffix}/configMap.sh
 <%_ } _%>

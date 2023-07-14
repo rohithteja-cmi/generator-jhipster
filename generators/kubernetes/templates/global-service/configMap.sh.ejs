@@ -18,7 +18,7 @@ done
 retry_count=0
 
 while [ $retry_count -lt $MAX_RETRIES ]; do
-    hostname=$(kubectl get service external-lb -n <%= kubernetesNamespace %> -o jsonpath="{.status.loadBalancer.ingress[0].hostname}")
+    hostname=$(kubectl get service external-lb -n <%= kubernetesNamespace %> -o jsonpath='{.status.loadBalancer.ingress[0].ip}{.status.loadBalancer.ingress[0].hostname}")
     if [ $? -eq 0 ]; then
         break
     fi
