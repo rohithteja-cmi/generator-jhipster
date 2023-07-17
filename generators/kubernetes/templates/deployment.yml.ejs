@@ -323,6 +323,10 @@ spec:
         - name: GO_MICRO_DB_URL
           value: postgresql://<%= app.baseName.toLowerCase() %>:$(GO_MICRO_DB_PASSWORD)@<%= app.baseName.toLowerCase() %>-postgresql.<%= kubernetesNamespace %>.svc.cluster.local:5432/<%= app.baseName.toLowerCase() %>
         <%_ } _%>
+        <%_ if (app.messageBrokerRabbitMQ || app.communicationsFrameworkRabbitMQ) { _%>
+        - name: GO_MICRO_MESSAGE_BROKER
+          value: jhipster-rabbitmq.<%= kubernetesNamespace %>.svc.cluster.local:5672
+       <%_ } _%>
         <%_ if (useKeycloak) { _%>
         - name: GO_MICRO_KEYCLOAK_URL
         <%_ if (!minikube) { _%>
