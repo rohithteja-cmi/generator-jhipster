@@ -54,12 +54,12 @@ default() {
     kubectl delete -f monitoring-${suffix}/jhipster-prometheus-cr.yml
     kubectl delete -f monitoring-${suffix}/jhipster-prometheus-crd.yml    
 <%_ } _%>
-<%_ if (useKafka || useRabbitMQ) { _%>
-    kubectl delete -f messagebroker-${suffix}/
-<%_ } _%> 
 <%_ appConfigs.forEach((appConfig, index) =>  { _%>
     kubectl delete -f <%- appConfig.baseName.toLowerCase() %>-${suffix}/
 <%_ }) _%>
+<%_ if (useKafka || useRabbitMQ) { _%>
+    kubectl delete -f messagebroker-${suffix}/
+<%_ } _%> 
 <%_ if (serviceDiscoveryEureka || serviceDiscoveryConsul) { _%>
     kubectl delete -f registry-${suffix}/
 <%_ } _%> 

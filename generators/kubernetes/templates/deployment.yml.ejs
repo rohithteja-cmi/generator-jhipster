@@ -324,8 +324,13 @@ spec:
           value: postgresql://<%= app.baseName.toLowerCase() %>:$(GO_MICRO_DB_PASSWORD)@<%= app.baseName.toLowerCase() %>-postgresql.<%= kubernetesNamespace %>.svc.cluster.local:5432/<%= app.baseName.toLowerCase() %>
         <%_ } _%>
         <%_ if (app.messageBrokerRabbitMQ || app.communicationsFrameworkRabbitMQ) { _%>
+        - name: RABBITMQ_GUEST_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq-secret
+              key: rabbitmq-guest-password
         - name: GO_MICRO_MESSAGE_BROKER
-          value: jhipster-rabbitmq.<%= kubernetesNamespace %>.svc.cluster.local:5672
+          value: amqp://guest:$(RABBITMQ_GUEST_PASSWORD)@jhipster-rabbitmq.<%= kubernetesNamespace %>.svc.cluster.local:5672
        <%_ } _%>
         <%_ if (useKeycloak) { _%>
         - name: GO_MICRO_KEYCLOAK_URL

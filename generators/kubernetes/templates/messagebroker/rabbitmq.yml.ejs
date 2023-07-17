@@ -16,6 +16,15 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -%>
+apiVersion: <%= KUBERNETES_CORE_API_VERSION %>
+kind: Secret
+metadata:
+  name: rabbitmq-secret
+  namespace: <%= kubernetesNamespace %>
+type: Opaque
+data:
+  rabbitmq-guest-password: Z3Vlc3Q= # base64 encoded "guest"
+---
 apiVersion: <%= KUBERNETES_DEPLOYMENT_API_VERSION %>
 kind: Deployment
 metadata:
@@ -42,7 +51,10 @@ spec:
         - name: RABBITMQ_DEFAULT_USER
           value: guest
         - name: RABBITMQ_DEFAULT_PASS
-          value: guest
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq-secret
+              key: rabbitmq-guest-password
         ports:
         - containerPort: 5672
           name: mq
