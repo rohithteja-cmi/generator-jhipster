@@ -1,0 +1,34 @@
+#!/bin/bash
+
+suffix=k8s
+
+<%_ appConfigs.forEach((appConfig) =>  { _%>
+    <%_ if (appConfig.applicationTypeGateway) {_%>
+GATEWAY_DIR="<%= appConfig.baseName %>-${suffix}"
+    <%_ } _%>
+<%_ }) _%>
+
+<%_ appConfigs.forEach((appConfig) =>  { _%>
+    <%_ if (appConfig.applicationTypeGateway) {_%>
+GATEWAY_SERVICE="<%= appConfig.baseName %>"
+    <%_ } _%>
+<%_ }) _%>
+
+current_directory=$(basename "$PWD")
+
+if [ "$current_directory" == "keycloak-k8s" ]; then
+  cd ..
+fi
+
+GATEWAY_PORT=$(grep -o 'containerPort: [0-9]*' "$GATEWAY_DIR/$GATEWAY_SERVICE-deployment.yml" | awk '{print $2}')
+
+HOSTNAME=$(kubectl get service external-lb -o jsonpath='{.status.loadBalancer.ingress[0].ip}{.status.loadBalancer.ingress[0].hostname}')
+
+cd keycloak-k8s
+
+CONFIG_MAP_JSON=$(kubectl get configmap keycloak-config -n <%= kubernetesNamespace %> -o jsonpath='{.data.jhipster-realm\.json}')
+
+# Replace external-lb and gateway-port occurrences in UPDATED_JSON
+UPDATED_JSON=$(echo "$CONFIG_MAP_JSON" | sed -e "s/external-lb/$HOSTNAME/g; s/gateway-port/$GATEWAY_PORT/g")
+
+kubectl create configmap keycloak-config -n <%= kubernetesNamespace %> --from-literal=jhipster-realm.json="$UPDATED_JSON" -o yaml --dry-run=client | kubectl replace -f -

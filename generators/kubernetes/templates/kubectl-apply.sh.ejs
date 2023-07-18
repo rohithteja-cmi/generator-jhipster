@@ -97,9 +97,18 @@ default() {
 <%_ if (useECK) { _%>
     kubectl apply -f eck-${suffix}/
 <%_ } _%>
-<%_ if (useKeycloak || externalLB) { _%>    
+<%_ if (externalLB) { _%>
+    chmod -R 777 ./global-service-${suffix}/configMap.sh 
+    kubectl apply -f global-service-${suffix}/external-lb.yml
+    ./global-service-${suffix}/configMap.sh
+    kubectl apply -f keycloak-${suffix}/keycloak-configmap.yml
+    chmod -R 777 ./keycloak-${suffix}/updateConfigMap.sh 
+    ./keycloak-${suffix}/updateConfigMap.sh 
+    kubectl apply -f keycloak-${suffix}/keycloak-postgresql.yml
+    kubectl apply -f keycloak-${suffix}/keycloak.yml
+<%_ } _%>
+<%_ if (useKeycloak) { _%>    
     kubectl apply -f keycloak-${suffix}/
-<%_ if (!externalLB) { _%>
     <%_ if (minikube) { _%>
     until [ $(curl -LI http://minikube_ip_placeholder:30001/realms/master -o /dev/null -w '%{http_code}\n' -s) == 200 ]; do
         echo "Waiting for the keycloak server to get initialised";
@@ -111,7 +120,6 @@ default() {
         echo "Waiting for the keycloak server to get initialised";
         sleep 5;
     done
-    <%_ } _%>
     <%_ } _%>
 <%_ } _%>
 <%_ if (serviceDiscoveryEureka || serviceDiscoveryConsul) { _%>
@@ -136,12 +144,6 @@ default() {
 <%_ if (istio) { _%>
     kubectl apply -f istio-${suffix}/
 <%_ } _%>
-<%_ if (externalLB) { _%>
-    chmod -R 777 ./global-service-${suffix}/configMap.sh
-    kubectl apply -f global-service-${suffix}/external-lb.yml
-    ./global-service-${suffix}/configMap.sh
-<%_ } _%>
-
 }
 
 kustomize() {

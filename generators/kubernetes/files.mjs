@@ -164,6 +164,9 @@ export function writeFiles() {
         if(!this.externalLB){
           this.writeFile('keycloak/keycloak-service.yml.ejs', `${keycloakOut}/keycloak-service.yml`);
         }
+        if(!this.useKeycloak){
+          this.writeFile('keycloak/updateConfigMap.sh.ejs', `${keycloakOut}/updateConfigMap.sh`);
+        }
         // this.writeFile('cert-manager/letsencrypt-staging-ca-secret.yml.ejs', 'cert-manager/letsencrypt-staging-ca-secret.yml');
         // this.writeFile('cert-manager/letsencrypt-staging-issuer.yml.ejs', 'cert-manager/letsencrypt-staging-issuer.yml');
       }

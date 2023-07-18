@@ -1043,6 +1043,10 @@ data:
             <%_ if (minikube) { _%>
             "http://minikube_ip_placeholder:30200/*"
             <%_ } _%>
+            <%_ if (externalLB) { _%>
+              "http://external-lb:gateway-port/*"
+            <%_ } _%>
+
           ],
           "webOrigins": [
             <%- keycloakRedirectUris.replace(/\/\*/g, "") %>
@@ -1051,6 +1055,9 @@ data:
             "http://localhost:9000"<%= minikube ? ',' : '' %>
             <%_ if (minikube) { _%>
             "http://minikube_ip_placeholder:30200"
+            <%_ } _%>
+            <%_ if (externalLB) { _%>
+              "http://external-lb:gateway-port"
             <%_ } _%>
           ],
           "notBefore": 0,
