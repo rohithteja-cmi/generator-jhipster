@@ -24,7 +24,7 @@ fi
 
 GATEWAY_PORT=$(grep -o 'containerPort: [0-9]*' "$GATEWAY_DIR/$GATEWAY_SERVICE-deployment.yml" | awk '{print $2}')
 
-HOSTNAME=$(kubectl get service external-lb -o jsonpath='{.status.loadBalancer.ingress[0].ip}{.status.loadBalancer.ingress[0].hostname}')
+HOSTNAME=$(kubectl get service external-lb -n <%= kubernetesNamespace %> -o jsonpath='{.status.loadBalancer.ingress[0].ip}{.status.loadBalancer.ingress[0].hostname}')
 
 cd keycloak-k8s
 

@@ -1038,26 +1038,25 @@ data:
             <%- keycloakRedirectUris %>
             "http://localhost:8100/*",
             "http://127.0.0.1:8761/*",
+            <%_ if (externalLB) { _%>
+            "http://external-lb:gateway-port/*",
+            <%_ } _%>
             "http://localhost:9000/*",
             "dev.localhost.ionic:*"<%= minikube ? ',' : '' %>
             <%_ if (minikube) { _%>
             "http://minikube_ip_placeholder:30200/*"
             <%_ } _%>
-            <%_ if (externalLB) { _%>
-              "http://external-lb:gateway-port/*"
-            <%_ } _%>
-
           ],
           "webOrigins": [
             <%- keycloakRedirectUris.replace(/\/\*/g, "") %>
             "http://localhost:8100",
+            <%_ if (externalLB) { _%>
+            "http://external-lb:gateway-port",
+            <%_ } _%>
             "http://127.0.0.1:8761",
             "http://localhost:9000"<%= minikube ? ',' : '' %>
             <%_ if (minikube) { _%>
             "http://minikube_ip_placeholder:30200"
-            <%_ } _%>
-            <%_ if (externalLB) { _%>
-              "http://external-lb:gateway-port"
             <%_ } _%>
           ],
           "notBefore": 0,
