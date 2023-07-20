@@ -94,8 +94,18 @@
       "program": "${workspaceFolder}/bin/jhipster.cjs",
       "timeout": 100000,
       "args": ["-d", "--skip-checks", "--skip-git", "--skip-cache"],
-      "cwd": "${workspaceFolder}/tmp/jhipster-test"
-      // "console": "integratedTerminal"
+      "cwd": "${workspaceFolder}/tmp/test",
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "jhipster generate sample-ci-cd",
+      "program": "${workspaceFolder}/bin/jhipster.cjs",
+      "timeout": 100000,
+      "args": ["ci-cd", "-d"],
+      "cwd": "${workspaceFolder}/tmp/test",
+      "console": "integratedTerminal"
     },
     {
       "type": "node",

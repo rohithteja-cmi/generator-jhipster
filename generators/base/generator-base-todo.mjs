@@ -1298,10 +1298,11 @@ templates: ${JSON.stringify(existingTemplates, null, 2)}`;
 
     dest.logManagementTypeEck = dest.logManagementType === ECK_LOG;
 
-    dest.communicationsFrameworkKafka = dest.communicationsList.includes(MESSAGE_BROKER_KAFKA);
-    dest.communicationsFrameworkRabbitMQ = dest.communicationsList.includes(MESSAGE_BROKER_RABBITMQ);
-    dest.communicationsFrameworkRestAPI = dest.communicationsList.includes(MESSAGE_BROKER_REST_API);
-    dest.communicationsFrameworkPulsar = dest.communicationsList.includes(MESSAGE_BROKER_PULSAR);
+
+    dest.communicationsFrameworkKafka = dest.communicationsList?.includes(MESSAGE_BROKER_KAFKA) ? true : false;
+    dest.communicationsFrameworkRabbitMQ = dest.communicationsList?.includes(MESSAGE_BROKER_RABBITMQ) ? true : false; 
+    dest.communicationsFrameworkRestAPI = dest.communicationsList?.includes(MESSAGE_BROKER_REST_API) ? true : false;
+    dest.communicationsFrameworkPulsar = dest.communicationsList?.includes(MESSAGE_BROKER_PULSAR)  ? true : false;
 
     if (dest.databaseTypeSql) {
       prepareSqlApplicationProperties(dest);
