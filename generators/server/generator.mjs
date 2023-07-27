@@ -124,7 +124,7 @@ const { CUCUMBER, GATLING } = testFrameworkTypes;
 const { SUPPORTED_VALIDATION_RULES } = validations;
 const { isReservedTableName } = reservedKeywords;
 const { ANGULAR, REACT, VUE } = clientFrameworkTypes;
-const { JWT, OAUTH2, SESSION } = authenticationTypes;
+const { JWT, OAUTH2, SESSION, NO } = authenticationTypes;
 const { GRADLE, MAVEN } = buildToolTypes;
 const { EUREKA } = serviceDiscoveryTypes;
 const { CAFFEINE, EHCACHE, HAZELCAST, INFINISPAN, MEMCACHED, REDIS, NO: NO_CACHE } = cacheTypes;
@@ -874,7 +874,7 @@ export default class JHipsterServerGenerator extends BaseApplicationGenerator {
   _configureServer(config = this.jhipsterConfigWithDefaults, dest = this.jhipsterConfig) {
     // JWT authentication is mandatory with Eureka, so the JHipster Registry
     // can control the applications
-    if (config.serviceDiscoveryType === EUREKA && config.authenticationType !== OAUTH2) {
+    if (config.serviceDiscoveryType === EUREKA && config.authenticationType !== OAUTH2 && config.authenticationType !== NO) {
       dest.authenticationType = JWT;
     }
 

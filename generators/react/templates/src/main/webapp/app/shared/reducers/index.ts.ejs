@@ -22,7 +22,9 @@ import { loadingBarReducer as loadingBar } from 'react-redux-loading-bar';
 <%_ if (enableTranslation) { _%>
 import locale from './locale';
 <%_ } _%>
+<%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
 import authentication from './authentication';
+<%_ } _%>
 import applicationProfile from './application-profile';
 
 import administration from 'app/modules/administration/administration.reducer';
@@ -47,7 +49,9 @@ import entitiesReducers from 'app/entities/reducers';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const rootReducer: ReducersMapObject = {
-  authentication,
+<%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
+    authentication,
+<%_ } _%>
 <%_ if (enableTranslation) { _%>
   locale,
 <%_ } _%>

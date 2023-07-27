@@ -26,7 +26,9 @@ import getStore from 'app/config/store';
 import { registerLocale } from 'app/config/translation';
 <%_ } _%>
 import setupAxiosInterceptors from 'app/config/axios-interceptor';
+<%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
 import { clearAuthentication } from 'app/shared/reducers/authentication';
+<%_ } _%>
 import ErrorBoundary from 'app/shared/error/error-boundary';
 import AppComponent from 'app/app';
 import { loadIcons } from 'app/config/icon-loader';
@@ -35,10 +37,10 @@ const store = getStore();
 <%_ if (enableTranslation) { _%>
 registerLocale(store);
 <%_ } _%>
-
+<%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
 const actions = bindActionCreators({ clearAuthentication }, store.dispatch);
 setupAxiosInterceptors(() => actions.clearAuthentication('login.error.unauthorized'));
-
+<%_ } _%>
 loadIcons();
 
 const rootEl = document.getElementById('root');

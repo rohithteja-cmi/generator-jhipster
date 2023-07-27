@@ -33,7 +33,7 @@ const { CONSUL } = serviceDiscoveryTypes;
 const { COUCHBASE, CASSANDRA, MONGODB, NEO4J, SQL, H2_DISK, POSTGRESQL } = databaseTypes;
 const NO_DATABASE_TYPE = databaseTypes.NO;
 const { OptionNames, OptionValues } = applicationOptions;
-const { JWT, OAUTH2 } = authenticationTypes;
+const { JWT, OAUTH2, NO } = authenticationTypes;
 const { ANGULAR, REACT, NO: NO_CLIENT_FRAMEWORK } = clientFrameworkTypes; // adding react framework @cmi-tic-harika
 const { EHCACHE, HAZELCAST } = cacheTypes;
 
@@ -82,7 +82,7 @@ const {
 } = OptionNames;
 
 const commonDefaultOptions = {
-  [AUTHENTICATION_TYPE]: JWT,
+  [AUTHENTICATION_TYPE]: NO,
   [BUILD_TOOL]: MAVEN,
   [DTO_SUFFIX]: OptionValues[DTO_SUFFIX],
   [ENABLE_SWAGGER_CODEGEN]: OptionValues[ENABLE_SWAGGER_CODEGEN],

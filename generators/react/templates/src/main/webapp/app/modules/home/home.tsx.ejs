@@ -26,10 +26,11 @@ import React, { useEffect, useState } from 'react';
 <%_ } else { _%>
 import React from 'react';
 <%_ } _%>
+<%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
 import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
 import { Row, Col, Alert } from 'reactstrap';
-
+<%_ } _%>
 <%_ if (authenticationTypeOauth2) { _%>
 import { getLoginUrl, REDIRECT_URL } from 'app/shared/util/url-utils';
 <%_ } _%>
@@ -37,10 +38,12 @@ import { useAppSelector } from 'app/config/store';
 <%_ if(withExample) { _%>
 import { useNavigate } from 'react-router-dom';
 <%_ } _%>
+<%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
-
+<%_ } _%>
 export const Home = () => {
+  <%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
   const account = useAppSelector(state => state.authentication.account);
   <%_ if(withExample) { _%>
     const navigate = useNavigate();
@@ -54,9 +57,11 @@ export const Home = () => {
     }
   });
 <%_ } _%>
+<%_ } _%>
 
   return (
     <div style={{ backgroundColor: '#dadef7', overflow: 'hidden' }}>
+    <%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
       {account?.login ? (
         <div style={{ backgroundColor: '#dadef7' }}>
         <div
@@ -240,6 +245,73 @@ export const Home = () => {
           </div>
         </div>
       )}
+    <%_ } else { _%>
+      {(
+        <div style={{ backgroundColor: '#dadef7' }}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginLeft: 150,
+              marginTop: 100,
+              marginBottom: 50,
+            }}
+          >
+            <div style={{ marginTop: 150, marginRight: 50 }}>
+              <h1 style={{ fontSize: '28px', fontWeight: '500' }}>Welcome to Fe home page</h1>
+              <span style={{ fontSize: '62px', fontWeight: 800, fontFamily: 'public-sans', color: '#012C78' }}>
+                A stunning React application generated using WDA
+              </span>
+              <br />
+              <br />
+              <h5>To explore about our products you can refer here</h5>
+              <br />
+              <button
+                style={{
+                  backgroundColor: '#a6b2ff',
+                  height: '60px',
+                  width: '250px',
+                  borderRadius: '35px',
+                  borderColor: '#a6b2ff',
+                }}
+                onClick={() => window.open('https://tic-oss.github.io/', '_blank')}
+              >
+                <a href="https://tic-oss.github.io/" target="_blank" style={{ color: 'black', textDecoration: 'none', fontSize: '18px' }}>
+                  Explore
+                </a>
+              </button>
+            </div>
+            <div>
+              <img
+                src="content/images/logo.png"
+                style={{
+                  width: '750px',
+                  height: '750px',
+                  marginTop: '100px',
+                  left: '376px',
+                  border: '1px solid transparent',
+                  borderTopLeftRadius: '60px',
+                }}
+              ></img>
+            </div>
+          </div>
+          <div
+            style={{
+              backgroundColor: '#012C78',
+              height: '80px',
+              marginTop: '50px',
+              textAlign: 'center',
+              fontSize: '20px',
+              fontFamily: 'open-sans',
+              paddingTop: '10px',
+            }}
+          >
+            <span style={{ color: '#FFF' }}>TIC-Fe</span>
+          </div>
+        </div>
+      )}
+    <%_ } _%>
     </div>
   );
 };

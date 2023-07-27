@@ -40,7 +40,8 @@ const { GATEWAY, MONOLITH, MICROSERVICE } = applicationTypes;
 const { CASSANDRA, COUCHBASE, MARIADB, MONGODB, MSSQL, MYSQL, NEO4J, ORACLE, POSTGRESQL, SQL, H2_DISK, H2_MEMORY } = databaseTypes;
 const NO_DATABASE = databaseTypes.NO;
 const { ECK, NO_LOG } = logManagementTypes;
-const { JWT, OAUTH2, SESSION } = authenticationTypes;
+const { JWT, OAUTH2, SESSION, } = authenticationTypes;
+const  NO_AUTHENTICATION_PROVIDER = authenticationTypes.NO;
 const { MAVEN, GRADLE } = buildToolTypes;
 const { CAFFEINE, EHCACHE, HAZELCAST, INFINISPAN, MEMCACHED, REDIS } = cacheTypes;
 
@@ -139,6 +140,7 @@ export const jhipsterOptionValues: Record<string, JDLApplicationOptionValue> = {
     [JWT]: JWT,
     [OAUTH2]: OAUTH2,
     [SESSION]: SESSION,
+    [NO_AUTHENTICATION_PROVIDER]: NO_AUTHENTICATION_PROVIDER,
   },
   [optionNames.BASE_NAME]: 'jhipster',
   [optionNames.BLUEPRINT]: undefined,

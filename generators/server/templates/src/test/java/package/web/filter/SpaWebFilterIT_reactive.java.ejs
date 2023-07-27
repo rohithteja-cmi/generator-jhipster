@@ -1,13 +1,16 @@
 package <%= packageName %>.web.filter;
 
 import <%= packageName %>.IntegrationTest;
+<%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
 import <%= packageName %>.security.AuthoritiesConstants;
+import org.springframework.http.MediaType;
+<%_ } _%>
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.http.MediaType;
+
 
 
 @AutoConfigureWebTestClient(timeout = IntegrationTest.DEFAULT_TIMEOUT)
@@ -40,7 +43,7 @@ public class SpaWebFilterIT {
             .expectBody(String.class).isEqualTo("user");
     }
 <%_ } _%>
-
+<%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
     @Test
     @WithMockUser(authorities = AuthoritiesConstants.ADMIN)
     void testFilterDoesNotForwardToIndexForV3ApiDocs() {
@@ -51,6 +54,7 @@ public class SpaWebFilterIT {
             .expectStatus().isOk()
             .expectHeader().contentType(MediaType.APPLICATION_JSON);
     }
+<%_ } _%>
 
     @Test
     void testFilterDoesNotForwardToIndexForDotFile() {

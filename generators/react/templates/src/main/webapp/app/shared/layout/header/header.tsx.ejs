@@ -33,15 +33,17 @@ import LoadingBar from 'react-redux-loading-bar';
 import { isRTL } from 'app/config/translation';
 <%_ } _%>
 import { Home, Brand } from './header-components';
-import { AdminMenu, EntitiesMenu, AccountMenu<%_ if (enableTranslation) { _%>, LocaleMenu<%_ } _%>} from '../menus';
+import { AdminMenu, EntitiesMenu<%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>, AccountMenu<%_ } _%><%_ if (enableTranslation) { _%>, LocaleMenu<%_ } _%>} from '../menus';
 <%_ if (enableTranslation) { _%>
 import { useAppDispatch } from 'app/config/store';
 import { setLocale } from 'app/shared/reducers/locale';
 <%_ } _%>
 
 export interface IHeaderProps {
+<%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
   isAuthenticated: boolean;
   isAdmin: boolean;
+<%_ } _%>
   isOpenAPIEnabled: boolean;
   isInProduction: boolean;
 <%_ if (enableTranslation) { _%>
@@ -81,17 +83,19 @@ const Header = (props: IHeaderProps) => {
         <Collapse isOpen={menuOpen} navbar>
           <Nav
             navbar
-          >
-            {props.isAuthenticated && props.isAdmin && (
+          >{<%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
+            props.isAuthenticated && props.isAdmin &&<%_ } _%> (
               <AdminMenu showOpenAPI={props.isOpenAPIEnabled}<% if (devDatabaseTypeH2Any) { %> showDatabase={!props.isInProduction} <%_ } _%>/>
             )}
           </Nav>
+          <%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
           <Nav id="header-tabs" className="ms-auto" navbar style={{ marginRight: '200px' }}>
           <%_ if (enableTranslation && !withExample) { _%>
             <LocaleMenu currentLocale={props.currentLocale} onClick={handleLocaleChange} />
           <%_ } _%>
             <AccountMenu isAuthenticated={props.isAuthenticated} />
           </Nav>
+          <%_ } _%>
         </Collapse>
       </Navbar>
     </div>

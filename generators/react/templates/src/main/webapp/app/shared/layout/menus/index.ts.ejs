@@ -16,7 +16,9 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -%>
+<%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
 export * from './account';
+<%_ } _%>
 export * from './admin';
 <%_ if (enableTranslation) { _%>
 export * from './locale';

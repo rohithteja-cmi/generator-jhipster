@@ -29,8 +29,10 @@ import org.springframework.cloud.gateway.route.Route;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import reactor.core.publisher.Flux;
 import org.springframework.http.*;
+<%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
 import org.springframework.security.access.annotation.Secured;
 import <%= packageName %>.security.AuthoritiesConstants;
+<%_ } _%>
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -58,7 +60,9 @@ public class GatewayResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the list of routes.
      */
     @GetMapping("/routes")
+    <%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
     @Secured(AuthoritiesConstants.ADMIN)
+    <%_ } _%>
     public ResponseEntity<List<RouteVM>> activeRoutes() {
         Flux<Route> routes = routeLocator.getRoutes();
         List<RouteVM> routeVMs = new ArrayList<>();

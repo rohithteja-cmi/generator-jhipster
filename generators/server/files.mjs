@@ -151,6 +151,7 @@ const oauth2Files = {
 const accountFiles = {
   accountResource: [
     {
+      condition: generator => generator.authenticationTypeJwt || generator.authenticationTypeOauth2 || generator.authenticationTypeSession,
       path: `${SERVER_MAIN_SRC_DIR}package/`,
       renameTo: moveToJavaPackageSrcDir,
       templates: [
@@ -168,6 +169,7 @@ const accountFiles = {
       templates: ['web/rest/vm/ManagedUserVM.java'],
     },
     {
+      condition: generator => generator.authenticationTypeJwt || generator.authenticationTypeOauth2 || generator.authenticationTypeSession,
       path: `${SERVER_TEST_SRC_DIR}package/`,
       renameTo: moveToJavaPackageTestDir,
       templates: [
@@ -417,16 +419,19 @@ export const baseServerFiles = {
       templates: ['security/SpringSecurityAuditorAware.java'],
     },
     {
+      condition: generator => generator.authenticationTypeJwt || generator.authenticationTypeOauth2 || generator.authenticationTypeSession,
       path: `${SERVER_MAIN_SRC_DIR}package/`,
       renameTo: moveToJavaPackageSrcDir,
       templates: ['security/SecurityUtils.java', 'security/AuthoritiesConstants.java'],
     },
     {
+      condition: generator => generator.authenticationTypeJwt || generator.authenticationTypeOauth2 || generator.authenticationTypeSession,
       path: `${SERVER_TEST_SRC_DIR}package/`,
       renameTo: moveToJavaPackageTestDir,
       templates: [data => `security/SecurityUtilsUnitTest_${data.imperativeOrReactive}.java`],
     },
     {
+      condition: generator => generator.authenticationTypeJwt || generator.authenticationTypeOauth2 || generator.authenticationTypeSession,
       path: `${SERVER_MAIN_SRC_DIR}package/`,
       renameTo: moveToJavaPackageSrcDir,
       templates: [data => `config/SecurityConfiguration_${data.imperativeOrReactive}.java`],

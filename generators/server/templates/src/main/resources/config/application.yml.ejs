@@ -188,8 +188,10 @@ spring:
   <%_ } _%>
   <%_ if (applicationTypeGateway && reactive) { _%>
     gateway:
+      <%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
       default-filters:
         - <% if (authenticationTypeJwt) { %>JWTRelay<% } else { %>TokenRelay<% } %>
+      <%_ } _%>
       discovery:
         locator:
           enabled: true
@@ -388,6 +390,7 @@ jhipster:
     contact-email:
     license: unlicensed
     license-url:
+<%_ if(authenticationTypeOauth2 || authenticationTypeJwt || authenticationTypeSession) { _%>    
   security:
 <%_ if(!skipClient) { _%>
     <%_ if (clientTheme !== 'none') { _%>
@@ -395,6 +398,7 @@ jhipster:
     <%_ } else { _%>
     content-security-policy: "default-src 'self'; frame-src 'self' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://storage.googleapis.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:"
     <%_ } _%>
+<%_ } _%>
 <%_ } _%>
 <%_ if (authenticationTypeOauth2) { _%>
     oauth2:

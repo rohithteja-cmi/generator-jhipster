@@ -1,0 +1,27 @@
+application {
+  config {
+    baseName clinet,
+    applicationType gateway,
+    packageName com.cmi.tic,
+    authenticationType oauth2,
+    databaseType no,
+    prodDatabaseType no,
+    clientFramework react,
+    serviceDiscoveryType no,
+    serverPort 9000
+  }
+}
+
+application {
+  config {
+    baseName backend,
+    applicationType microservice,
+    packageName com.cmi.tic,
+    authenticationType oauth2,
+    databaseType no,
+    prodDatabaseType no,
+    serviceDiscoveryType no,
+    serverPort 9001
+  }
+}
+

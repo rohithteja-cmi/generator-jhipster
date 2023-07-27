@@ -1,18 +1,22 @@
 package <%= packageName %>.web.filter;
 
 import <%= packageName %>.IntegrationTest;
+<%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
 import <%= packageName %>.security.AuthoritiesConstants;
+import org.springframework.security.test.context.support.WithMockUser;
+<%_ } _%>
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
+<%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
+@WithMockUser
+<%_ } _%>
 @WithMockUser
 @IntegrationTest
 public class SpaWebFilterIT {
@@ -35,7 +39,7 @@ public class SpaWebFilterIT {
             .andExpect(forwardedUrl(null));
     }
 <%_ } _%>
-
+<%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
     @Test
     @WithMockUser(authorities = AuthoritiesConstants.ADMIN)
     void testFilterDoesNotForwardToIndexForV3ApiDocs() throws Exception {
@@ -43,7 +47,7 @@ public class SpaWebFilterIT {
             .andExpect(status().isOk())
             .andExpect(forwardedUrl(null));
     }
-
+<%_ } _%>
     @Test
     void testFilterDoesNotForwardToIndexForDotFile() throws Exception {
         mockMvc.perform(get("/file.js"))

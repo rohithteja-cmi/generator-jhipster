@@ -20,7 +20,7 @@ import React<% if (applicationTypeGateway && microfrontend) { %>, { Suspense }<%
 import { Route <% if (communicationSpringWebsocket) { %>, useLocation <% } %>} from 'react-router-dom';
 import Loadable from 'react-loadable';
 
-<%_ if (!authenticationTypeOauth2) { _%>
+<%_ if (!authenticationTypeOauth2 && (authenticationTypeJwt || authenticationTypeSession)) { _%>
 import Login from 'app/modules/login/login';
 <%_ } _%>
 <%_ if (authenticationTypeOauth2) { _%>
@@ -32,13 +32,17 @@ import Activate from 'app/modules/account/activate/activate';
 import PasswordResetInit from 'app/modules/account/password-reset/init/password-reset-init';
 import PasswordResetFinish from 'app/modules/account/password-reset/finish/password-reset-finish';
 <%_ } _%>
-import Logout from 'app/modules/login/logout';
+
 import Home from 'app/modules/home/home';
 import EntitiesRoutes from 'app/entities/routes';
-import PrivateRoute from 'app/shared/auth/private-route';
+
 import ErrorBoundaryRoutes from 'app/shared/error/error-boundary-routes';
 import PageNotFound from 'app/shared/error/page-not-found';
+<%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
+import PrivateRoute from 'app/shared/auth/private-route';
+import Logout from 'app/modules/login/logout';
 import { AUTHORITIES } from 'app/config/constants';
+<%_ } _%>
 <%_ if (communicationSpringWebsocket) { _%>
 import { sendActivity } from 'app/config/websocket-middleware';
 <%_ } _%>
@@ -74,18 +78,24 @@ const AppRoutes = () => {
     <div className="view-routes">
       <ErrorBoundaryRoutes>
         <Route index element={<Home />} />
-<%_ if (!authenticationTypeOauth2) { _%>
+<%_ if (!authenticationTypeOauth2 && (authenticationTypeJwt || authenticationTypeSession)) { _%>
         <Route path="login" element={<Login />} />
 <%_ } _%>
+<%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
         <Route path="logout" element={<Logout />} />
+<%_ } _%>
 <%_ if (generateUserManagement) { _%>
         <Route path="account">
           <Route
             path="*"
             element={
+            <%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
               <PrivateRoute hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]}>
+            <%_ } _%>
                 <Account />
+            <%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
               </PrivateRoute>
+            <%_ } _%>
             }
           />
           <Route path="register" element={<Register />} />
@@ -99,9 +109,13 @@ const AppRoutes = () => {
         <Route
           path="admin/*"
           element={
+          <%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
             <PrivateRoute hasAnyAuthorities={[AUTHORITIES.ADMIN]}>
+          <%_ } _%>   
               <Admin />
+          <%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
             </PrivateRoute>
+          <%_ } _%>
           }
         />
 <%_ if (authenticationTypeOauth2) { _%>
@@ -113,9 +127,13 @@ const AppRoutes = () => {
           path="<%= remote.lowercaseBaseName %>/*"
           element={
             <Suspense fallback={loading}>
+            <%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
               <PrivateRoute hasAnyAuthorities={[AUTHORITIES.USER]}>
+            <%_ } _%>
                 <<%= remote.capitalizedBaseName %>Routes />
+            <%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
               </PrivateRoute>
+            <%_ } _%>
             </Suspense>
           }
         />
@@ -124,9 +142,13 @@ const AppRoutes = () => {
         <Route
           path="<%= microfrontend && applicationTypeMicroservice ? lowercaseBaseName + '/' : '' %>*"
           element={
+            <%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
             <PrivateRoute hasAnyAuthorities={[AUTHORITIES.USER]}>
+            <%_ } _%>
               <EntitiesRoutes />
+              <%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
             </PrivateRoute>
+            <%_ } _%>
           }
         />
         <Route path="*" element={<PageNotFound />} />

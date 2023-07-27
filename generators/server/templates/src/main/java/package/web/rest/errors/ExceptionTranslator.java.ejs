@@ -46,7 +46,9 @@ import org.springframework.web.server.ServerWebExchange;
 import org.springframework.http.MediaType;
 import tech.jhipster.web.rest.errors.ExceptionTranslation;
 import org.springframework.web.reactive.result.method.annotation.ResponseEntityExceptionHandler;
+<%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+<%_ } _%>
 <%_ } _%>
 <%_ if (!reactive) { _%>
 import org.springframework.web.context.request.NativeWebRequest;
@@ -59,10 +61,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import tech.jhipster.web.rest.errors.ProblemDetailWithCause;
 import tech.jhipster.web.rest.errors.ProblemDetailWithCause.ProblemDetailWithCauseBuilder;
+<%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
+<%_ } _%>
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
@@ -284,6 +288,7 @@ _%>
     }
 
     private HttpStatus getMappedStatus(Throwable err) {
+    <%_ if (authenticationTypeJwt || authenticationTypeOauth2 || authenticationTypeSession) { _%>
         // Where we disagree with Spring defaults
         if (err instanceof AccessDeniedException) return HttpStatus.FORBIDDEN;
     <%_ if (!databaseTypeNo && !databaseTypeCassandra) { _%>
@@ -292,6 +297,7 @@ _%>
         if(err instanceof BadCredentialsException) return HttpStatus.UNAUTHORIZED;
     <%_ if (reactive) { _%>
         if (err instanceof UsernameNotFoundException) return HttpStatus.UNAUTHORIZED;
+    <%_ } _%>
     <%_ } _%>
         return null;
     }

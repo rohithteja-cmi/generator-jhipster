@@ -101,10 +101,15 @@ export const files = {
   reactMain: [
     {
       ...clientApplicationBlock,
-      templates: ['modules/home/home.tsx', 'modules/login/logout.tsx'],
+      templates: ['modules/home/home.tsx'],
     },
     {
-      condition: generator => !generator.authenticationTypeOauth2,
+      condition: generator => generator.authenticationTypeOauth2 || generator.authenticationTypeJwt || generator.authenticationTypeSession, 
+      ...clientApplicationBlock,
+      templates: ['modules/login/logout.tsx'],
+    },
+    {
+      condition: generator => !generator.authenticationTypeOauth2 && ( generator.authenticationTypeJwt || generator.authenticationTypeSession),
       ...clientApplicationBlock,
       templates: ['modules/login/login.tsx', 'modules/login/login-modal.tsx'],
     },
@@ -124,9 +129,13 @@ export const files = {
       templates: [
         'shared/reducers/index.ts',
         'shared/reducers/reducer.utils.ts',
-        'shared/reducers/authentication.ts',
         'shared/reducers/application-profile.ts',
       ],
+    },
+    {
+      condition: generator => generator.authenticationTypeJwt || generator.authenticationTypeSession || generator.authenticationTypeOauth2,
+      ...clientApplicationBlock,
+      templates: ['shared/reducers/authentication.ts'],
     },
     {
       condition: generator => generator.enableTranslation,
@@ -218,7 +227,6 @@ export const files = {
         'shared/layout/header/header-components.tsx',
         'shared/layout/menus/index.ts',
         'shared/layout/menus/admin.tsx',
-        'shared/layout/menus/account.tsx',
         'shared/layout/menus/entities.tsx',
         'shared/layout/menus/menu-components.tsx',
         'shared/layout/menus/menu-item.tsx',
@@ -228,7 +236,6 @@ export const files = {
         'shared/util/pagination.constants.ts',
         'shared/util/entity-utils.ts',
         // components
-        'shared/auth/private-route.tsx',
         'shared/error/error-boundary.tsx',
         'shared/error/error-boundary-routes.tsx',
         'shared/error/page-not-found.tsx',
@@ -236,6 +243,16 @@ export const files = {
         // model
         'shared/model/user.model.ts',
       ],
+    },
+    {
+      condition: generator => generator.authenticationTypeOauth2 || generator.authenticationTypeJwt || generator.authenticationTypeSession, 
+      ...clientApplicationBlock,
+      templates: ['shared/layout/menus/account.tsx'],
+    },
+    {
+      condition: generator => generator.authenticationTypeOauth2 || generator.authenticationTypeJwt || generator.authenticationTypeSession, 
+      ...clientApplicationBlock,
+      templates: ['shared/auth/private-route.tsx'],
     },
     {
       condition: generator => generator.enableTranslation,
@@ -284,14 +301,20 @@ export const files = {
         'config/axios-interceptor.spec.ts',
         'config/notification-middleware.spec.ts',
         'shared/reducers/application-profile.spec.ts',
-        'shared/reducers/authentication.spec.ts',
         'shared/util/entity-utils.spec.ts',
-        'shared/auth/private-route.spec.tsx',
         'shared/error/error-boundary.spec.tsx',
         'shared/error/error-boundary-routes.spec.tsx',
         'shared/layout/header/header.spec.tsx',
-        'shared/layout/menus/account.spec.tsx',
         'modules/administration/administration.reducer.spec.ts',
+      ],
+    },
+    {
+      condition: generator => generator.authenticationTypeJwt || generator.authenticationTypeSession || generator.authenticationTypeOauth2,
+      ...clientApplicationBlock,
+      templates: [
+        'shared/reducers/authentication.spec.ts',
+        'shared/auth/private-route.spec.tsx',
+        'shared/layout/menus/account.spec.tsx'
       ],
     },
     {
