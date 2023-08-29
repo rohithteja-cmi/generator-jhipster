@@ -323,6 +323,10 @@ spec:
         - name: GO_MICRO_DB_URL
           value: postgresql://<%= app.baseName.toLowerCase() %>:$(GO_MICRO_DB_PASSWORD)@<%= app.baseName.toLowerCase() %>-postgresql.<%= kubernetesNamespace %>.svc.cluster.local:5432/<%= app.baseName.toLowerCase() %>
         <%_ } _%>
+        <%_ if (app.databaseTypeMongodb) { _%>
+        - name: GO_MICRO_MONGODB_URL
+          value: "mongodb://<% for (let i = 0; i < app.dbPeerCount; i++) { %><%= app.baseName.toLowerCase() %>-mongodb-<%= i %>.<%= app.baseName.toLowerCase() %>-mongodb.<%= kubernetesNamespace %>:27017<% if (app.reactive) { %>/?waitQueueMultiple=1000<% } %><% if (i < (app.dbPeerCount-1)) { %>,<% }} %>"
+        <%_ } _%>
         <%_ if (app.messageBrokerRabbitMQ || app.communicationsFrameworkRabbitMQ) { _%>
         - name: RABBITMQ_GUEST_PASSWORD
           valueFrom:
