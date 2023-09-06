@@ -1,0 +1,121 @@
+<%#
+ Copyright 2013-2023 the original author or authors from the JHipster project.
+
+ This file is part of the JHipster project, see https://www.jhipster.tech/
+ for more information.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      https://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-%>
+apiVersion: <%= KUBERNETES_STATEFULSET_API_VERSION %>
+kind: StatefulSet
+metadata:
+  name: <%= app.baseName.toLowerCase() %>-mongodb
+  namespace: <%= kubernetesNamespace %>
+spec:
+  serviceName: <%= app.baseName.toLowerCase() %>-mongodb
+  replicas: <%= app.dbPeerCount %>
+  selector:
+    matchLabels:
+      app: <%= app.baseName.toLowerCase() %>-mongodb
+  template:
+    metadata:
+      labels:
+        app: <%= app.baseName.toLowerCase() %>-mongodb
+<%_ if (istio) { _%>
+      annotations:
+        sidecar.istio.io/inject: "false"
+<%_ } _%>
+    spec:
+      containers:
+        - name: mongodb
+          image: <%- dockerContainers.mongodb %>
+          imagePullPolicy: "IfNotPresent"
+          env:
+            - name: DATA_PATH
+              value: /data/db
+            - name: PORT
+              value: "27017"
+          ports:
+            - name: peer
+              containerPort: 27017
+          command:
+            - mongod
+          args:
+            - --dbpath=$(DATA_PATH)
+            - --port=$(PORT)
+            - --bind_ip=0.0.0.0
+          livenessProbe:
+            exec:
+              command:
+                - mongosh
+                - --eval
+                - "db.adminCommand('ping')"
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+          readinessProbe:
+            exec:
+              command:
+                - mongosh
+                - --eval
+                - "db.adminCommand('ping')"
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+          volumeMounts:
+            - name: datadir
+              mountPath: /data/db
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "1Gi"
+              cpu: "1"
+      volumes:
+<%_ if (!kubernetesUseDynamicStorage) { _%>
+        - name: datadir
+          emptyDir: {}
+<%_ } else { _%>
+  volumeClaimTemplates:
+    - metadata:
+        name: datadir
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: "1Gi"
+  <%_ if (kubernetesStorageClassName) { _%>
+        storageClassName: <%= kubernetesStorageClassName %>
+  <%_ } _%>
+<%_ } _%>
+---
+# Headless service for DNS record
+apiVersion: <%= KUBERNETES_CORE_API_VERSION  %>
+kind: Service
+metadata:
+  name: <%= app.baseName.toLowerCase() %>-mongodb
+  namespace: <%= kubernetesNamespace %>
+spec:
+  type: ClusterIP
+  clusterIP: None
+  publishNotReadyAddresses: true
+  ports:
+    - name: peer
+      port: 27017
+  selector:
+    app: <%= app.baseName.toLowerCase() %>-mongodb

@@ -34,6 +34,7 @@ const { PROMETHEUS } = monitoringTypes;
 const { CONSUL, EUREKA } = serviceDiscoveryTypes;
 
 const NO_DATABASE = databaseTypes.NO;
+const { MONGODB } = databaseTypes;
 
 export default {
   writeFiles,
@@ -58,7 +59,11 @@ export function writeFiles() {
         // If we choose microservice with no DB, it is trying to move _no.yml as prodDatabaseType is getting tagged as 'string' type
         if (this.app.databaseType !== NO_DATABASE) {
           const databaseType = this.app.prodDatabaseType ?? this.app.databaseType;
-          this.writeFile(`db/${databaseType}.yml.ejs`, `${appOut}/${appName}-${databaseType}.yml`);
+          if (this.minikube && databaseType === MONGODB) {
+            this.writeFile(`db/${databaseType}-standalone.yml.ejs`, `${appOut}/${appName}-${databaseType}.yml`);
+          } else {
+            this.writeFile(`db/${databaseType}.yml.ejs`, `${appOut}/${appName}-${databaseType}.yml`);
+          }
         }
         if (this.app.searchEngine === ELASTICSEARCH) {
           this.writeFile('db/elasticsearch.yml.ejs', `${appOut}/${appName}-elasticsearch.yml`);
