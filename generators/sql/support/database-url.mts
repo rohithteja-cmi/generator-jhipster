@@ -55,8 +55,10 @@ export default function getDatabaseUrl(databaseType: string, protocol: string, o
   let dbPort = ':' + options.databasePort + '/';
   if (hostname || localDirectory) {
     url = `${url}${localDirectory || hostname + dbPort}${databaseName}`;
+  } else if(databaseType == H2_MEMORY){
+    url = `${url}${databaseName}`;
   } else {
-    url = `${url}${databaseName}${options.databasePort}}`;
+    url = `${url}${databaseName}${options.databasePort}`;
   }
   return `${url}${skipExtraOptions ? '' : extraOptions}`;
 }
